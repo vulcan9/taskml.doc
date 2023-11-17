@@ -24,7 +24,7 @@
 * 표현된 내용이 실제 DOM으로 랜더링 되어 동작함
 * 인터렉션 표현은 일종의 task runner 역할을 함
 
-### Quick Start
+## Quick Start
 
 다음 코드는 버튼을 클릭하면 이미지가 나타나는 동작을 하는 app입니다.
 
@@ -121,7 +121,7 @@ taskml은 크게 두가지 구성요소로 구분됩니다.
 좀더 자세한 내용은 다음 링크를 참고하세요
 
 - [task 컴포넌트](doc/task%20컴포넌트.md)
-- [<as-task>](doc/task/as-task.md)
+- [`<as-task>`](doc/task/as-task.md)
 
 #### Task 내장 객체
 task 인터페이스를 구현한 객체입니다.  
