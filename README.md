@@ -121,7 +121,7 @@ taskml은 크게 두가지 구성요소로 구분됩니다.
 좀더 자세한 내용은 다음 링크를 참고하세요
 
 - [task 컴포넌트](doc/task%20컴포넌트.md)
-- [`<as-task>`](doc/task/as-task.md)
+- [`<as-task>`](doc/task/as-task%20태그.md)
 
 #### Task 내장 객체
 task 인터페이스를 구현한 객체입니다.  
