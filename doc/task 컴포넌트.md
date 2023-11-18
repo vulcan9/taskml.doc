@@ -12,7 +12,7 @@ task 아이템(`tag`)은 인터렉션을 구현한 객체입니다.
     - 내부에 `task 아이템`들의 실행 흐름(series, parallel)을 결정합니다.
     - `<as-task>` 태그도 하나의 `task 아이템`으로 사용될수 있숩니다. (중첩)
 
-* 그밖에 task 아이템 태그
+* `<as-task>` 태그 이외의 아이템 태그
     - 실제 기능이 구현된 태그입니다.
     - task 인터페이스를 구현합니다.
     - `<as-task>` 태그 내부에 기술됩니다.
@@ -36,21 +36,27 @@ task 아이템(`tag`)은 인터렉션을 구현한 객체입니다.
 * JS 코드에서 직접 호출 (`$task` 전역 변수로 호출)
 
 ```html
+<!--$task 전역 객체를 통해 호출-->
+<button onclick="$task['task 아이디']()"></button>
+
 <!--task 아이디로 바로 호출-->
 <button task:click="task 아이디"></button>
 
-<!--또는 $task 전역 객체를 통해 호출-->
-<button onclick="$task['task 아이디']()"></button>
+<!--task 참조로 호출 (import)-->
+<as-task src="task 아이디"></as-task>
+
+<!--JS 코드에서 호출-->
+<script>
+    $task["task 아이디"]?.();
+</script>
 ```
 
 ## task 구성 요소의 Life cycle
 
-모든 task 아이템(태그)는 다음 생명 주기로 동작합니다.
-
 ### task 이벤트 주기
 
 task 아이템은 공통된 생명 주기를 가집니다.  
-이에 따라 이벤트를 발생시키는데 이 이벤트를 이용하여 task 실행의 흐름을 제어합니다.
+이때 발생하는 이벤트를 이용하여 task 실행의 흐름을 제어합니다.
 
 주된 이벤트는 다음과 같습니다.
 
@@ -62,14 +68,24 @@ task 아이템은 공통된 생명 주기를 가집니다.
          onendBefore="alert('endBefore')"
          onend="alert('end')"
          oncomplete="alert('complete')"
+         oncancel="alert('cancel')"
          onerror="alert('error')"></as-task>
 ```
+### `cancel` 이벤트 vs `error` 이벤트
+
+* `cancel` 이벤트
+  - `<cancel>` task에 의해 의도적으로 작업이 중지되었을때에만 호출됩니다.
+
+* `error` 이벤트
+  - 의도하지 않은 에러 발생으로 작업이 중단된 경우 발생합니다.
+
+두 이벤트가 발생하면 이후 task는 중지됩니다.
 
 ### `end` 이벤트 vs `complete` 이벤트
 
 * `end` 이벤트
     - 해당 task가 종료되는 시점으로 간주됩니다.
-    - series로 task가 진행되는 경우 이 이벤트 이후에 다음 task가 진행됩니다.
+    - `series`로 task가 진행되는 경우 `end` 이벤트 이후에 다음 task가 진행됩니다.
 
 * `complete` 이벤트
     - task 요소에 등록된 이벤트에 의해 다른 task가 실행중이면 이 task까지 모두 종료되었을때 발생합니다.
@@ -89,7 +105,7 @@ task 아이템은 공통된 생명 주기를 가집니다.
       "내부 실행", "외부 실행 1" task가 모두 종료(end)된 시점임
       
       "시작" task의 complete 시점은 
-      "내부 실행", 및 "외부 실행 2" task가 모두 종료(end)된 시점임
+      "내부 실행", 및 "외부 실행 1" , "외부 실행 2" task가 모두 종료(end)된 시점임
       
       "외부 실행 3" task는 "시작" task의 이벤트 주기에 영향을 주지 않음
       -->  
@@ -202,16 +218,16 @@ task 호출에 사용하면
 <!--"사운드 시작" task에 새로운 $args 값이 전달됨-->
 ```
 
-## 일반적인 기능의 task Attrbute
+## task Attribute
 
-`<as-task>` 및 대부분의 task 아이템 태그에서 사용되는 기능입니다.
+`<as-task>` 및 대부분의 task 아이템 태그에서 구현된 기능입니다.
 
 ### condition interface
 
 조건식 결과에 따라 실행할 task를 결정할 수 있습니다
 
 - if 판별식 false 인 경우 해당 task는 무시됩니다.
-- `start`, `end`, complete` 등의 이벤트도 발생되지 않습니다.
+- `start`, `end`, `complete` 등의 이벤트도 발생되지 않습니다.
 
 ```html
 

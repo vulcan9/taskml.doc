@@ -24,6 +24,12 @@
 * 표현된 내용이 실제 DOM으로 랜더링 되어 동작함
 * 인터렉션 표현은 일종의 task runner 역할을 함
 
+## DEMO
+
+* (작업중)
+
+---------------------
+
 ## Quick Start
 
 다음 코드는 버튼을 클릭하면 이미지가 나타나는 동작을 하는 app입니다.
@@ -109,8 +115,16 @@ taskml이 랜더링되기 까지
 
 taskml은 크게 두가지 구성요소로 구분됩니다.
 
-* 인터렉션을 표현하는 `task` 컴포넌트
+* 인터렉션을 표현하는 `task` 컴포넌트 (시멘틱)
 * 화면을 구성하는 DOM 컴포넌트
+
+> taskml에서 "on"으로 시작되는 attribute은 모두 이벤트 핸들러를 위한 attribute으로 간주합니다.  
+> * 파싱되는 과정에서 핸들러는 등록되고 DOM atrtibute에서는 삭제될 수도 있습니다.  
+> 
+> 
+> 템플릿 내용은 최초 한번만 랜더링 됩니다.
+> * task 컴포넌트, DOM 컴포넌트 태그는 `<template>` 태그 내에서만 사용할 수 있습니다.
+> * 따라서 생성된 DOM에 `task:click` 같은 attribute을 동적으로 생성해 넣어도 동작하지 않습니다.
 
 ### task 컴포넌트 (hidden)
 
@@ -121,70 +135,27 @@ taskml은 크게 두가지 구성요소로 구분됩니다.
 좀더 자세한 내용은 다음 링크를 참고하세요
 
 - [task 컴포넌트](doc/task%20컴포넌트.md)
-- [`<as-task>`](doc/task/as-task%20태그.md)
-
-#### Task 내장 객체
-task 인터페이스를 구현한 객체입니다.  
-`<as-task>` 태그 안에서 사용할 수 있습니다.
-좀더 자세한 내용은 다음 링크를 참고하세요
-
-- [Task 내장 객체](doc/task/task%20내장%20객체.md)
+- [`<as-task>` 태그](doc/task/as-task%20태그.md)
+- [task 아이템 태그](doc/task/task%20내장%20객체.md) (작성중)
 
 ### DOM 컴포넌트 (visible)
 
+화면에 보여지는 요소입니다.    
+UI를 빠르게 구성할 수 있도록 HTML 태그에 몇가지 기능이 추가된 DOM 래퍼 객체입니다.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### <is-*> 컴포넌트
-
-화면에 보여지는 요소입니다.  
-HTML 태그에 몇가지 기능을 추가한 DOM Element 입니다.
-
-컨테이너
-
-- is-group
-- is-layout
-- is-page
-- is-app
-
-컴포넌트
-
-- is-component
-- is-div
-- is-text
-- is-image
-- is-lottie
-- is-audio
-- is-video
+- [DOM 컴포넌트](doc/DOM%20컴포넌트.md)
+- [컨테이너 태그](doc/component/컨테이너%20요소.md)
+- [컴포넌트 태그](doc/component/컴포넌트%20요소.md)
 
 ### 글로벌 객체
-
-### JS에서 접근 가능한 객체
 
 `taskml`만으로 부족한 기능이 있다면 Javascript에서 템플릿에 정의된 `task` 객체에 접근할 수 있도록 글로벌 객체를 제공합니다.  
 다음 글로벌 객체를 이용하여 기능을 필요한 기능을 확장할수 있습니다.
 
 좀더 자세한 내용은 다음 링크를 참고하세요
+- [글로벌 객체](doc/task/글로벌%20객체.md)
 
-- $taskml
-- $task
-- $js
-- $sound
-- $break
+
 
 
 
