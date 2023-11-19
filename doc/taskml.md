@@ -134,18 +134,18 @@ taskml은 크게 두가지 구성요소로 구분됩니다.
 
 좀더 자세한 내용은 다음 링크를 참고하세요
 
-- [task 컴포넌트](https://vulcan9.github.io/taskml.doc/doc/task%20컴포넌트)
-- [`<as-task>` 태그](https://vulcan9.github.io/taskml.doc/doc/task/as-task%20태그)
-- [task 아이템 태그](https://vulcan9.github.io/taskml.doc/doc/task/task%20내장%20객체) (작성중)
+- [task 컴포넌트](./doc/task%20컴포넌트)
+- [`<as-task>` 태그](./doc/task/as-task%20태그)
+- [task 아이템 태그](./doc/task/task%20내장%20객체) (작성중)
 
 ### DOM 컴포넌트 (visible)
 
 화면에 보여지는 요소입니다.    
 UI를 빠르게 구성할 수 있도록 HTML 태그에 몇가지 기능이 추가된 DOM 래퍼 객체입니다.
 
-- [DOM 컴포넌트](https://vulcan9.github.io/taskml.doc/doc/DOM%20컴포넌트)
-- [컨테이너 태그](https://vulcan9.github.io/taskml.doc/doc/component/컨테이너%20요소)
-- [컴포넌트 태그](https://vulcan9.github.io/taskml.doc/doc/component/컴포넌트%20요소)
+- [DOM 컴포넌트](./doc/DOM%20컴포넌트)
+- [컨테이너 태그](./doc/component/컨테이너%20요소)
+- [컴포넌트 태그](./doc/component/컴포넌트%20요소)
 
 ### 글로벌 객체
 
@@ -153,7 +153,7 @@ UI를 빠르게 구성할 수 있도록 HTML 태그에 몇가지 기능이 추�
 다음 글로벌 객체를 이용하여 기능을 필요한 기능을 확장할수 있습니다.
 
 좀더 자세한 내용은 다음 링크를 참고하세요
-- [글로벌 객체](https://vulcan9.github.io/taskml.doc/doc/글로벌%20객체)
+- [글로벌 객체](./doc/글로벌%20객체)
 
 
 

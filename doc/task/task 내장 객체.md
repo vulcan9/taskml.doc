@@ -570,12 +570,121 @@ media.off('loadstart', onLoadstart);
 
 ## 에니메이션 (tween)
 
+### `<tween>`
+
 CSS Transition 대신 사용할 수 있는 트위닝 task 입니다.
 
+```html
 
+<tween selector=""
+       [set="{}" ]
+       [from="{}" ]
+       [to="{}">]
 
+</tween>
+```
+
+`set="{}"`
+
+* 트위닝 없이 즉시 값을 적용합니다. (duration = 0)
+
+`from="{}"`
+
+* 시작 값을 설정합니다. 시작 값에서 현재 값으로 트위닝 됩니다.
+
+`to="{}"`
+
+* 종료 값을 설정합니다. 현재 값에서 종료 값으로 트위닝 됩니다.
+
+`set`, `from`, `to` attribute 중 하나 또는 셋 모두 설정할 수 있습니다.  
+이때는 `set` 값이 먼저 설정됩니다.  
+`from`, `to` 값이 함께 지정되어 있으면 설정된 시작 값과 종료 값으로 트위닝 됩니다.  
+이때 트위닝 속성값은 `to` attribute 에 설정합니다.  
+자세한 내용은 [GSAP 라이브러리](https://gsap.com/resources/get-started/)를 참고하세요
+
+### 설정값
+
+다음은 값 설정 예시입니다,
+
+```html
+
+<tween selector=""
+       to="{
+            rotation: 27, x: 100,
+            duration: 1
+
+            // 단위
+            x: 200, // 기본값 px 단위
+            x: " +=200" // 상대 증분 치로 지정
+x: '40vw', // 다른 단위는 문자열로 전달
+x: () => window.innerWidth / 2, // 함수 사용 가능함
+
+rotation: 360 // 기본값 degrees
+rotation: "1.25rad" // 다른 단위는 문자열 (radians 단위)
+
+// 특수 설정 속성값
+// https://gsap.com/resources/get-started/#special-properties
+// https://gsap.com/docs/v3/GSAP/Tween/
+// duration, delay,
+// repeat, yoyo, stagger, ease, onComplete
+}"
+
+</tween>
+```
+
+복잡한 애니메이션은 `<js>` task에서 직접 구현할 수 있습니다.
+
+```html
+
+<js><!--<![ CDATA [
+        if(!this.tween){
+            this.tween = gsap.to('.box',{
+              duration: 2,
+              x: 500,
+              xPercent: -100,
+              rotation: 360,
+              ease: "none",
+              paused: true,
+              // onComplete: () => $next()
+            })
+        }
+        $next();
+        //]]>--></js>
+
+<js><!--<![ CDATA [
+            if(this.tween){
+                this.tween.revert();
+                delete this.tween;
+            }
+            $clear();
+            $next();
+            //]]>--></js>
+```
+
+### `<hide>`
+
+`opacity` 속성을 0으로 만듭니다.  
+트위닝이 끝나면 `display: 'none'`으로 설정됩니다.  
+`set`, `from`, `to` attribute에 함께 트위닝될 속성을 지정할 수 있습니다.
+
+```html
+
+<hide selector="" set="" from="" to=""></hide>
+```
+
+### `<show>`
+
+`display` 속성을 복원하고 `opacity` 속성을 1으로 만듭니다.
+`set`, `from`, `to` attribute에 함께 트위닝될 속성을 지정할 수 있습니다.
+
+```html
+
+<show selector="" set="" from="" to=""></show>
+```
 
 ## 페이지 이동 (viewer)
+
+구현중입니다.
 
 ```html
 <!--뷰어 페이지 이동-->

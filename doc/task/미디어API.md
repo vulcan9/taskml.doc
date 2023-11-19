@@ -1,6 +1,8 @@
 # Media API
 
-### get/set 메서드 및 개별 메서드로 호출 가능 목록
+### get/set 메서드 목록
+
+get, set 메서드와 getter, setter 메서드 모두 사용할 수 있습니다.
 
 ```javascript
 // 예) src 속성은 다음과 같이 사용 가능합니다.
@@ -13,6 +15,10 @@ media.set('src', '경로 설정');
 src();
 src(value);
 ```
+
+## 속성
+
+get/set
 
     - defaultPlaybackRate    : 기본 재생 속도
     - playbackRate           : 현재 재생 속도
@@ -33,18 +39,7 @@ get Only
     - buffered()
     - paused()
 
-풀스크린 관련 함수
-
-    - isFullscreen()
-    - toggleFullScreen()
-
-기타
-
-- remainTime() : 남은 재생 시간
-- formatTime(seconds, duration) : 123456 (number) --> 0:12 (string)
-- parseTime(timeText) :  0:12 (string) --> 123456 (number)
-
-### 재생 관련 메서드
+## 메서드
 
     - isPaused : 일시 정지 상태인지 여부
     - load() : 로드를 시작합니다.
@@ -54,8 +49,19 @@ get Only
     - pause() : 미디어를 일시 정지합니다.
     - dispose() : 미디어 기능 모두 제거합니다.
 
+풀스크린 관련 함수
 
-#### Media 이벤트
+    - isFullscreen()
+    - toggleFullScreen()
+
+기타
+    
+    - remainTime() : 남은 재생 시간
+    - formatTime(seconds, duration) : 123456 (number) --> 0:12 (string)
+    - parseTime(timeText) :  0:12 (string) --> 123456 (number)
+
+
+## Media 이벤트
 
 ```html
 loadstart        : 브라우져가 미디어를 찾기 시작할 때 발생
