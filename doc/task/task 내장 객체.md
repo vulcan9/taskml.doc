@@ -11,7 +11,7 @@ task 객체는 기능별로 task 인터페이스를 구현한 객체입니다.
 
 #### Dom 상태 변경
 
-`<addClass>`, `<removeClass>`, `<addAttr>`, `<removeAttr>`, `<addStyle>`, `<RemoveStyle>`
+`<addClass>`, `<removeClass>`, `<addAttr>`, `<removeAttr>`, `<addStyle>`, `<removeStyle>`
 
 - shorthand `<disable>`, `<enable>`
 
@@ -227,15 +227,24 @@ $break.release('break 아이디');
 
 ## Dom 상태 변경 (dom)
 
-class, attribute, style 추가/제거
+class, attribute, style 추가/제거하는 기본 기능을 제공합니다.
 
-- 기본적으로 즉시 실행됨
-- 때문에 start, end 이벤트가 바로 (연달아) 발생되나,
-- selector의 transition 설정에 따라 실제 종료 시점은 달라질 수 있음
+- 기본적으로 즉시 실행 후 종료됩니다.
+- 때문에 start, end 이벤트가 바로 (연달아) 발생됩니다.
+
+### transition 사용
+
+- selector의 transition 설정에 따라 실제 종료 시점은 달라질 수 있습니다.
+- transition 종료 여부는 task에서 판단할 수없으므로 `timer` attribute을 설정하여 종료 시점을 지정하면 좋습니다
+
+Dom 상태 변경과 관련된 대부분의 기능은 `tween` task에서도 똑같이 설정 가능합니다.
+> 같은 DOM 요소에 `tween` task와 함께 사용하게 될 경우 `transition` 속성을 제외시켜야 합니다  
+> 속성값 연산에 서로 간섭을 일으켜 성능이 현저히 떨어집니다.
 
 ### `<addClass>`
 
-selector 참조되는 dom 요소에 class attribute을 설정합니다.
+selector 참조되는 dom 요소에 class 속성을 설정합니다.  
+여러 class를 한번에 지정할때에는 콤마 구분자로 구분하여 설정합니다.
 
 ```html
 
@@ -244,27 +253,111 @@ selector 참조되는 dom 요소에 class attribute을 설정합니다.
 
 ### `<removeClass>`
 
+selector 참조되는 dom 요소에 class 속성을 제거합니다.  
+여러 class를 한번에 지정할때에는 콤마 구분자로 구분하여 설정합니다.
+
+```html
+
+<removeClass selector="" class="className1, className2, ..."></removeClass>
+```
+
 ### `<addAttr>`
+
+selector 참조되는 dom 요소에 attribute 속성을 설정합니다.
+
+```html
+
+<addAttr selector="" name="" value=""></addAttr>
+```
 
 ### `<removeAttr>`
 
+selector 참조되는 dom 요소에 attribute 속성을 제거합니다.
+
+```html
+
+<removeAttr selector="" name=""></removeAttr>
+```
+
 ### `<addStyle>`
 
-### `<RemoveStyle>`
+selector 참조되는 dom 요소에 style 속성을 설정합니다.
+style 속성 이름은 carmalCase 표기법으로 작성합니다.
+
+```html
+
+<addStyle selector="" style="{...}"></addStyle>
+```
+
+### `<removeStyle>`
+
+selector 참조되는 dom 요소에 style 속성을 제거합니다.  
+여러 style 속성을 한번에 삭제할때에는 콤마 구분자로 구분하여 설정합니다.
+
+```html
+
+<removeStyle selector="" style="style 이름1, style 이름2, ..."></removeStyle>
+```
 
 ### `<disable>`
 
+selector 참조되는 dom 요소를 비활성 상태로 표시합니다.  
+투명도와 마우스 동작을 비활성화 합니다.
+
+```html
+
+<disable selector=""></disable>
+```
+
 ### `<enable>`
+
+selector 참조되는 dom 요소를 활성 상태로 표시합니다.  
+(`disable` 상태를 해제합니다.)
+
+```html
+
+<enable selector=""></enable>
+```
 
 ## 연산 (operation)
 
-[//]: # (* `<blank>`, `<js>`)
-
-[//]: # (* shorthand &#40;준비중&#41; `<let>`, `<compare>`, `<increase>`, `<decrease>`)
-
 ### `<blank>`
 
+가끔은 attribute 기능만 사용해야할 때도 있습니다.  
+이때 아무 동작도 하지 않는 `<blank>` task르 이용합니다.  
+아무런 동작도 하지 않지만 task 생명주기 인터페이스에 따라 이벤트를 발생시켜 줍니다.
+
+```html
+
+<blank></blank>
+```
+
+task 관련 attribute과 함께 사용할 수 있습니다.
+
+```html
+<!--1초 지연시킵니다.-->
+<blank timer="1000"></blank>
+
+<!--실행 분기를 나눕니다.-->
+<blank if="조건식"
+       then="true일때 task 실행"
+       else="false일때 task 실행"
+       task:end="task 실행"></blank>
+```
+
 ### `<js>`
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 사운드 (sound)
 
