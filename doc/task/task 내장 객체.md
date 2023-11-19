@@ -19,13 +19,13 @@ task 객체는 기능별로 task 인터페이스를 구현한 객체입니다.
 
 `<blank>`, `<js>`
 
-- shorthand (준비중) `<let>`, `<compare>`, `<increase>`, `<decrease>`
+- shorthand (예정) `<let>`, `<compare>`, `<increase>`, `<decrease>`
 
 #### 사운드
 
 `<sound>`
 
-- shorthand (준비중) `<sound-play>`, `<sound-stop>`, `<sound-pause>`
+- shorthand (예정) `<sound-play>`, `<sound-stop>`, `<sound-pause>`
 
 #### 에니메이션
 
@@ -35,15 +35,15 @@ task 객체는 기능별로 task 인터페이스를 구현한 객체입니다.
 
 #### 페이지 이동
 
-(준비중) `<page>`
+(예정) `<page>`
 
-- shorthand (준비중) `<page-prev>`, `<page-next>`
+- shorthand (예정) `<page-prev>`, `<page-next>`
 
 --------------------------------------------------------------
 
 ## 흐름 제어 (control)
 
-### `<as-task>`
+### `<as-task>` 태그
 
 `<as-task>`에 대한 자세한 내용은 다음 링크를 참고하세요
 
@@ -82,7 +82,7 @@ task 객체는 기능별로 task 인터페이스를 구현한 객체입니다.
 이미 정의된 task를 해당 위치에 import 시키는 역할을 합니다.  
 import한 task가 다른 task를 참조(src)하는 경우 원본을 찾아 import 합니다.
 
-### `<break>`
+### `<break>` 태그
 
 `<break>` task 실행 위치에서 task 진행을 멈춥니다  
 `timer, if` 등의 attribute과 함께 사용하여 break 지점을 해제하고 다시 task를 진행시킬 수 있습니다.
@@ -115,7 +115,7 @@ JS에서도 해제할 수 있습니다.
 $break.release('break 아이디');
 ```
 
-### `<break-release>`
+### `<break-release>` 태그
 
 위에서 설정된 break를 해제하는 task 입니다.
 
@@ -149,7 +149,7 @@ $break.release('break 아이디');
 -->
 ```
 
-### `<cancel>`
+### `<cancel>` 태그
 
 `<cancel>` task가 호출되면 이후 task는 실행하지 않고 모든 task를 취소합니다.
 
@@ -185,7 +185,7 @@ $break.release('break 아이디');
 이때 `if-break` 대신 `if` attr을 사용하면 1번 실행 후 task가 종료됩니다.  
 (조건식이 false 이므로 cancel task가 실행되지 않고 다음 task로 넘어가기 때문임)
 
-### `<exit>`
+### `<exit>` 태그
 
 * `<cancel>` task와 같이 task를 종료합니다. 다만 자신이 속한 `<as-task>`만 종료합니다.
 * `cancel` 이벤트가 발생하지 않고 `end` 이벤트가 발생합니다.
@@ -241,7 +241,7 @@ Dom 상태 변경과 관련된 대부분의 기능은 `tween` task에서도 똑�
 > 같은 DOM 요소에 `tween` task와 함께 사용하게 될 경우 `transition` 속성을 제외시켜야 합니다  
 > 속성값 연산에 서로 간섭을 일으켜 성능이 현저히 떨어집니다.
 
-### `<addClass>`
+### `<addClass>` 태그
 
 selector 참조되는 dom 요소에 class 속성을 설정합니다.  
 여러 class를 한번에 지정할때에는 콤마 구분자로 구분하여 설정합니다.
@@ -251,7 +251,7 @@ selector 참조되는 dom 요소에 class 속성을 설정합니다.
 <addClass selector="" class="className1, className2, ..."></addClass>
 ```
 
-### `<removeClass>`
+### `<removeClass>` 태그
 
 selector 참조되는 dom 요소에 class 속성을 제거합니다.  
 여러 class를 한번에 지정할때에는 콤마 구분자로 구분하여 설정합니다.
@@ -261,7 +261,7 @@ selector 참조되는 dom 요소에 class 속성을 제거합니다.
 <removeClass selector="" class="className1, className2, ..."></removeClass>
 ```
 
-### `<addAttr>`
+### `<addAttr>` 태그
 
 selector 참조되는 dom 요소에 attribute 속성을 설정합니다.
 
@@ -270,7 +270,7 @@ selector 참조되는 dom 요소에 attribute 속성을 설정합니다.
 <addAttr selector="" name="" value=""></addAttr>
 ```
 
-### `<removeAttr>`
+### `<removeAttr>` 태그
 
 selector 참조되는 dom 요소에 attribute 속성을 제거합니다.
 
@@ -279,7 +279,7 @@ selector 참조되는 dom 요소에 attribute 속성을 제거합니다.
 <removeAttr selector="" name=""></removeAttr>
 ```
 
-### `<addStyle>`
+### `<addStyle>` 태그
 
 selector 참조되는 dom 요소에 style 속성을 설정합니다.
 style 속성 이름은 carmalCase 표기법으로 작성합니다.
@@ -289,7 +289,7 @@ style 속성 이름은 carmalCase 표기법으로 작성합니다.
 <addStyle selector="" style="{...}"></addStyle>
 ```
 
-### `<removeStyle>`
+### `<removeStyle>` 태그
 
 selector 참조되는 dom 요소에 style 속성을 제거합니다.  
 여러 style 속성을 한번에 삭제할때에는 콤마 구분자로 구분하여 설정합니다.
@@ -299,7 +299,7 @@ selector 참조되는 dom 요소에 style 속성을 제거합니다.
 <removeStyle selector="" style="style 이름1, style 이름2, ..."></removeStyle>
 ```
 
-### `<disable>`
+### `<disable>` 태그
 
 selector 참조되는 dom 요소를 비활성 상태로 표시합니다.  
 투명도와 마우스 동작을 비활성화 합니다.
@@ -309,7 +309,7 @@ selector 참조되는 dom 요소를 비활성 상태로 표시합니다.
 <disable selector=""></disable>
 ```
 
-### `<enable>`
+### `<enable>` 태그
 
 selector 참조되는 dom 요소를 활성 상태로 표시합니다.  
 (`disable` 상태를 해제합니다.)
@@ -321,7 +321,7 @@ selector 참조되는 dom 요소를 활성 상태로 표시합니다.
 
 ## 연산 (operation)
 
-### `<blank>`
+### `<blank>` 태그
 
 가끔은 attribute 기능만 사용해야할 때도 있습니다.  
 이때 아무 동작도 하지 않는 `<blank>` task르 이용합니다.  
@@ -345,7 +345,7 @@ task 관련 attribute과 함께 사용할 수 있습니다.
        task:end="task 실행"></blank>
 ```
 
-### `<js>`
+### `<js>` 태그
 
 새로 정의된 task를 만들 수 있도록 JS 코드가 실행되는 context를 제공합니다.  
 `<js>` task 코드 블럭은 문자열 인식을 위해 CDATA 블럭안에 작성합니다.
@@ -406,7 +406,7 @@ task 관련 attribute과 함께 사용할 수 있습니다.
     $clear(); $next();
 //]]>--></js>
 
-<!-- $JS 객체는 빈 객체({})가 됨 -->
+<!-- `$clear();` 호출로 $JS 객체는 빈 객체({})가 됨 -->
 ```
 
 위에서 본것처럼 `$js` 객체는 모든 task에서 공용하는 글로벌 객체입니다.
@@ -416,34 +416,164 @@ task 관련 attribute과 함께 사용할 수 있습니다.
 
 ## 사운드 (sound)
 
-[//]: # (* `<sound>`  )
+audio 재생을 쉽게 제어하기 위한 task 입니다.
 
-[//]: # (* shorthand &#40;준비중&#41; `<sound-play>`, `<sound-stop>`, `<sound-pause>`)
+### `<sound>` 태그
 
-### `<sound>`
-
-## 에니메이션 (tween)
-
-[//]: # (* `<tween>`  )
-
-[//]: # (* shorthand &#40;준비중&#41; `<move>` `<resize>` `<scale>` `<rotate>` `<fade>`)
-
-### `<tween>`
-
-<!--https://gsap.com/resources/get-started-->
-
-+ tween
-    - interface: task 인터페이스
-    - animation 라이브러리 사용
-    - 예) 학습자가 3초간 동작이 없는 경우 힌트 실행
-
-[//]: # (- shorthand `<hide>`, `<show>`)
+`id` 별로 HTML `<audio>` dom을 생성, 사용한 후 파기하는 기능을 제공합니다.  
+HTML `<audio>` dom을 직접 제어하지 않고 `Media` proxy 객체가 제공하는 api를 통해 제어 합니다.
 
 ```html
 
-<tween selector=""
-       from to delay duration></tween>
+<sound [id="sound 아이디" ]
+       [target="sound 아이디" ]
+       [set="{속성 설정}" ]
+       [run="실행 메서드 호출" ]
+       [wait="이벤트 이름" ]
+       [destroy="all" ]>
+</sound>
 ```
+
+`id="media 아이디"`
+
+* `<sound>` task를 통해 생성된 media 객체의 아이디 입니다. 그냥 sound 객체의 아이디라고 생각해도 다르지 않습니다.
+
+`target="media 아이디"`
+
+* 이미 생성된 media 객체를 아이디로 참조합니다. task 객체를 `src` attr에서 아이디로 참조하는것과 같습니다.
+* `target`에 media 아이디가 지정되면 해당 media 객체를 대상으로 기능(task)을 적용 합니다.
+
+> `id`로 audio 인스턴스를 생성, 이후 `target="id"` 로 인스턴스 참조.  
+> `id`, `target` 둘중 하나만 있어도 되지만 생성을 위해 최소 한번은 미리 `id`가 설정되어 있어야 합니다.
+
+`set="{속성 설정}"`
+
+* media 객체에 속성을 설정합니다.
+* set attribute에 설정 할 수 있는 속성 값은 다음과 같습니다.
+    - src : 'audio 소스의 경로'
+    - controls : `true | false`  비디오의 재생, 볼륨 등 제어기들을 표시
+    - muted : `true | false` 음소거
+    - loop : `true | false` 반복 재생
+    - autoplay : `true | false` 자동 재생
+
+#### `autoplay` 속성값
+
+`autoplay` 속성은 페이지가 로드될때는 일반적으로 브라우저에서 허용되지 않습니다.  
+이 속성은 사용자의 클릭과 같이 인터렉션이 명확할때 동작합니다.
+
+```html
+<!--페이지 로드와 함께 자동 실행되는 task-->
+<as-task>
+    <sound id="soundID1"
+           set="{ src: './sound1.mp3', autoplay: true }"></sound>
+</as-task>
+<!--autoplay 속성은 동작하지 않습니다.-->
+```
+
+사용자 클릭 동작이 있으므로 다음 `autoplay` 속성은 동작합니다.
+
+```html
+
+<as-task id="사운드 자동 재생">
+    <sound id="soundID1" set="{ src: './sound1.mp3', autoplay: true }"></sound>
+</as-task>
+
+<!--play()를 호출하지 않아도 재생됩니다.-->
+<button task:click="사운드 자동 재생()">자동 재생</button>
+```
+
+`run="실행 메서드 호출"`
+
+* media 객체에 메서드를 호출합니다.
+* media 객체에서 호출 가능한 api 입니다
+
+자세한 내용은 [미디어 API](./미디어API)를 참고하세요
+다음과 같이 사용합니다.
+
+```html
+
+<as-task id="사운드 자동 재생">
+    <sound id="soundID1" set="{ src: './sound1.mp3' }"
+           run="play()"></sound>
+</as-task>
+
+<!--autoplay 속성을 설정하지 않았지만 play() 호출로 자동 재생됩니다.-->
+<button onclick="사운드 자동 재생()">자동 재생</button>
+```
+
+`wait="이벤트 이름"`
+
+* `<sound>` task의 완료(`end` 이벤트) 시점을 결정하는 이벤트 이름을 설정합니다.
+* `wait="ended"` 이면 재생이 모두 완료되었을때 sound task가 완료되었다고 판단합니다.
+
+```html
+
+<as-task id="사운드 재생">
+    <sound id="soundID1" set="{ src: './sound1.mp3' }"></sound>
+    <!--"사운드 재생" task는 재생이 완료(ended 이벤트) 됬을때 종료됩니다.-->
+    <sound target="soundID1" wait="ended" run="play()"></sound>
+</as-task>
+```
+
+위 예제에서 `wait` attribute을 설정하지 않으면 "soundID1"이 play 된 후 바로 "사운드 재생" task가 종료됩니다.
+
+#### 재생 후 사운드 삭제
+
+`destroy` atribute을 사용하여 생성된 audio 인스턴스를 초기화 또는 삭제할 수 있습니다.
+
+```html
+
+<as-task id="사운드 재생">
+    <sound id="soundID1" set="{ src: './sound1.mp3' }"></sound>
+    <sound target="soundID1" wait="ended" run="play()"></sound>
+    <!--
+    재생 완료 후 audio src 값이 초기화 됩니다.
+    destroy="all" 값을 전달하면 audio dom 인스턴스까지 모두 삭제됩니다.
+    -->
+    <sound target="soundID1" destroy=""></sound>
+</as-task>
+```
+
+#### Media 이벤트
+
+```html
+
+<sound id="soundID1" task:[event]="" om[event]=""></sound>
+```
+
+Media 객체에서 발송되는 이벤트는 [미디어 API](./미디어API)를 참고하세요  
+모두 `<sound>` task에서 사용 가능합니다.
+
+#### JS에서 사용할 수 있는 Media 기능들
+
+`$sound` 글로벌 객체를 사용하면 `<sound>` task의 Media 객체를 직접 제어할 수 있습니다.
+
+```html
+
+<as-task>
+    <sound id="soundID1"></sound>
+</as-task>
+```
+
+```javascript
+// sound task의 아이디 값으로 media 객체를 참조합니다.
+const media = $sound["soundID1"];
+
+// get, set 메서드
+const src = media.get('src')
+media.set('src', '경로 설정');
+
+// 이벤트 등록과 해지
+media.on('loadstart', onLoadstart);
+media.off('loadstart', onLoadstart);
+```
+
+## 에니메이션 (tween)
+
+CSS Transition 대신 사용할 수 있는 트위닝 task 입니다.
+
+
+
 
 ## 페이지 이동 (viewer)
 

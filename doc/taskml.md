@@ -153,7 +153,7 @@ UI를 빠르게 구성할 수 있도록 HTML 태그에 몇가지 기능이 추�
 다음 글로벌 객체를 이용하여 기능을 필요한 기능을 확장할수 있습니다.
 
 좀더 자세한 내용은 다음 링크를 참고하세요
-- [글로벌 객체](https://vulcan9.github.io/taskml.doc/doc/task/글로벌%20객체)
+- [글로벌 객체](https://vulcan9.github.io/taskml.doc/doc/글로벌%20객체)
 
 
 
