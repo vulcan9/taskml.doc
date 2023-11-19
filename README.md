@@ -26,7 +26,7 @@
 
 ## DEMO
 
-* [작업중](https://vulcan9.github.io/taskml.doc/demo/sample.html)
+* [Sample](https://vulcan9.github.io/taskml.doc/demo/sample.html)
 
 ---------------------
 

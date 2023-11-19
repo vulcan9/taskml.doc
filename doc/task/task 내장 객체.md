@@ -52,8 +52,8 @@ task 객체는 기능별로 task 인터페이스를 구현한 객체입니다.
 ```html
 
 <as-task id="task 아이디"
-         [sync="series (default) | parallel" ]
-         [src="" ]>
+         [sync="series (default) | parallel"]
+         [src=""]>
 
     <!--child task 아이템 태그 (=task)-->
 
