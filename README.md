@@ -29,7 +29,7 @@ taskml은 크게 두가지 구성요소로 구분됩니다.
 
 - [task 컴포넌트](./doc/task%20컴포넌트)
 - [`<as-task>` 태그](./doc/task/as-task%20태그)
-- [task 아이템 태그](./doc/task/task%20내장%20객체) (작성중)
+- [task 아이템 태그](./doc/task/task%20내장%20객체)
 
 ### DOM 컴포넌트 (visible)
 
