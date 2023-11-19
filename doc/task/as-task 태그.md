@@ -214,9 +214,25 @@ sync="parallel" task:start="startTask_b" task:end="endTask_b"
 <as-task src="a"></as-task>
 ```
 
-### 무한 루프 주의
+### 재귀 호출
 
-다음 구문은 무한루프로 동작합니다.
+task 호출 구문을 통해 자신의 task 아이디를 다시 호출하여 재귀하는 task를 만들 수 있습니다.
+
+```html
+
+<as-task id="재귀">
+    <js><!--<![ CDATA [
+            if(!this.counter) this.counter = 0;
+            this.counter += 10;
+            $next();
+            //]]>--></js>
+    <cancel if-break="$js.counter === 4" else="재귀"></cancel>
+</as-task>
+```
+
+#### 무한 루프 주의
+
+다음 구문은 무한루프로 동작합니다.  
 task가 점점 복잡해지면 발생할 수도 있습니다.
 
 ```html

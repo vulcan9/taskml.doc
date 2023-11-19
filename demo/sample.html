@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="./vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>taskml</title>
+    <script type="module" crossorigin src="./taskml/index-0.1.0.js"></script>
+    <link rel="stylesheet" href="./taskml/index-0.1.0.css">
+</head>
+
+<body>
+
+<script>
+    const image = {
+        src: './vite.svg'
+    }
+</script>
+
+<!--<as-task> id 생략하면 처음 자동 실행됨-->
+<!--로그 표시: mode="dev media component"-->
+<template mode="dev media component">
+
+
+    <!--////////////////////////////////////////
+    // task
+    /////////////////////////////////////////-->
+
+
+    <as-task id="시작" onend="alert('종료')"
+             oncancel="alert('회전 취소')" onerror="alert('에러')">
+        <as-task sync="parallel">
+            <as-task src="lotte 재생"></as-task>
+            <as-task src="인사말"></as-task>
+            <!--<break id="인사말 종료"></break>-->
+        </as-task>
+        <as-task src="텍스트 이동"></as-task>
+
+        <blank timer="1000" onstart="alert('exit 일때만 실행')"></blank>
+
+    </as-task>
+
+    <as-task id="인사말">
+        <sound id="sound1" set="{src:'./sound1.mp3'}"
+               run="play()" wait="ended"></sound>
+        <sound target="sound1" destroy="all"></sound>
+    </as-task>
+    <!--
+    task:ended="인사말 닫기"
+    <as-task id="인사말 닫기">
+        <sound target="sound1" destroy="all"></sound>
+        <break-release id="인사말 종료"></break-release>
+    </as-task>
+    -->
+
+    <as-task id="텍스트 이동">
+        <!--https://gsap.com/resources/get-started-->
+        <tween selector="#text" from="{y: 100}" to="{y:300, repeat: 2}"></tween>
+        <tween selector="#text" to="{y:50}"></tween>
+
+        <js><!--<![ CDATA [ this.degree = 0; $next(); //]]>--></js>
+        <as-task id="회전">
+            <js><!--<![ CDATA [
+            this.degree += 10;
+            console.log('this.degree: ', this.degree, 40===$js.degree);
+            $next();
+            //]]>--></js>
+            <tween selector=".rotate" to="{rotation: $js.degree}"></tween>
+            <cancel if-break="$js.degree === 40" else="회전"></cancel>
+
+            <blank timer="1000" onstart="alert('절대 실행 안됨')"></blank>
+
+        </as-task>
+        <blank timer="1000" onstart="alert('exit 일때만 실행')"></blank>
+    </as-task>
+
+    <as-task id="lotte 재생">
+        <js><!--<![ CDATA [
+        // https://docs.lottiefiles.com/lottie-player/components/lottie-player
+        const player = document.querySelector("#lotte");
+        player.play();
+        player.addEventListener("complete", () => {
+            //player.seek(0);
+            player.stop();
+            $next();
+        }, {one:true});
+        //]]>--></js>
+    </as-task>
+
+
+    <!--////////////////////////////////////////
+    // UI
+    /////////////////////////////////////////-->
+
+
+    <is-Page x="0" y="0" r="0" b="0"
+             style="padding: 20px;">
+
+        <h2>Taskml</h2>
+        시작 버튼을 누르면 템플릿에 정의된 task 대로 실행됩니다.
+        <ol>
+            <li>병아리 이미지와 사운드가 함께 재생됩니다.</li>
+            <li>텍스트가 3회 이동합니다.</li>
+            <li>비디오와 이미지가 함께 4회 회전합니다.</li>
+            <li>"회전 취소" alert 창이 뜨고 task가 마무리 됩니다.</li>
+        </ol>
+        <button task:click="시작">시작</button>
+
+        <is-group x="50" y="0" h="500" layout="" style="max-width: 80%;">
+
+            <is-audio x="20" y="20"
+                      src="./sound1.mp3" controls
+                      onended="$task['텍스트 이동']()"></is-audio>
+
+            <is-video y="100" w="300px"
+                      class="rotate"
+                      task:loadstart="console.log ('video 로드됨');"
+                      src="./video.mp4" controls></is-video>
+
+            <is-image x="350" y="50" w="100"
+                      class="rotate"
+                      onclick="console.log('click')"
+                      src="${image.src}"></is-image>
+
+            <is-lottie id="lotte"
+                       r="0" b="0" w="50%" h="50%"
+                       src="./lottie.json"
+                       onload="console.log('lottie load')"
+                       background="transparent" speed="1" direction="1" mode="normal"></is-lottie>
+
+            <is-text id="text"
+                     x="500" y="50"><p>텍스트1</p></is-text>
+
+        </is-group>
+
+    </is-Page>
+
+</template>
+
+<!--랜더러 호출-->
+<div id="app"></div>
+</body>
+</html>
+
+<!--
+서버 없는 (CORS 회피) 로컬 개발 환경
+* chrome.bat 파일 실행 (chrome 브라우저 실행됨)
+* index.html 드래그해서 열면 CORS 에러 없이 작업할 수 있음
+-->

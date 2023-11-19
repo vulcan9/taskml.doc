@@ -47,6 +47,9 @@ task 객체는 기능별로 task 인터페이스를 구현한 객체입니다.
 
 ### `<as-task>`
 
+`<as-task>`에 대한 자세한 내용은 다음 링크를 참고하세요
+* [`<as-task>` 태그](./as-task%20태그.md)
+
 ```html
 
 <as-task id="task 아이디"
@@ -134,7 +137,7 @@ class, attribute, style 추가/제거
 * shorthand (준비중) `<move>` `<resize>` `<scale>` `<rotate>` `<fade>`
 
 ### `<tween>`
-
+<!--https://gsap.com/resources/get-started-->
 + tween
     - interface: task 인터페이스
     - animation 라이브러리 사용

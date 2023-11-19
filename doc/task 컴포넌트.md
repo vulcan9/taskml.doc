@@ -71,13 +71,14 @@ task 아이템은 공통된 생명 주기를 가집니다.
          oncancel="alert('cancel')"
          onerror="alert('error')"></as-task>
 ```
+
 ### `cancel` 이벤트 vs `error` 이벤트
 
 * `cancel` 이벤트
-  - `<cancel>` task에 의해 의도적으로 작업이 중지되었을때에만 호출됩니다.
+    - `<cancel>` task에 의해 의도적으로 작업이 중지되었을 때에만 호출됩니다.
 
 * `error` 이벤트
-  - 의도하지 않은 에러 발생으로 작업이 중단된 경우 발생합니다.
+    - 의도하지 않은 에러 발생으로 작업이 중단된 경우 발생합니다.
 
 두 이벤트가 발생하면 이후 task는 중지됩니다.
 
@@ -226,8 +227,8 @@ task 호출에 사용하면
 
 조건식 결과에 따라 실행할 task를 결정할 수 있습니다
 
-- if 판별식 false 인 경우 해당 task는 무시됩니다.
-- `start`, `end`, `complete` 등의 이벤트도 발생되지 않습니다.
+* if 판별식 false 인 경우 `else` task가 실행되고 본 task는 무시됩니다.
+* if 판별식 true 인 경우 `then` task 실행 후 본 task가 진행됩니다.
 
 ```html
 
@@ -241,6 +242,43 @@ task 호출에 사용하면
     <sound if="($args[0] === 'else')"></sound>
 
 </as-task>
+```
+
+비슷한 기능을 가진 `if-break` attribute이 있습니다.  
+`if` attr을 사용하면 조건문 판별 후 바로 다음 task가 실행되는 반면,  
+`if-break` attr은 조건문을 판별한 후 false 이면 task를 멈춥니다 (break).  
+이후 break가 해제될때 판별식을 다시 검사합니다.
+
+```html
+<!--
+4번 회전한 뒤 종료합니다.
+if attr을 사용하면 1번 회전 후 task가 종료됩니다.
+(조건식이 false 이므로 cancel task가 실행되지 않고 다음 task로 넘어가기 때문임)
+-->
+<as-task id="재귀">
+    <js><!--<![ CDATA [
+            if(!this.counter) this.counter = 0;
+            this.counter += 10;
+            $next();
+            //]]>--></js>
+    <cancel if-break="$js.counter === 4" else="재귀"></cancel>
+</as-task>
+```
+
+```html
+<!--id를 함께 지정하면 break 해제 ID로 사용할 수 있습니다.-->
+<as-task id="if-break 테스트">
+    <cancel if-break="$js.value" id="if-break 멈춤"></cancel>
+</as-task>
+
+<!--버튼을 클릭하면 cancel task는 실행되지 않고 멈춤니다.-->
+<button onclick="$js.value=false; $task['if-break 테스트']()">task 멈춤</button>
+
+<!--breake를 해지했지만 판별식 결과가 false 이므로 다시 멈춥니다.-->
+<button onclick="$break.release('if-break 멈춤')">task 다시 멈춤</button>
+
+<!--판별식 결과가 true가 되었으므로 cancel이 실행되고 task가 종료됩니다.-->
+<button onclick="$js.value=true; $task['if-break 테스트']()">cancel 실행됨</button>
 ```
 
 ### timer interface
