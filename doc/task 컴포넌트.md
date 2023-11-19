@@ -261,7 +261,7 @@ if attr을 사용하면 1번 회전 후 task가 종료됩니다.
             this.counter += 10;
             $next();
             //]]>--></js>
-    <cancel if-break="$js.counter === 4" else="재귀"></cancel>
+    <cancel if-break="$js.counter === 40" else="재귀"></cancel>
 </as-task>
 ```
 
