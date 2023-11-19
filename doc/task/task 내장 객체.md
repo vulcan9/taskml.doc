@@ -347,17 +347,72 @@ task 관련 attribute과 함께 사용할 수 있습니다.
 
 ### `<js>`
 
+새로 정의된 task를 만들 수 있도록 JS 코드가 실행되는 context를 제공합니다.  
+`<js>` task 코드 블럭은 문자열 인식을 위해 CDATA 블럭안에 작성합니다.
 
+```html
 
+<js><!--<![CDATA[
+    // JS Code...
+//]]>--></js>
+```
 
+`<js>` 태그에 작성된 코드는 task 인터페이스 안에서 동작하게 됩니다.  
+이 인터페이스를 유지하기 위해 `<js>` 코드 블럭에는 몇가지 미리 정의된 객체가 제공됩니다.
 
+* `$cancel` : (함수) `<cancel>` task를 호출한 것과 같습니다.
+* `$exit` : (함수) `<exit>` task를 호출한 것과 같습니다.
+* `$next` : (함수) 다음 task를 호출한 것과 같습니다.
+* `$clear` : (함수) `$js` context 데이터를 모두 삭제합니다.
+* `$args` : (배열) task 호출할때 전달된 매개변수 객체 입니다.
 
+```html
 
+<js><!--<![CDATA[
+    // some code...
+    // 다음 task로 넘어감
+    $next();
+//]]>--></js>
+```
 
+> `<js>` 코드 블럭에서는 명시적으로 종료 함수를 호출해야 다음 task가 실행됩니다.  
+> 따라서 `$next();` 또는 `cancel();`, `$exit();` 함수를 호출하기 전까지는 break 상태가 됩니다.
 
+다음은 비동기로 JS 코드를 실행한 후 다음 task를 호출하는 코드입니다.
 
+```html
 
+<js><!--<![CDATA[
+    this.foo = new Date();
+    setTimeout(()=>{
+        this.bar = 'parallel인 경우 출력 안됨';
+        $next();
+    }, 1000);
+//]]>--></js>
+```
 
+이렇게 하면 글로벌 객체 `$js`에 `foo`, `bar` 값이 저장됩니다.  
+`<js>`의 실행 context는 `$js` 객체입니다.
+
+이후에 실행되는 task에서는 이 값을 참조할 수 있습니다.
+
+```html
+<!--출력 : 'parallel인 경우 출력 안됨'-->
+<blank onstart="console.log($js.bar)"></blank>
+
+<!--다시 $clear를 실행하면 $JS 객체는 초기화 됩니다.-->
+
+<js><!--<![CDATA[
+    $clear(); $next();
+//]]>--></js>
+
+<!-- $JS 객체는 빈 객체({})가 됨 -->
+```
+
+위에서 본것처럼 `$js` 객체는 모든 task에서 공용하는 글로벌 객체입니다.
+
+* `$js` 모든 task 노드에서 공통으로 사용
+* `$clear()` 호출후에는 `$js` 객체 초기화됨
 
 ## 사운드 (sound)
 
