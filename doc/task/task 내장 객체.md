@@ -52,8 +52,8 @@ task 객체는 기능별로 task 인터페이스를 구현한 객체입니다.
 ```html
 
 <as-task id="task 아이디"
-         [sync="series (default) | parallel"]
-         [src=""]>
+         [sync="series (default) | parallel" ]
+         [src="" ]>
 
     <!--child task 아이템 태그 (=task)-->
 
@@ -234,6 +234,13 @@ class, attribute, style 추가/제거
 - selector의 transition 설정에 따라 실제 종료 시점은 달라질 수 있음
 
 ### `<addClass>`
+
+selector 참조되는 dom 요소에 class attribute을 설정합니다.
+
+```html
+
+<addClass selector="" class="className1, className2, ..."></addClass>
+```
 
 ### `<removeClass>`
 
