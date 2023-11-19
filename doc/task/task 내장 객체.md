@@ -48,7 +48,7 @@ task 객체는 기능별로 task 인터페이스를 구현한 객체입니다.
 ### `<as-task>`
 
 `<as-task>`에 대한 자세한 내용은 다음 링크를 참고하세요
-* [`<as-task>` 태그](./as-task%20태그.md)
+* [`<as-task>` 태그](./as-task%20태그)
 
 ```html
 
