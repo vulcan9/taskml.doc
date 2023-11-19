@@ -27,6 +27,7 @@
 ## DEMO
 
 * [Sample](https://vulcan9.github.io/taskml.doc/demo/sample.html)
+* [사용 설명서](https://vulcan9.github.io/taskml.doc/)
 
 ---------------------
 
