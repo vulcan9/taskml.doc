@@ -38,8 +38,8 @@
 
 ```html
 
-<script type="module" crossorigin src="index-0.1.0.js"></script>
-<link rel="stylesheet" href="index-0.1.0.css">
+<script type="module" crossorigin src="index-0.1.2.js"></script>
+<link rel="stylesheet" href="index-0.1.2.css">
 ```
 
 템플릿 작성

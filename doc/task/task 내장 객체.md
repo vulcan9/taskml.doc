@@ -248,7 +248,7 @@ selector 참조되는 dom 요소에 class 속성을 설정합니다.
 
 ```html
 
-<addClass selector="" class="className1, className2, ..."></addClass>
+<addClass selector="" classes="className1, className2, ..."></addClass>
 ```
 
 ### `<removeClass>` 태그
@@ -258,7 +258,7 @@ selector 참조되는 dom 요소에 class 속성을 제거합니다.
 
 ```html
 
-<removeClass selector="" class="className1, className2, ..."></removeClass>
+<removeClass selector="" classes="className1, className2, ..."></removeClass>
 ```
 
 ### `<addAttr>` 태그
