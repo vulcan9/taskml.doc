@@ -11,7 +11,7 @@ task 객체는 기능별로 task 인터페이스를 구현한 객체입니다.
 
 #### Dom 상태 변경
 
-`<addClass>`, `<removeClass>`, `<addAttr>`, `<removeAttr>`, `<addStyle>`, `<removeStyle>`
+`<addClass>`, `<removeClass>`, `<toggleClass>`, `<addAttr>`, `<removeAttr>`, `<addStyle>`, `<removeStyle>`
 
 - shorthand `<disable>`, `<enable>`
 
