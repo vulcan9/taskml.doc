@@ -286,7 +286,7 @@ style 속성 이름은 carmalCase 표기법으로 작성합니다.
 
 ```html
 
-<addStyle selector="" style="{...}"></addStyle>
+<addStyle selector="" styles="{...}"></addStyle>
 ```
 
 ### `<removeStyle>` 태그
@@ -296,7 +296,7 @@ selector 참조되는 dom 요소에 style 속성을 제거합니다.
 
 ```html
 
-<removeStyle selector="" style="style 이름1, style 이름2, ..."></removeStyle>
+<removeStyle selector="" styles="style 이름1, style 이름2, ..."></removeStyle>
 ```
 
 ### `<disable>` 태그
@@ -505,6 +505,7 @@ HTML `<audio>` dom을 직접 제어하지 않고 `Media` proxy 객체가 제공�
 
 * `<sound>` task의 완료(`end` 이벤트) 시점을 결정하는 이벤트 이름을 설정합니다.
 * `wait="ended"` 이면 재생이 모두 완료되었을때 sound task가 완료되었다고 판단합니다.
+* 여러 이벤트를 설정하려면 콤마로 구분해서 설정합니다. (`wait="ended, error"`)
 
 ```html
 

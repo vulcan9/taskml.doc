@@ -317,7 +317,7 @@ DOM Element 대상이 필요한 task에서 사용됩니다.
 
 ```html
 
-<addStyle selector="CSS Select 표현" style="{}"></addStyle>
+<addStyle selector="CSS Select 표현" styles="{}"></addStyle>
 ```
 
 ### task interface
