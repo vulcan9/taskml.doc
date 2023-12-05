@@ -236,7 +236,7 @@ $args.event.target은 클릭한 div 객체를 참조합니다.
 -->
 ```
 
-### `$args.event[dataset attribute 파싱 배열]`
+### `$args.event[dataset attribute 이름]`
 
 전달되는 event 객체에 taget Element에 작성된 `data-` dataset attribute 내용을 배열로 파싱해 전달합니다.  
 ```html
