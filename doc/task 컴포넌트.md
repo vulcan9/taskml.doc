@@ -281,14 +281,14 @@ if attr을 사용하면 1번 회전 후 task가 종료됩니다.
 <button onclick="$js.value=true; $task['if-break 테스트']()">cancel 실행됨</button>
 ```
 
-### timer interface
+### timer & delay interface
 
-task를 일정 시간 후 강제로 종료합니다  
+* `timer="0"` : (밀리세컨즈) task를 일정 시간 후 강제로 종료합니다  
 task 아이템에 적용되면 해당 task 종료 시간과 `timer="시간(ms)"` 설정 시간 중 더 짧은 시간에 종료합니다
+  - task 기능이 중지되는 것이 아니라 다음 task를 진행하기 위해 종료(`end`) 이벤트를 발생시킵니다.
+  - `<blank>` task에 사용하면 timer 시간 동안 delay 효과가 있음
 
-- task 기능이 중지되는 것이 아니라 다음 task를 진행하기 위해 종료(`end`) 이벤트를 발생시킵니다.
-- `<blank>` task에 사용하면 timer 시간 동안 delay 효과가 있음
-- `<as-task>`에는 적용되지 않음
+* `delay="0"` : (밀리세컨즈) task를 일정 시간 후 시작합니다.
 
 ```html
 
@@ -306,6 +306,14 @@ task 아이템에 적용되면 해당 task 종료 시간과 `timer="시간(ms)"`
 <!--
 sound가 3초 길이라면 1초 후 종료 처리되고 0.5초 길이이면 0.5초에 sound task가 종료됨
 -->
+
+<as-task id="시작" onstart="console.log('재생')">
+  <sound id="sound1"
+         set="{src:'/sound1.mp3'}"
+         run="play()" wait="ended"
+         delay="1000"></sound>
+</as-task>
+<!--1초 후 재생됨 (start 이벤트 발생)-->
 ```
 
 ### selector interface
