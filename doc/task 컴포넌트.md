@@ -141,7 +141,7 @@ task 아이템은 공통된 생명 주기를 가집니다.
 <as-task task:start="task 아이디"></as-task>
 ```
 
-### 매개변수 전달
+### 매개변수 전달 ($args)
 
 task를 호출할때 매개변수를 포함하여 호출할 수 있습니다.  
 다음은 매개변수로 전달된 내용을 alert으로 띠우는 예제입니다.
@@ -217,6 +217,43 @@ task 호출에 사용하면
 <as-task src="$args[0] 시작 ('문자', 10, {a: 'a'}, ...)"></as-task>
 <as-task src="$args[0] 시작 (new Date(), ()=>'함수', ...)"></as-task>
 <!--"사운드 시작" task에 새로운 $args 값이 전달됨-->
+```
+
+`$args` 매개변수 객체는 전달된 매개변수 이외에 특별한 데이터를 가집니다.
+
+### `$args.event`
+
+이벤트를 참조합니다. 이 값으로 이벤트를 발생시킨 DOM 객체를 추적할 수 있습니다.
+```html
+<as-task id="클릭">
+  <addStyle selector="$args.event.target" selector-is-dom styles="{}"></addStyle>
+</as-task>
+
+<div task:click="클릭"></div>
+<!--
+$args.event는 클릭 이벤트 객체를,
+$args.event.target은 클릭한 div 객체를 참조합니다.
+-->
+```
+
+### `$args.event[dataset attribute 파싱 배열]`
+
+전달되는 event 객체에 taget Element에 작성된 `data-` dataset attribute 내용을 배열로 파싱해 전달합니다.  
+```html
+<div task:click="클릭" data-sound-src="a, b, c"></div>
+<!--
+data-sound-src 이름으로 a, b, c 값이 설정되어있으면 이를 파싱하여 배열로 저장합니다.
+
+$args 매개변수 객쳉서는 다음과 같이 값에 접근할 수 있습니다.
+<blank onstart="console.log($args.event.soundSrc)"></blank>
+// soundSrc 값은 ['a', 'b', 'c'] 입니다.
+-->
+
+<div task:click="클릭" data-sound-src="a"></div>
+<!--
+하나의 값을 전달 하더라도 배열로 저장됩니다.
+// soundSrc 값은 ['a'] 입니다.
+-->
 ```
 
 ## task Attribute
@@ -327,6 +364,14 @@ DOM Element 대상이 필요한 task에서 사용됩니다.
 
 <addStyle selector="CSS Select 표현" styles="{}"></addStyle>
 ```
+
+selector 값으로 이벤트를 발생시킨 DOM 객체를 참조할 수도 있습니다.
+```html
+<!-- selector-is-dom attribute을 함께 사용해야 합니다. -->
+<addStyle selector="$args.event.target" selector-is-dom styles="{}"></addStyle>
+```
+
+
 
 ### task interface
 
