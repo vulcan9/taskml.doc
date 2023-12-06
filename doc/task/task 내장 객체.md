@@ -261,6 +261,15 @@ selector 참조되는 dom 요소에 class 속성을 제거합니다.
 <removeClass selector="" classes="className1, className2, ..."></removeClass>
 ```
 
+### `<toggleClass>` 태그
+
+selector 참조되는 dom 요소에 class 속성을 설정 또는 제거합니다.  
+여러 class를 한번에 지정할때에는 콤마 구분자로 구분하여 설정합니다.
+```html
+
+<toggleClass selector="" classes="className1, className2, ..."></toggleClass>
+```
+
 ### `<addAttr>` 태그
 
 selector 참조되는 dom 요소에 attribute 속성을 설정합니다.
@@ -610,6 +619,7 @@ CSS Transition 대신 사용할 수 있는 트위닝 task 입니다.
 ```html
 
 <tween selector=""
+       <!--
        to="{
             rotation: 27, x: 100,
             duration: 1
@@ -617,19 +627,19 @@ CSS Transition 대신 사용할 수 있는 트위닝 task 입니다.
             // 단위
             x: 200, // 기본값 px 단위
             x: " +=200" // 상대 증분 치로 지정
-x: '40vw', // 다른 단위는 문자열로 전달
-x: () => window.innerWidth / 2, // 함수 사용 가능함
-
-rotation: 360 // 기본값 degrees
-rotation: "1.25rad" // 다른 단위는 문자열 (radians 단위)
-
-// 특수 설정 속성값
-// https://gsap.com/resources/get-started/#special-properties
-// https://gsap.com/docs/v3/GSAP/Tween/
-// duration, delay,
-// repeat, yoyo, stagger, ease, onComplete
-}"
-
+            x: '40vw', // 다른 단위는 문자열로 전달
+            x: () => window.innerWidth / 2, // 함수 사용 가능함
+            
+            rotation: 360 // 기본값 degrees
+            rotation: "1.25rad" // 다른 단위는 문자열 (radians 단위)
+            
+            // 특수 설정 속성값
+            // https://gsap.com/resources/get-started/#special-properties
+            // https://gsap.com/docs/v3/GSAP/Tween/
+            // duration, delay,
+            // repeat, yoyo, stagger, ease, onComplete
+       }"
+       -->
 </tween>
 ```
 
