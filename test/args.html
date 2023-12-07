@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>taskml</title>
+</head>
+
+<body>
+
+<button onclick="autorun();">auto run</button>
+
+<script type="module" src="/test/args.js"></script>
+</body>
+</html>
+
+<!--
+서버 없는 (CORS 회피) 로컬 개발 환경
+* chrome.bat 파일 실행 (chrome 브라우저 실행됨)
+* index.html 드래그해서 열면 CORS 에러 없이 작업할 수 있음
+-->
+
+
+<!--template 태그: 페이지가 로드될 때 사용자에게 숨겨진 일부 HTML 콘텐츠를 보관하는 컨테이너로 사용됨-->
+<!--id="taskml" 생략하면 template 첫번째 요소를 읽어들임-->
+<!--
+<template>
+    <is-root style class x="" y="" w="" h="">
+
+        &lt;!&ndash;Hidden 요소: 랜더링 할때 사라짐&ndash;&gt;
+        <as-task id="nextStep" task:end="...">
+            &lt;!&ndash;sequence 표현 (value: args[0])&ndash;&gt;
+        </as-task>
+
+        &lt;!&ndash;HTML DOM 요소&ndash;&gt;
+        <select onselect="$task.nextStep(this.value);">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+        </select>
+
+    </is-root>
+</template>
+-->

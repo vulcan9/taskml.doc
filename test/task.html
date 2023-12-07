@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="./asset/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>taskml</title>
+
+    <link rel="stylesheet" href="../dist/taskml/index-0.1.3.css">
+    <script type="module" src="../dist/taskml/index-0.1.3.js"></script>
+
+</head>
+<link rel="stylesheet" href="task.css">
+<body>
+<div class="box"></div>
+
+<!--로그 표시: mode="dev media"-->
+<template mode="dev media" xmlns:task="http://www.w3.org/2000/10/XMLSchema">
+
+    <ol>
+
+        <as-task id="Blank 테스트" timer="1000">
+            <Blank timer="1000"></Blank>
+            <Blank timer="$args[0]"></Blank>
+        </as-task>
+
+        <li task:click="Blank 테스트(1000)">
+            Blank 테스트(1000)
+        </li>
+
+    </ol>
+
+    <!--js------------------------------------------------------>
+
+    <h2>js 사용</h2>
+    task 아이디에 괄호는 금지합니다.
+    <ol>
+
+        <as-task id="(task (JS) 테스트)">
+            <as-task sync="">
+                <js>
+                    무시되는 영역<!--<![ CDATA [
+                    this.foo = new Date();
+                    setTimeout(()=>{
+                        this.bar = 'parallel인 경우 출력 안됨';
+                        $next();
+                    }, 200);
+                // ]] >--></js>
+                <js>ss<!--<![ CDATA [
+                console.log('foo: ', this.foo);
+                console.log('bar: ', this.bar);
+                console.log('$args: ', $args);
+                //$clear(); $next();
+                $next();
+                //]]>--></js>
+            </as-task>
+        </as-task>
+        <li onclick="
+            $task['(task (JS) 테스트)'](
+            '날짜: ', new Date()
+            )">
+            Js 실행 (onclick="...")
+        </li>
+        <li task:click="
+            (task (JS) 테스트)(
+            '날짜: ', new Date()
+            )">
+            Js 실행 (task:click="(task (JS) 테스트)(...)")
+        </li>
+        <li task:click="((  (task (JS) 테스트)(
+            '날짜: ', new Date()
+            )))">
+            Js 실행 (task:click="(( (task (JS) 테스트)(...) ))")
+        </li>
+        <li task:click="'(task (JS) 테스트)'">
+            Js 실행 (task:click="'(task (JS) 테스트)'")
+        </li>
+        <li task:click="['(task (JS) 테스트)']">
+            Js 실행 (task:click="(( ['(task (JS) 테스트)'] ))")
+        </li>
+
+        <li task:click="'(task (JS) 테스트)'()">
+            Js 실행 (task:click="'(task (JS) 테스트)'()")
+        </li>
+        <li task:click="'(task (JS) 테스트)()'" style="color: red; text-decoration: line-through;">
+            Js 실행 에러 (task:click="'(task (JS) 테스트)(...)'")
+        </li>
+    </ol>
+
+    <!--task 이벤트------------------------------------------------------>
+
+    <h2>task 이벤트</h2>
+    <ol>
+        <as-task id="task 이벤트 테스트"
+                 task:start="startEvent('a')" task:end="endEvent('a')"
+                 task:complete="completeEvent('a')">
+            <!--<Blank></Blank>-->
+            <js><!--<![ CDATA [
+        console.log('$args:', $args);
+        console.log('task body:', $args[0]);
+        $next();
+        //]]>--></js>
+        </as-task>
+        <as-task id="startEvent">
+            <js><!--<![ CDATA [console.log('startEvent:', $args[0]);$next();//]]>--></js>
+        </as-task>
+        <as-task id="endEvent">
+            <js><!--<![ CDATA [console.log('endEvent:', $args[0]);$next();//]]>--></js>
+        </as-task>
+        <as-task id="completeEvent">
+            <js><!--<![ CDATA [
+        console.log('$args:', $args);
+        console.log('completeEvent:', $args[0]);
+        $next();
+        //]]>--></js>
+        </as-task>
+
+        <li task:click="task 이벤트 테스트(0)">
+            task 이벤트, $args 테스트(0)
+        </li>
+
+        <as-task id="task 중첩 테스트"
+                 task:start="startEvent('1:start')"
+                 task:end="endEvent('1:end')"
+                 task:complete="completeEvent('1:complete')">
+            <!--task 이벤트 테스트의 리스너가 덮어쓰기 됨-->
+            <!--
+            attribute에 $args 매개변수 사용
+            허용안함: task:start="startEvent('break 2:start --> ' + ${$args[1]})"
+            -->
+            <as-task src="task 이벤트 ${$args[0]}"
+                     task:start="startEvent('break 2:start --> ' + $args[1])"
+                     task:end="${$args[2]}('2:end')"
+                     task:complete="$args[3]('2:complete')"></as-task>
+        </as-task>
+
+        <li task:click="task 중첩 테스트('테스트', 0, 'endEvent', 'completeEvent')">
+            task 중첩, $args 테스트('테스트', 0)
+        </li>
+    </ol>
+
+    <ol>
+        <as-task id="발문 읽기">
+            <as-task src="성우 음성"></as-task>
+        </as-task>
+
+        <as-task id="성우 음성">
+            <sound id="na"
+                   set="{src:$args[0]}"
+                   run="play()" wait="ended"></sound>
+            <sound target="na" destroy=""></sound>
+        </as-task>
+
+        <li task:click="발문 읽기('./asset/sound1.mp3')">발문 읽기</li>
+    </ol>
+
+    <!--control------------------------------------------------------>
+
+    <h2>task 흐름 제어</h2>
+    <ol>
+
+        <!--
+        (주의) 자동 실행 task에서 break를 사용하면
+        뒤따르는 익명 task 노드 (초기화 코드가) 완료되지 않음
+        허용안됨: key="'break ' + $args[0]"
+        -->
+        <as-task id="break 테스트" oncomplete="console.log('step 완료: ', $args);">
+            <break-release id="break key"></break-release>
+            <js><!--<![ CDATA [console.log('step 시작');$next();//]]>--></js>
+            <break id="break ${$args[0]}"></break>
+            <js><!--<![ CDATA [console.log('step1');$next();//]]>--></js>
+            <break id="break $args[0]"></break>
+            <js><!--<![ CDATA [console.log('step2');$next();//]]>--></js>
+            <break id="break key"></break>
+            <js><!--<![ CDATA [console.log('step3');$next();//]]>--></js>
+        </as-task>
+
+        <li task:click="break 테스트 ('key')">
+            break 상태 재연
+        </li>
+        <li onclick="$break.release('break key');">
+            $break.release('break 테스트');
+        </li>
+
+        <!--Break 지점 해제 (계속 진행)-->
+        <as-task id="release break">
+            <break-release id="break key"></break-release>
+        </as-task>
+        <li task:click="release break">release task</li>
+    </ol>
+
+    <ol>
+        <as-task id="cancel task">
+            <cancel if="$args[1]"></cancel>
+        </as-task>
+        <as-task id="cancel task in js">
+            <js><!--<![ CDATA [$cancel();//]]>--></js>
+        </as-task>
+        <li task:click="cancel task('key', false)">cancel task false</li>
+        <li task:click="cancel task('key', true)">cancel task true</li>
+        <li task:click="cancel task in js">cancel in JS task : $cancel()</li>
+    </ol>
+
+    <h5>delay: 1000</h5>
+    <ol>
+        <as-task id="delay cancel task">
+            <cancel if="$args[1]" delay="1000"></cancel>
+        </as-task>
+        <as-task id="delay cancel task in js">
+            <js delay="1000"><!--<![ CDATA [$cancel();//]]>--></js>
+        </as-task>
+        <li task:click="delay cancel task('key', false)">delay cancel task false</li>
+        <li task:click="delay cancel task('key', true)">delay cancel task true</li>
+        <li task:click="delay cancel task in js">delay cancel in JS task : $cancel()</li>
+    </ol>
+
+    <h2>if 조건</h2>
+    <ol>
+        <!--if 조건이 실패할 경우 skip (이벤트 발생 안함)-->
+        <as-task id="case 조건 테스트">
+            <as-task src="if then" if="($args[0] === 'then')"></as-task>
+            <as-task src="if else" if="($args[0] === 'else')"></as-task>
+        </as-task>
+        <as-task id="if then">
+            <js><!--<![ CDATA [console.log('조건문 (true) task 실행됨');$next();//]]>--></js>
+        </as-task>
+        <as-task id="if else">
+            <js><!--<![ CDATA [console.log('조건문 (false) task 실행됨');$next();//]]>--></js>
+        </as-task>
+
+        <li task:click="case 조건 테스트('then')">if case task (then)</li>
+        <li task:click="case 조건 테스트('else')">if case task (else)</li>
+
+        <as-task id="if 조건 테스트"
+                 if="($args[0] === 'then')"
+                 then="if then"
+                 else="if else">
+        </as-task>
+
+        <li task:click="if 조건 테스트('then')">if then task</li>
+        <li task:click="if 조건 테스트('else')">if else task</li>
+    </ol>
+
+    <h5>delay: 1000</h5>
+    <ol>
+        <!--if 조건이 실패할 경우 skip (이벤트 발생 안함)-->
+        <as-task id="delay case 조건 테스트">
+            <as-task src="if then" if="($args[0] === 'then')" delay="1000"></as-task>
+            <as-task src="if else" if="($args[0] === 'else')" delay="1000"></as-task>
+        </as-task>
+        <as-task id="delay if then">
+            <js delay="1000"><!--<![ CDATA [console.log('조건문 (true) task 실행됨');$next();//]]>--></js>
+        </as-task>
+        <as-task id="delay if else">
+            <js delay="1000"><!--<![ CDATA [console.log('조건문 (false) task 실행됨');$next();//]]>--></js>
+        </as-task>
+
+        <li task:click="delay case 조건 테스트('then')">if case task (then)</li>
+        <li task:click="delay case 조건 테스트('else')">if case task (else)</li>
+
+        <as-task id="delay if 조건 테스트"
+                 if="($args[0] === 'then')"
+                 then="if then"
+                 else="if else" delay="1000">
+        </as-task>
+
+        <li task:click="delay if 조건 테스트('then')">delay if then task</li>
+        <li task:click="delay if 조건 테스트('else')">delay if else task</li>
+    </ol>
+
+    <h2>if-break 조건</h2>
+    <ol>
+        <!--
+        조건식이 true 일때 cancel이 실행되고 종료됨
+        if 문을 사용하면 조건문 판별 후 바로 종료됨
+        -->
+        <as-task id="if false">
+            <js><!--<![ CDATA [$js.value = false; console.log('조건문 결과: ', $js.value);$next();//]]>--></js>
+            <cancel if="$js.value"></cancel>
+        </as-task>
+
+        <as-task id="if-break 멈춤">
+            <!--if-break의 break 해제 ID: id attr-->
+            <js><!--<![ CDATA [console.log('조건문 결과: ', $js.value);$next();//]]>--></js>
+            <cancel if-break="$js.value" id="if-break 멈춤"></cancel>
+        </as-task>
+
+        <li task:click="if false">if false : cancel 없이 바로 종료</li>
+        <li task:click="if-break 멈춤">if-break false : cancel 없이 종료되지 않고 멈춤</li>
+        <li onclick="$break.release('if-break 멈춤');">if-break false 멈춤 해지 : false (재평가 후) cancel 없이 다시 멈춤</li>
+        <li onclick="$js.value=true; $break.release('if-break 멈춤');">if-break true 멈춤 해지 : true (재평가 후) cancel 종료</li>
+    </ol>
+
+    <h5>delay: 1000</h5>
+    <ol>
+        <!--
+        조건식이 true 일때 cancel이 실행되고 종료됨
+        if 문을 사용하면 조건문 판별 후 바로 종료됨
+        -->
+        <as-task id="delay if false">
+            <js><!--<![ CDATA [$js.value = false; console.log('조건문 결과: ', $js.value);$next();//]]>--></js>
+            <cancel if="$js.value" delay="1000"></cancel>
+        </as-task>
+
+        <as-task id="delay if-break 멈춤">
+            <!--if-break의 break 해제 ID: id attr-->
+            <js><!--<![ CDATA [console.log('조건문 결과: ', $js.value);$next();//]]>--></js>
+            <cancel if-break="$js.value" id="delay if-break 멈춤" delay="1000"></cancel>
+        </as-task>
+
+        <li task:click="delay if false">delay if false : cancel 없이 바로 종료</li>
+        <li task:click="delay if-break 멈춤">delay if-break false : cancel 없이 종료되지 않고 멈춤</li>
+        <li onclick="$break.release('delay if-break 멈춤');">delay if-break false 멈춤 해지 : false (재평가 후) cancel 없이 다시 멈춤</li>
+        <li onclick="$js.value=true; $break.release('delay if-break 멈춤');">delay if-break true 멈춤 해지 : true (재평가 후) cancel 종료</li>
+    </ol>
+
+    <h3>재귀</h3>
+    <ol>
+        <as-task id="재귀">
+            <blank timer="1000"></blank>
+            <cancel if-break="$js.value" else="재귀"></cancel>
+        </as-task>
+
+        <as-task id="if-break 조건 테스트">
+            <js><!--<![ CDATA [
+            this.value = $args[0];
+            console.log('this.value: ', this.value);
+            $next();
+            //]]>--></js>
+        </as-task>
+
+        <li onclick="$js.value=false;$task['재귀']()">if-break false cancel 재귀문 호출 (루프 시작)</li>
+        <li task:click="if-break 조건 테스트(true)">if-break true 전달: cancel 호출되서 재귀문 종료됨</li>
+    </ol>
+
+    <h5>delay: 1000</h5>
+    <ol>
+        <as-task id="delay 재귀">
+            <blank timer="1000" delay="1000"></blank>
+            <cancel if-break="$js.value" else="delay 재귀" delay="1000"></cancel>
+        </as-task>
+
+        <as-task id="delay if-break 조건 테스트">
+            <js delay="1000"><!--<![ CDATA [
+            this.value = $args[0];
+            console.log('this.value: ', this.value);
+            $next();
+            //]]>--></js>
+        </as-task>
+
+        <li onclick="$js.value=false;$task['delay 재귀']()">delay if-break false cancel 재귀문 호출 (루프 시작)</li>
+        <li task:click="delay if-break 조건 테스트(true)">delay if-break true 전달: cancel 호출되서 재귀문 종료됨</li>
+    </ol>
+
+    cancel 중첩 재귀문 빠져 나가기
+    <ol>
+        <as-task id="cancel 재귀">
+            <blank timer="1000"></blank>
+            <as-task src="cancel 중첩"></as-task>
+            <blank timer="1000" onstart="alert('(cancel) 실행되면 안됨')"></blank>
+        </as-task>
+
+        <!--cancel은 부모 task 까지 빠져나감-->
+        <as-task id="cancel 중첩">
+            <blank timer="1000"></blank>
+            <cancel if-break="$js.value" else="cancel 중첩"></cancel>
+            <blank timer="1000" onstart="alert('(cancel) 호출되면 안됨')"></blank>
+        </as-task>
+
+        <as-task id="if-break cancel 테스트">
+            <js><!--<![ CDATA [
+            this.value = $args[0];
+            console.log('this.value: ', this.value);
+            $next();
+            //]]>--></js>
+        </as-task>
+
+        <li onclick="$js.value=false;$task['cancel 재귀']()">if-break false cancel 재귀문 호출 (중첩 루프 시작)</li>
+        <li task:click="if-break cancel 테스트(true)">if-break true 전달: cancel 호출되서 중첩 재귀문 종료됨</li>
+    </ol>
+
+    exit 중첩 재귀문 빠져 나가기
+    <ol>
+        <as-task id="exit 재귀">
+            <blank timer="1000"></blank>
+            <as-task src="exit 중첩"></as-task>
+            <blank timer="1000" onstart="console.log('(exit) 실행되어야 함')"></blank>
+        </as-task>
+
+        <!--exit는 자신의 task 만 빠져나감-->
+        <as-task id="exit 중첩">
+            <blank timer="1000"></blank>
+            <exit if-break="$js.value" else="exit 중첩"></exit>
+            <blank timer="1000" onstart="alert('(exit) 호출되면 안됨')"></blank>
+        </as-task>
+
+        <as-task id="if-break exit 테스트">
+            <js><!--<![ CDATA [
+            this.value = $args[0];
+            console.log('this.value: ', this.value);
+            $next();
+            //]]>--></js>
+        </as-task>
+
+        <li onclick="$js.value=false;$task['exit 재귀']()">if-break false exit 재귀문 호출 (중첩 루프 시작)</li>
+        <li task:click="if-break exit 테스트(true)">if-break true 전달: exit 호출되서 중첩 재귀문 종료됨</li>
+    </ol>
+
+
+
+
+
+
+
+
+
+    <!--tween------------------------------------------------------>
+
+    <h2>tween</h2>
+    <div style="color: red">// TODO: tween도 id를 부여해서 sound 처럼 인스턴스 관리</div>
+    <ol>
+        <as-task id="tween stop all">
+            <js><!--<![ CDATA [this.tween?.revert();$next();//]]>--></js>
+        </as-task>
+
+        <as-task id="tween 테스트">
+            <js><!--<![ CDATA [
+if(!this.tween){
+    this.tween = gsap.to('.box',{
+      duration: 2,
+      x: 500, // animate by the px width of the nav
+      xPercent: -100, // offset by the width of the box
+      rotation: 360,
+      ease: "none",
+      paused: true,
+      // onComplete: () => $next()
+    })
+}
+$next();
+            //]]>--></js>
+        </as-task>
+        <as-task id="tween revert">
+            <js><!--<![ CDATA [
+            $next();
+            if(this.tween){
+                this.tween.revert();
+                delete this.tween;
+            }
+            //]]>--></js>
+        </as-task>
+        <li task:click="tween 테스트">tween 테스트 설정</li>
+        <li task:click="$js.tween.play()">tween 테스트: play</li>
+        <li onclick="$js.tween.reverse()">tween 테스트: reverse</li>
+        <li onclick="$js.tween.restart()">tween 테스트: restart</li>
+        <li onclick="$js.tween.pause()">tween 테스트: pause</li>
+        <li onclick="$js.tween.resume()">tween 테스트: resume</li>
+        <li task:click="tween revert">tween 테스트: revert</li>
+    </ol>
+
+    <ol>
+        <as-task id="tween">
+            <as-task src="tween stop all"></as-task>
+            <as-task src="tween ${$args[0]}"></as-task>
+        </as-task>
+
+        <!--src로 호출된 task에서도 원래 $args를 참조함-->
+        <as-task id="tween set">
+            <tween selector="${$args[1]}" set="$args[2]"></tween>
+        </as-task>
+        <as-task id="tween from">
+            <tween selector="${$args[1]}" from="$args[2]"></tween>
+        </as-task>
+        <as-task id="tween to">
+            <tween selector="${$args[1]}" to="$args[2]"></tween>
+        </as-task>
+        <as-task id="tween fromTo">
+            <tween selector="${$args[1]}" from="${$args[2]}" to="${$args[3]}"></tween>
+        </as-task>
+
+        <li task:click="tween('set', '.box', {duration: 1, x: 100})">tween set 100</li>
+        <li task:click="tween('from', '.box', {duration: 1, x: 0})">tween form 0</li>
+        <li task:click="tween('to', '.box', {duration: 1, x: 400})">tween to 400</li>
+        <li task:click="tween('fromTo', '.box', {x: 100}, {duration: 1, x: 400})">tween formTo 100~400</li>
+        <li task:click="tween('set', '.box', {x: 100, y: 200})">tween set {x: 100, y: 200}</li>
+    </ol>
+
+    <as-task id="tween shorthand">
+        <hide selector="$args[0]" if="$args[1] === 'hide'" to="{y:-1000}"></hide>
+        <show selector="$args[0]" if="$args[1] === 'show'" from="{y:-1000}" to="{y:200}"></show>
+    </as-task>
+    <ol>
+        <li task:click="tween shorthand('.box', 'hide')">shorthand hide</li>
+        <li task:click="tween shorthand('.box', 'show')">shorthand show</li>
+    </ol>
+
+    <!--dom------------------------------------------------------>
+
+    <h2>DOM 속성</h2>
+    <ol>
+        <as-task id="add class">
+            <addClass selector=".box" classes="$args[0]" timer="1000"></addClass>
+        </as-task>
+        <as-task id="remove class">
+            <removeClass selector=".box" classes="$args[0]" timer="1000"></removeClass>
+        </as-task>
+
+        <as-task id="add Attribute">
+            <addAttr selector=".box" name="$args[0]" value="value=$args[1]" timer="1000"></addAttr>
+        </as-task>
+        <as-task id="remove Attribute">
+            <removeAttr selector=".box" name="$args[0]" timer="1000"></removeAttr>
+        </as-task>
+
+        <as-task id="add Style">
+            <addStyle selector=".box" styles="$args[0]" timer="1000"></addStyle>
+        </as-task>
+        <as-task id="remove Style">
+            <removeStyle selector=".box" styles="$args[0]" timer="1000"></removeStyle>
+        </as-task>
+
+        <li task:click="add class ('red')">add class ('red')</li>
+        <li task:click="remove class ('red')">remove class ('red')</li>
+
+        <li task:click="add class ('red ,radius')">add class ('red,radius')//콤마 구분자</li>
+        <li task:click="remove class ('red ,radius')">remove class ('red,radius')//콤마 구분자</li>
+
+        <li task:click="add Attribute ('border', 5)">add Attribute ('border', 5): border="value=5"</li>
+        <li task:click="remove Attribute ('border')">remove Attribute ('border')</li>
+
+        <li task:click="add Style ({width: '200px', height: '200px'})">add Style ({width: '200px', height: '200px'})</li>
+        <li task:click="remove Style ('width, height')">remove Style ('width, height')</li>
+    </ol>
+
+    <as-task id="dom shorthand">
+        <disable selector="$args[0]" if="$args[1] === 'disable'"></disable>
+        <enable selector="$args[0]" if="$args[1] === 'enable'"></enable>
+    </as-task>
+    <ol>
+        <li task:click="dom shorthand('.box', 'disable')">shorthand disable</li>
+        <li task:click="dom shorthand('.box', 'enable')">shorthand enable</li>
+    </ol>
+
+    <!--sound------------------------------------------------------>
+
+    <h2>sound 사용</h2>
+    <ol>
+        <as-task id="sound1 테스트">
+            <!--해지 후 break (아이디 중복 방지)-->
+            <break-release id="sound1_playing"></break-release>
+            <!--
+            계속 호출시 이벤트 누적됨: destroy 호출할것
+            -->
+            <sound id="soundID1"
+                   (set)="{src: $args[1]}"
+                   (run)="play()"
+                   onloadstart="console.log('on 이벤트 테스트: '+event.type, $args[1]);"></sound>
+
+            <!--<sound target="soundID1" set="{src: $args[1]}"></sound>-->
+            <sound target="soundID1" set="$args[2] || {src: $args[1]}"></sound>
+            <sound target="soundID1" run="play()" wait="ended"></sound>
+
+            <!--onended="$break.release('sound1_playing')"-->
+            <!--<break id="sound1_playing"></break>-->
+
+            <!--
+            이벤트 리스너등을 모두 해지해 주어야 누적되지 않음
+            destroy="all" : audio DOM을 포함하여 모두 삭제
+            destroy="" : 리스너만 모두 제거
+            -->
+            <sound target="soundID1" destroy="all"></sound>
+        </as-task>
+
+        <li task:click="sound1 테스트('soundID1', './asset/sound1.mp3')">soundID1 set: sound1.mp3</li>
+        <li task:click="sound1 테스트('soundID1', null, {src:'./asset/sound2.mp3', currentTime:68})">soundID1 set: sound2.mp3, currentTime:68</li>
+    </ol>
+
+    <h2>sound 컨트롤</h2>
+    <as-task id="sound2 테스트">
+        <sound id="$args[0]" set="$args[1]"></sound>
+    </as-task>
+
+    <as-task id="sound control">
+        <sound target="$args[0]" run="${$args[1]}(${$args[2]});"></sound>
+    </as-task>
+
+    <as-task id="sound destroy">
+        <sound target="$args[0]" destroy="$args[1]"></sound>
+    </as-task>
+
+    <ol>
+        <li task:click="sound2 테스트('soundID2', {src:'./asset/sound2.mp3'})">soundID2 set: {src: 'sound2.mp3'}</li>
+    </ol>
+
+    <h5>delay: 1000</h5>
+    <ol>
+        <as-task id="delay sound control">
+            <sound target="$args[0]" run="${$args[1]}(${$args[2]});" delay="2000"></sound>
+        </as-task>
+        <li task:click="delay sound control('soundID2', 'play')">delay soundID2 play</li>
+        <li task:click="delay sound control('soundID2', 'stop')">delay soundID2 stop</li>
+    </ol>
+
+    <h3>$soundID 호출 방식</h3>
+    <ol>
+        <li task:click="sound control('soundID2', 'play')">soundID2 play</li>
+        <li task:click="sound control('soundID2', 'stop')">soundID2 stop</li>
+        <li task:click="sound control('soundID2', 'pause')">soundID2 pause</li>
+        <li task:click="sound control('soundID2', 'togglePlay')">soundID2 togglePlay('pause')</li>
+        <li task:click="sound control('soundID2', 'togglePlay', '\'stop\'')">soundID2 togglePlay('stop')</li>
+        <li onclick="$task['sound control']('soundID2', 'togglePlay', '\'stop\'')">$task['sound control'] togglePlay('stop')</li>
+        <li task:click="sound control('soundID2', 'toggleFullScreen')">soundID2 toggleFullScreen</li>
+        <li task:click="sound destroy('soundID2')">soundID2 destroy</li>
+        <li task:click="sound destroy('soundID2', 'all')">soundID2 destroy all</li>
+    </ol>
+    <h3>$taskml.$sound 방식</h3>
+    <ol>
+        <li task:click="$sound['soundID2']?.play()">soundID2 play</li>
+        <li onclick="$sound['soundID2']?.stop()">soundID2 stop</li>
+        <li onclick="$sound['soundID2']?.pause()">soundID2 pause</li>
+        <li onclick="$sound['soundID2']?.togglePlay()">soundID2 togglePlay('pause')</li>
+        <li onclick="$sound['soundID2']?.togglePlay('stop')">soundID2 togglePlay('stop')</li>
+        <li onclick="$sound['soundID2']?.toggleFullScreen()">soundID2 toggleFullScreen</li>
+
+        <li onclick="$sound.destroy('soundID2')">soundID2 .$sound.destroy</li>
+        <li onclick="$sound.destroy('soundID2','all')">soundID2 .$sound.destroy all</li>
+        <li onclick="$taskml.$sound.destroy('soundID2','all')">soundID2 $taskml.$sound.destroy all</li>
+    </ol>
+
+</template>
+
+<!--랜더러 호출-->
+<!--id="app" 못찾으면 body에서 template 찾아 랜더링 함-->
+<div id="app"></div>
+
+</body>
+</html>
+
+<!--
+서버 없는 (CORS 회피) 로컬 개발 환경
+* chrome.bat 파일 실행 (chrome 브라우저 실행됨)
+* index.html 드래그해서 열면 CORS 에러 없이 작업할 수 있음
+-->
+
+
+<!--template 태그: 페이지가 로드될 때 사용자에게 숨겨진 일부 HTML 콘텐츠를 보관하는 컨테이너로 사용됨-->
+<!--id="taskml" 생략하면 template 첫번째 요소를 읽어들임-->
+<!--
+<template>
+    <is-page style class x="" y="" w="" h="">
+
+        &lt;!&ndash;Hidden 요소: 랜더링 할때 사라짐&ndash;&gt;
+        <as-task id="nextStep" task:end="...">
+            &lt;!&ndash;sequence 표현 (value: args[0])&ndash;&gt;
+        </as-task>
+
+        &lt;!&ndash;HTML DOM 요소&ndash;&gt;
+        <select onselect="$task.nextStep(this.value);">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+        </select>
+
+    </is-page>
+</template>
+-->

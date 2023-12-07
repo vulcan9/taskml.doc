@@ -26,7 +26,7 @@
 
 ## DEMO
 
-* [Demo](../demo/sample.html)
+* [Demo](../test/sample.html)
 
 ---------------------
 
@@ -38,8 +38,8 @@
 
 ```html
 
-<script type="module" crossorigin src="index-0.1.2.js"></script>
-<link rel="stylesheet" href="index-0.1.2.css">
+<script type="module" crossorigin src="index-0.1.3.js"></script>
+<link rel="stylesheet" href="index-0.1.3.css">
 ```
 
 템플릿 작성

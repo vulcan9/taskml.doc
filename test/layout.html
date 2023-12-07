@@ -2,11 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <link rel="icon" type="image/svg+xml" href="./vite.svg"/>
+    <link rel="icon" type="image/svg+xml" href="./asset/vite.svg"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>taskml</title>
-    <script type="module" crossorigin src="./taskml/index-0.1.0.js"></script>
-    <link rel="stylesheet" href="./taskml/index-0.1.0.css">
+
+    <link rel="stylesheet" href="../dist/taskml/index-0.1.3.css">
+    <script type="module" src="../dist/taskml/index-0.1.3.js"></script>
+
 </head>
 
 <body>
@@ -32,15 +34,15 @@
             </ul>
             <is-group x="50" y="" h="300" layout="" style="max-width: 80%;">
                 <is-audio x="20" y="20"
-                          src="./sound1.mp3" controls></is-audio>
+                          src="./asset/sound1.mp3" controls></is-audio>
                 <is-video y="100" w="300px"
                           task:loadstart="console.log ('video 로드됨');"
-                          src="./video.mp4" controls></is-video>
+                          src="./asset/video.mp4" controls></is-video>
                 <is-image x="350" y="50" w="100" onclick="console.error('click')"
-                          src="./vite.svg"></is-image>
+                          src="./asset/vite.svg"></is-image>
                 <is-text x="400" y="200"><p>텍스트1</p></is-text>
                 <is-lottie r="0" b="0" w="50%" h="50%"
-                           src="./lottie.json"
+                           src="./asset/lottie.json"
                            oncomplete="console.error('lottie complete')"
                            background="transparent" speed="1" direction="1" mode="normal"
                            loop autoplay></is-lottie>
@@ -54,18 +56,18 @@
                 <li>중심 축 이동 : align="left | center | right"</li>
                 <li>축 기준 아이템 정렬 : item-align="top | middle | bottom"</li>
                 <li>현재 설정: h="300" layout="row" align="" item-align=""</li>
-                <li>다음 설정과 같음: is-layout layout="row" h-align="" v-align="" style="flex-wrap: wrap;"</li>
+                <li>다음 설정과 같음: (&lt;is-layout layout="row" h-align="" v-align="" style="flex-wrap: wrap;"&gt;)</li>
             </ul>
             <is-group x="50" y="" h="300" layout="row" align="" item-align=""
                       style="max-width: 80%;">
-                <is-audio src="./sound1.mp3" controls></is-audio>
+                <is-audio src="./asset/sound1.mp3" controls></is-audio>
                 <is-video w="300px"
                           task:loadstart="console.log ('video 로드됨');"
-                          src="./video.mp4" controls></is-video>
-                <is-image w="100" src="./vite.svg"></is-image>
+                          src="./asset/video.mp4" controls></is-video>
+                <is-image w="100" src="./asset/vite.svg"></is-image>
                 <is-text><p>텍스트1</p></is-text>
                 <is-lottie r="0" b="0" w="50%" h="50%"
-                           src="./lottie.json"
+                           src="./asset/lottie.json"
                            oncomplete="console.error('lottie complete')"
                            background="transparent" speed="1" direction="1" mode="normal"
                            loop autoplay></is-lottie>
@@ -83,14 +85,14 @@
             <!--자식 x, y 무시됨-->
             <is-group x="50" y="" h="500" layout="column" align="" item-align=""
                       style="max-width: 80%;">
-                <is-audio src="./sound1.mp3" controls></is-audio>
+                <is-audio src="./asset/sound1.mp3" controls></is-audio>
                 <is-video w="300px"
                           task:loadstart="console.log ('video 로드됨');"
-                          src="./video.mp4" controls></is-video>
-                <is-image w="100" src="./vite.svg"></is-image>
+                          src="./asset/video.mp4" controls></is-video>
+                <is-image w="100" src="./asset/vite.svg"></is-image>
                 <is-text><p>텍스트1</p></is-text>
                 <is-lottie r="0" b="0" w="50%" h="50%"
-                           src="./lottie.json"
+                           src="./asset/lottie.json"
                            oncomplete="console.error('lottie complete')"
                            background="transparent" speed="1" direction="1" mode="normal"
                            loop autoplay></is-lottie>
@@ -118,14 +120,14 @@
             </ul>
             <is-layout x="50" y="" h="300" layout="row" h-align="" v-align=""
                        style="max-width: 80%;">
-                <is-audio src="./sound1.mp3" controls></is-audio>
+                <is-audio src="./asset/sound1.mp3" controls></is-audio>
                 <is-video w="300px"
                           task:loadstart="console.log ('video 로드됨');"
-                          src="./video.mp4" controls></is-video>
-                <is-image w="100" src="./vite.svg"></is-image>
+                          src="./asset/video.mp4" controls></is-video>
+                <is-image w="100" src="./asset/vite.svg"></is-image>
                 <is-text><p>텍스트1</p></is-text>
                 <is-lottie r="0" b="0" w="50%" h="50%"
-                           src="./lottie.json"
+                           src="./asset/lottie.json"
                            oncomplete="console.error('lottie complete')"
                            background="transparent" speed="1" direction="1" mode="normal"
                            loop autoplay></is-lottie>
@@ -136,21 +138,21 @@
             <ul>
                 <li>자식 x, y 무시됨</li>
                 <li>좌우 정렬 : h-align="start | center | end | space-around | space-between"</li>
-                <li>상하 정렬 : item-align="start | center | end | stretch"</li>
+                <li>상하 정렬 : v-align="start | center | end | stretch"</li>
                 <li>자식들중 flex attr이 있으면 (크기 지정 안된) 나머지 공간을
                     균등하게 분할하여 늘어나거나 줄어듬</li>
                 <li>현재 설정: h="400" layout="column" h-align="" v-align=""</li>
             </ul>
             <is-layout x="50" y="" h="400" layout="column" h-align="" v-align=""
                        style="max-width: 80%;">
-                <is-audio src="./sound1.mp3" controls></is-audio>
+                <is-audio src="./asset/sound1.mp3" controls></is-audio>
                 <is-video w="300px"
                           task:loadstart="console.log ('video 로드됨');"
-                          src="./video.mp4" controls></is-video>
-                <is-image w="100" src="./vite.svg"></is-image>
+                          src="./asset/video.mp4" controls></is-video>
+                <is-image w="100" src="./asset/vite.svg"></is-image>
                 <is-text><p>텍스트1</p></is-text>
                 <is-lottie r="0" b="0" w="50%" h="50%"
-                           src="./lottie.json"
+                           src="./asset/lottie.json"
                            oncomplete="console.error('lottie complete')"
                            background="transparent" speed="1" direction="1" mode="normal"
                            loop autoplay></is-lottie>
@@ -161,21 +163,21 @@
             <ul>
                 <li>자식 x, y 무시됨</li>
                 <li>좌우 정렬 : h-align="start | center | end | space-around | space-between"</li>
-                <li>상하 정렬 : item-align="start | center | end | stretch"</li>
+                <li>상하 정렬 : v-align="start | center | end | stretch"</li>
                 <li>자식들중 flex attr이 있으면 (크기 지정 안된) 나머지 공간을
                     균등하게 분할하여 늘어나거나 줄어듬</li>
                 <li>현재 설정: h="300" layout="row" h-align="" v-align=""</li>
             </ul>
             <is-layout x="50" y="" h="300" layout="row" h-align="" v-align=""
                        style="max-width: 80%;">
-                <is-audio src="./sound1.mp3" controls></is-audio>
+                <is-audio src="./asset/sound1.mp3" controls></is-audio>
                 <is-video w="300px"
                           task:loadstart="console.log ('video 로드됨');"
-                          src="./video.mp4" controls></is-video>
-                <is-image flex w="100" src="./vite.svg"></is-image>
+                          src="./asset/video.mp4" controls></is-video>
+                <is-image flex w="100" src="./asset/vite.svg"></is-image>
                 <is-text flex><p>텍스트1</p></is-text>
                 <is-lottie r="0" b="0" w="50%" h="50%"
-                           src="./lottie.json"
+                           src="./asset/lottie.json"
                            oncomplete="console.error('lottie complete')"
                            background="transparent" speed="1" direction="1" mode="normal"
                            loop autoplay></is-lottie>
@@ -187,7 +189,9 @@
 
 </template>
 
+<!--id="app" 못찾으면 body에서 template 찾아 랜더링 함-->
 <div id="app"></div>
+
 </body>
 </html>
 
