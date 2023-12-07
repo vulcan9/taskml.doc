@@ -3,7 +3,7 @@ import {
     $args_inject_attr,
     $args_inject_onEvent,
     $args_inject_srcID
-} from "@task/$argsParser.js";
+} from "../src/task/$argsParser.js";
 
 const map = new Map();
 // window.map = map;
