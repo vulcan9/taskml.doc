@@ -27,7 +27,7 @@
 ## DEMO
 
 * [Demo](../test/sample.html)
-* [task 단위 테스트](../test/task.html)
+* [task 단위 테스트](../test/task.html) (console log로 확인)
 * [드래그앤드랍](../test/dnd.html)
 * ~~[매개변수 단위 테스트](../test/args.js)~~
 * [레이아웃](../test/layout.html)
