@@ -6,7 +6,7 @@
 }
 
 //--------------------------------------
-// í’€ìŠ¤í¬ë¦° ìƒíƒœê°€ ë ë•Œ
+// Ç®½ºÅ©¸° »óÅÂ°¡ µÉ¶§
 //--------------------------------------
 
 @mixin video-container-fullscreen {
@@ -17,25 +17,25 @@
         }
 
         [video-controller-button = "fullscreen"]:after {
-            content: 'ì¶•ì†Œ';
+            content: 'Ãà¼Ò';
         }
     }
     [video-controller-button = "fullscreen"]:after {
-        content: 'ì „ì²´í™”ë©´';
+        content: 'ÀüÃ¼È­¸é';
     }
 }
 
 //--------------------------------------
-// ë²„íŠ¼ ê¸°ëŠ¥
+// ¹öÆ° ±â´É
 //--------------------------------------
 
-// ì¤‘ì•™ì˜ í° ë²„íŠ¼: loading, play, pause
+// Áß¾ÓÀÇ Å« ¹öÆ°: loading, play, pause
 @mixin video-controller-big-button {
     [video-controller-big-button]{
         border: 1px dotted blueviolet;
         width: 100px;
         height: 100px;
-        // ì¤‘ì•™ ì •ë ¬
+        // Áß¾Ó Á¤·Ä
         position: absolute;
         top: 50%;
         left: 50%;
@@ -54,7 +54,7 @@
     }
 }
 
-// ë°°ì† ì„ íƒ ë©”ë‰´
+// ¹è¼Ó ¼±ÅÃ ¸Ş´º
 @mixin video-controller-playback {
 
     [video-controller-playback]{
@@ -88,20 +88,20 @@
     }
 }
 
-// ìë§‰ ë³´ì´ê¸°/ê°ì¶”ê¸°
+// ÀÚ¸· º¸ÀÌ±â/°¨Ãß±â
 @mixin video-controller-track {
     [video-controller-button="track"]{
-        &:after { content: 'ìë§‰(' attr( data-value ) ')'; }
+        &:after { content: 'ÀÚ¸·(' attr( data-value ) ')'; }
 
-        // ìë§‰ ì—†ìŒ ìƒíƒœ
+        // ÀÚ¸· ¾øÀ½ »óÅÂ
         &[data-value="disabled"]{
             @include disable;
         }
-        // ìë§‰ ë³´ì´ê¸° ìƒíƒœ
+        // ÀÚ¸· º¸ÀÌ±â »óÅÂ
         &[data-value="showing"]{
 
         }
-        // ìë§‰ ê°ì¶”ê¸° ìƒíƒœ
+        // ÀÚ¸· °¨Ãß±â »óÅÂ
         &[data-value="hidden"]{
 
         }
@@ -109,41 +109,41 @@
 }
 
 //--------------------------------------
-// ë¹„ë””ì˜¤ ìƒíƒœ ì—…ë°ì´íŠ¸
+// ºñµğ¿À »óÅÂ ¾÷µ¥ÀÌÆ®
 //--------------------------------------
 
 @mixin video-container-state {
 
-    // ì—ëŸ¬ë“±ì˜ ì´ìœ ë¡œ ë¹„í™œì„±í™” ìƒíƒœê°€ ë¨
+    // ¿¡·¯µîÀÇ ÀÌÀ¯·Î ºñÈ°¼ºÈ­ »óÅÂ°¡ µÊ
     &.disable{
         [video-controller] {
             @include disable;
         }
     }
-    // ë¯¸ë””ì–´ ë°ì´í„°ë¥¼ ê°€ì ¸ì˜¤ë‹¤ê°€ ì—ëŸ¬ê°€ ë°œìƒí–ˆì„ ë•Œ
+    // ¹Ìµğ¾î µ¥ÀÌÅÍ¸¦ °¡Á®¿À´Ù°¡ ¿¡·¯°¡ ¹ß»ıÇßÀ» ¶§
     &.error{
         [video-controller] {
             @include disable;
         }
     }
 
-    // (ë¡œë“œì¤‘) ë‹¤ìŒ í”„ë ˆì„ì´ ë¡œë“œë˜ì§€ ì•Šì•„ì„œ ì¬ìƒì´ ë©ˆì¶”ì—ˆì„ ë•Œ,
-    // ë¸Œë¼ìš°ì ¸ëŠ” ê³§ í”„ë ˆì„ì´ ê°€ëŠ¥í•´ì§ˆ ê²ƒì´ë¼ê³  ì˜ˆìƒí•˜ê³  ìˆìŒ
+    // (·ÎµåÁß) ´ÙÀ½ ÇÁ·¹ÀÓÀÌ ·ÎµåµÇÁö ¾Ê¾Æ¼­ Àç»ıÀÌ ¸ØÃß¾úÀ» ¶§,
+    // ºê¶ó¿ìÁ®´Â °ğ ÇÁ·¹ÀÓÀÌ °¡´ÉÇØÁú °ÍÀÌ¶ó°í ¿¹»óÇÏ°í ÀÖÀ½
     &.waiting{
 
     }
 
-    // (canplay) ë¸Œë¼ìš°ì ¸ê°€ ë¯¸ë””ì–´ ë°ì´í„°ì˜ ì¬ìƒì´ ê°€ëŠ¥í•´ì§ˆ ë•Œ ë°œìƒ,
-    //           í•˜ì§€ë§Œ ì§€ê¸ˆ ì¬ìƒì„ ì‹œì‘í•˜ë©´ ì´í›„ ë²„í¼ë§ ì†ë„ê°€ ëŠë ¤ì„œ ë‹¤ì‹œ ë©ˆì¶”ì§€ ì•Šê³  ì¬ìƒì´ ë¶ˆê°€í• ê²ƒì´ë¼ê³  ì¸¡ì • í•¨
-    // (canplaythrough) ë¸Œë¼ìš°ì €ê°€ í˜„ì¬ ì¬ìƒì„ ì‹œì‘í•˜ë©´,
-    //                  ë²„í¼ë§ ì†ë„ì™€ ì¬ìƒ ì†ë„ë¥¼ ê³ ë ¤í–ˆì„ ë•Œ ëê¹Œì§€ ë©ˆì¶”ì§€ ì•Šê³  ì¬ìƒ ê°€ëŠ¥í•  ê²ƒì´ë¼ê³  ì¸¡ì • í•¨
+    // (canplay) ºê¶ó¿ìÁ®°¡ ¹Ìµğ¾î µ¥ÀÌÅÍÀÇ Àç»ıÀÌ °¡´ÉÇØÁú ¶§ ¹ß»ı,
+    //           ÇÏÁö¸¸ Áö±İ Àç»ıÀ» ½ÃÀÛÇÏ¸é ÀÌÈÄ ¹öÆÛ¸µ ¼Óµµ°¡ ´À·Á¼­ ´Ù½Ã ¸ØÃßÁö ¾Ê°í Àç»ıÀÌ ºÒ°¡ÇÒ°ÍÀÌ¶ó°í ÃøÁ¤ ÇÔ
+    // (canplaythrough) ºê¶ó¿ìÀú°¡ ÇöÀç Àç»ıÀ» ½ÃÀÛÇÏ¸é,
+    //                  ¹öÆÛ¸µ ¼Óµµ¿Í Àç»ı ¼Óµµ¸¦ °í·ÁÇßÀ» ¶§ ³¡±îÁö ¸ØÃßÁö ¾Ê°í Àç»ı °¡´ÉÇÒ °ÍÀÌ¶ó°í ÃøÁ¤ ÇÔ
     &.canplay,
     &.canplaythrough{
 
     }
 
     //--------------------------------------
-    // ì¬ìƒì´ ì‹œì‘ë˜ì—ˆì„ ë•Œ
+    // Àç»ıÀÌ ½ÃÀÛµÇ¾úÀ» ¶§
     //--------------------------------------
 
     [video-controller-button = "play"]{display: inline-block;}
@@ -154,23 +154,23 @@
         [video-controller-button = "play"]{display: none;}
         [video-controller-button = "pause"]{display: inline-block;}
     }
-    // ì¬ìƒì´ ë©ˆì¶˜ ê²½ìš° (currentTime = 0ì´ ì•„ë‹˜)
+    // Àç»ıÀÌ ¸ØÃá °æ¿ì (currentTime = 0ÀÌ ¾Æ´Ô)
     &.pause{
         [video-controller-button = "play"]{display: inline-block;}
         [video-controller-button = "pause"]{display: none;}
     }
-    // ì¬ìƒì´ ë©ˆì¶˜ ê²½ìš° (currentTime = 0)
+    // Àç»ıÀÌ ¸ØÃá °æ¿ì (currentTime = 0)
     &.stop{
         [video-controller-button = "play"]{display: inline-block;}
         [video-controller-button = "pause"]{display: none;}
     }
-    // ì¬ìƒì´ ë©ˆì¶˜ ê²½ìš° (currentTime = duration)
+    // Àç»ıÀÌ ¸ØÃá °æ¿ì (currentTime = duration)
     &.ended{
         [video-controller-button = "play"]{display: inline-block;}
         [video-controller-button = "pause"]{display: none;}
     }
 
-    // ìŒì†Œê±° ìƒíƒœ
+    // À½¼Ò°Å »óÅÂ
     &.muted{
         [video-controller-button="mute"]:before{ content: 'Mute'; }
     }
@@ -178,7 +178,7 @@
 }
 
 //--------------------------------------
-// ë””ë²„ê¹… í‘œì‹œ
+// µğ¹ö±ë Ç¥½Ã
 //--------------------------------------
 
 /*
@@ -193,7 +193,7 @@
 */
 
 //////////////////////////////////////////////////////
-// ë¹„ë””ì˜¤ ì»¨íŠ¸ë¡¤ëŸ¬
+// ºñµğ¿À ÄÁÆ®·Ñ·¯
 //////////////////////////////////////////////////////
 
 [video-container] {
@@ -201,14 +201,14 @@
     user-select: none;
 
     //--------------------------------------
-    // ì»¨íŠ¸ë¡¤ëŸ¬ ê·¸ë£¹
+    // ÄÁÆ®·Ñ·¯ ±×·ì
     //--------------------------------------
 
     [video-controller] {
         position: relative;
         width: 100%;
 
-        // ìµœìƒìœ„ ë…¸ì¶œ
+        // ÃÖ»óÀ§ ³ëÃâ
         &:hover{
             //position: fixed;
             z-index: 9999;
@@ -222,22 +222,22 @@
         display: inline-block;
     }
 
-    // ì¤‘ì•™ì˜ í° ë²„íŠ¼: loading, play, pause
+    // Áß¾ÓÀÇ Å« ¹öÆ°: loading, play, pause
     @include video-controller-big-button;
 
-    // ë¹„ë””ì˜¤ ìƒíƒœ ì—…ë°ì´íŠ¸
+    // ºñµğ¿À »óÅÂ ¾÷µ¥ÀÌÆ®
     @include video-container-state;
-    // í’€ìŠ¤í¬ë¦° ìƒíƒœê°€ ë ë•Œ
+    // Ç®½ºÅ©¸° »óÅÂ°¡ µÉ¶§
     @include video-container-fullscreen;
 
-    // ë°°ì† ì„ íƒ ë©”ë‰´
+    // ¹è¼Ó ¼±ÅÃ ¸Ş´º
     @include video-controller-playback;
-    // ìë§‰ ë³´ì´ê¸°/ê°ì¶”ê¸°
+    // ÀÚ¸· º¸ÀÌ±â/°¨Ãß±â
     @include video-controller-track;
 }
 
 //--------------------------------------
-// í”„ë¡œê·¸ë˜ì‹œë¸Œ ë°”
+// ÇÁ·Î±×·¡½Ãºê ¹Ù
 //--------------------------------------
 
 [video-controller] {
@@ -258,8 +258,8 @@
         //min-width: $handleHalfSize;
         //max-width: calc(100% - $handleHalfSize);
 
-        // padding ì˜ì—­ê¹Œì§€ mouse ë™ì‘í•˜ë„ë¡ í•˜ê¸° ìœ„í•´
-        // margin ëŒ€ì‹  paddingì„ ì‚¬ìš©í•œ í›„ :beforeì— ìƒ‰ê¹” í‘œì‹œí•¨
+        // padding ¿µ¿ª±îÁö mouse µ¿ÀÛÇÏµµ·Ï ÇÏ±â À§ÇØ
+        // margin ´ë½Å paddingÀ» »ç¿ëÇÑ ÈÄ :before¿¡ »ö±ò Ç¥½ÃÇÔ
         &:before {
             content: "";
             position: absolute;
@@ -272,7 +272,7 @@
         [progress-bar] {
 
             //-----------------
-            // ì§„í–‰ë°” ìœ„ì¹˜ì„
+            // ÁøÇà¹Ù À§Ä¡ÀÓ
             width: 0;
             //-----------------
 
@@ -282,7 +282,7 @@
             background-color: $barColor;
 
             /*
-            // ì§„í–‰ ë°” í‘œì‹œ
+            // ÁøÇà ¹Ù Ç¥½Ã
             &:before {
                 content: "";
                 box-sizing: border-box;
@@ -297,7 +297,7 @@
                 //background-color: red;
             }
 
-            // ì§„í–‰ ë°” ì•µì»¤ í‘œì‹œ
+            // ÁøÇà ¹Ù ¾ŞÄ¿ Ç¥½Ã
             &:after {
                 content: "";
                 box-sizing: border-box;
@@ -318,11 +318,11 @@
             */
         }
 
-        // ì§„í–‰ ë°” ì•µì»¤ í‘œì‹œ
+        // ÁøÇà ¹Ù ¾ŞÄ¿ Ç¥½Ã
         [progress-bar-thumb]{
 
             //-----------------
-            // ì§„í–‰ë°” ìœ„ì¹˜ì„
+            // ÁøÇà¹Ù À§Ä¡ÀÓ
             left: 0;
             //-----------------
 
@@ -353,7 +353,7 @@
 }
 
 //--------------------------------------
-// ë³¼ë¥¨ë°”
+// º¼·ı¹Ù
 //--------------------------------------
 
 [video-controller] {
@@ -381,7 +381,7 @@
         $barColor: white;
 
         [progress-bar] {
-            // ì§„í–‰ ë°” í‘œì‹œ
+            // ÁøÇà ¹Ù Ç¥½Ã
             &:before {
                 content: "";
                 box-sizing: border-box;
@@ -396,7 +396,7 @@
                 //background-color: red;
             }
 
-            // ì§„í–‰ ë°” ì•µì»¤ í‘œì‹œ
+            // ÁøÇà ¹Ù ¾ŞÄ¿ Ç¥½Ã
             &:after {
                 content: "";
                 box-sizing: border-box;
@@ -421,7 +421,7 @@
     }
 
     //--------------
-    // ê°€ë¡œ ë³¼ë¥¨ë°”
+    // °¡·Î º¼·ı¹Ù
     //--------------
     [video-controller-volume="horizontal"]{
         $barSize: 150px;
@@ -445,7 +445,7 @@
     }
 
     //--------------
-    // ì„¸ë¡œ ë³¼ë¥¨ë°”
+    // ¼¼·Î º¼·ı¹Ù
     //--------------
     [video-controller-volume="vertical"]{
         $barSize: 100px;
@@ -457,7 +457,7 @@
 
         @mixin hide{
             transition: all ease-in-out 0.3s;
-            // ì¢€ ëŠë¦¬ê²Œ ì‚¬ë¼ì§€ë„ë¡ delay ì¤Œ
+            // Á» ´À¸®°Ô »ç¶óÁöµµ·Ï delay ÁÜ
             transition-delay: 0.5s;
 
             width: 0;
@@ -471,7 +471,7 @@
             transition-delay: 0s;
         }
 
-        // ë”¤ë“œ ë°°ê²½
+        // µõµå ¹è°æ
         .volumeBarBg{
             position: absolute;
             background-color: rgba(0, 0, 0, 0.5);
@@ -512,7 +512,7 @@
 }
 
 //////////////////////////////////////////////////////
-// ë¶ë§ˆí¬ ì•µì»¤
+// ºÏ¸¶Å© ¾ŞÄ¿
 //////////////////////////////////////////////////////
 
 [video-controller] {
@@ -523,7 +523,7 @@
         top: 0; left: 0;
         //background-color: rgba(138, 43, 226, 0.41);
 
-        // í…œí”Œë¦¿ìœ¼ë¡œë¶€í„° ë™ì ìœ¼ë¡œ ìƒì„±ë¨
+        // ÅÛÇÃ¸´À¸·ÎºÎÅÍ µ¿ÀûÀ¸·Î »ı¼ºµÊ
         [progress-anchor-item]{
             position: absolute;
             display: inline-block;
@@ -550,7 +550,7 @@
                 background-color: rgba(255, 255, 255, 0.29);
             }
 
-            // ë¡¤ì˜¤ë²„ì¼ë•Œë§Œ ë³´ì´ë„ë¡í•¨
+            // ·Ñ¿À¹öÀÏ¶§¸¸ º¸ÀÌµµ·ÏÇÔ
             .label:not(.show){display: none}
             &:hover{
                 .label{display: block}
