@@ -1,0 +1,562 @@
+
+@mixin disable {
+    $disableOpacity: 0.3;
+    opacity: $disableOpacity;
+    pointer-events: none;
+}
+
+//--------------------------------------
+// 풀스크린 상태가 될때
+//--------------------------------------
+
+@mixin video-container-fullscreen {
+    &:fullscreen {
+        video {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        [video-controller-button = "fullscreen"]:after {
+            content: '축소';
+        }
+    }
+    [video-controller-button = "fullscreen"]:after {
+        content: '전체화면';
+    }
+}
+
+//--------------------------------------
+// 버튼 기능
+//--------------------------------------
+
+// 중앙의 큰 버튼: loading, play, pause
+@mixin video-controller-big-button {
+    [video-controller-big-button]{
+        border: 1px dotted blueviolet;
+        width: 100px;
+        height: 100px;
+        // 중앙 정렬
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #d6e4f0;
+    }
+
+    [video-controller-big-button]{ display: none; }
+    &.canplay,
+    &.canplaythrough,
+    &.pause{
+        [video-controller-big-button]{ display: block; }
+    }
+    &.play, &.playing{
+        [video-controller-big-button]{ display: none; }
+    }
+}
+
+// 배속 선택 메뉴
+@mixin video-controller-playback {
+
+    [video-controller-playback]{
+        $video-container-iconSize: 32px;
+
+        display: inline-block;
+        position: relative;
+        [video-controller-button="playback"]{
+            //width: $video-container-iconSize;
+            height: $video-container-iconSize;
+            &:after{
+                content: attr(data-value);
+            }
+        }
+
+        [popup-menu]{
+            position: absolute;
+            bottom: $video-container-iconSize;
+            padding: 10px;
+
+            display: none;
+            &.open{ display: block; }
+
+            option:not([selected]):hover{
+                background-color: rgba(0, 183, 255, 0.5);
+            }
+            option[selected]{
+                background-color: #00b7ff;
+            }
+        }
+    }
+}
+
+// 자막 보이기/감추기
+@mixin video-controller-track {
+    [video-controller-button="track"]{
+        &:after { content: '자막(' attr( data-value ) ')'; }
+
+        // 자막 없음 상태
+        &[data-value="disabled"]{
+            @include disable;
+        }
+        // 자막 보이기 상태
+        &[data-value="showing"]{
+
+        }
+        // 자막 감추기 상태
+        &[data-value="hidden"]{
+
+        }
+    }
+}
+
+//--------------------------------------
+// 비디오 상태 업데이트
+//--------------------------------------
+
+@mixin video-container-state {
+
+    // 에러등의 이유로 비활성화 상태가 됨
+    &.disable{
+        [video-controller] {
+            @include disable;
+        }
+    }
+    // 미디어 데이터를 가져오다가 에러가 발생했을 때
+    &.error{
+        [video-controller] {
+            @include disable;
+        }
+    }
+
+    // (로드중) 다음 프레임이 로드되지 않아서 재생이 멈추었을 때,
+    // 브라우져는 곧 프레임이 가능해질 것이라고 예상하고 있음
+    &.waiting{
+
+    }
+
+    // (canplay) 브라우져가 미디어 데이터의 재생이 가능해질 때 발생,
+    //           하지만 지금 재생을 시작하면 이후 버퍼링 속도가 느려서 다시 멈추지 않고 재생이 불가할것이라고 측정 함
+    // (canplaythrough) 브라우저가 현재 재생을 시작하면,
+    //                  버퍼링 속도와 재생 속도를 고려했을 때 끝까지 멈추지 않고 재생 가능할 것이라고 측정 함
+    &.canplay,
+    &.canplaythrough{
+
+    }
+
+    //--------------------------------------
+    // 재생이 시작되었을 때
+    //--------------------------------------
+
+    [video-controller-button = "play"]{display: inline-block;}
+    [video-controller-button = "pause"]{display: none;}
+    [video-controller-button = "stop"]{display: inline-block;}
+
+    &.play{
+        [video-controller-button = "play"]{display: none;}
+        [video-controller-button = "pause"]{display: inline-block;}
+    }
+    // 재생이 멈춘 경우 (currentTime = 0이 아님)
+    &.pause{
+        [video-controller-button = "play"]{display: inline-block;}
+        [video-controller-button = "pause"]{display: none;}
+    }
+    // 재생이 멈춘 경우 (currentTime = 0)
+    &.stop{
+        [video-controller-button = "play"]{display: inline-block;}
+        [video-controller-button = "pause"]{display: none;}
+    }
+    // 재생이 멈춘 경우 (currentTime = duration)
+    &.ended{
+        [video-controller-button = "play"]{display: inline-block;}
+        [video-controller-button = "pause"]{display: none;}
+    }
+
+    // 음소거 상태
+    &.muted{
+        [video-controller-button="mute"]:before{ content: 'Mute'; }
+    }
+
+}
+
+//--------------------------------------
+// 디버깅 표시
+//--------------------------------------
+
+/*
+[video-controller] {
+    border: 1px solid #0047ff;
+    [video-controller-button],
+    [video-controller-time]{
+        border: 1px dotted blueviolet;
+    }
+    transform: translateY(-200%) !important;
+}
+*/
+
+//////////////////////////////////////////////////////
+// 비디오 컨트롤러
+//////////////////////////////////////////////////////
+
+[video-container] {
+    width: min-content;
+    user-select: none;
+
+    //--------------------------------------
+    // 컨트롤러 그룹
+    //--------------------------------------
+
+    [video-controller] {
+        position: relative;
+        width: 100%;
+
+        // 최상위 노출
+        &:hover{
+            //position: fixed;
+            z-index: 9999;
+        }
+        color: white;
+        transform: translateY(-100%);
+    }
+
+    [video-controller-button],
+    [video-controller-time]{
+        display: inline-block;
+    }
+
+    // 중앙의 큰 버튼: loading, play, pause
+    @include video-controller-big-button;
+
+    // 비디오 상태 업데이트
+    @include video-container-state;
+    // 풀스크린 상태가 될때
+    @include video-container-fullscreen;
+
+    // 배속 선택 메뉴
+    @include video-controller-playback;
+    // 자막 보이기/감추기
+    @include video-controller-track;
+}
+
+//--------------------------------------
+// 프로그래시브 바
+//--------------------------------------
+
+[video-controller] {
+    padding: 0 20px;
+    box-sizing: border-box;
+
+    [video-controller-progress]{
+        $handleSize: 15px;
+        $handleHalfSize: calc($handleSize / 2);
+        $barHeight: 5px;
+        $barColor: white;
+
+        position: relative;
+        width: 100%;
+        height: $barHeight;
+        padding: 10px 0;
+
+        //min-width: $handleHalfSize;
+        //max-width: calc(100% - $handleHalfSize);
+
+        // padding 영역까지 mouse 동작하도록 하기 위해
+        // margin 대신 padding을 사용한 후 :before에 색깔 표시함
+        &:before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: $barHeight;
+            border-radius: 1rem;
+            background-color: rgb(71, 71, 71);
+        }
+
+        [progress-bar] {
+
+            //-----------------
+            // 진행바 위치임
+            width: 0;
+            //-----------------
+
+            position: absolute;
+            height: $barHeight;
+            border-radius: 1rem;
+            background-color: $barColor;
+
+            /*
+            // 진행 바 표시
+            &:before {
+                content: "";
+                box-sizing: border-box;
+                width: calc(100% - $handleSize);
+                height: 100%;
+                pointer-events: none;
+                //position: absolute;
+                left: $handleHalfSize;
+                display: block;
+                position: relative;
+                float: left;
+                //background-color: red;
+            }
+
+            // 진행 바 앵커 표시
+            &:after {
+                content: "";
+                box-sizing: border-box;
+                width: $handleSize;
+                height: $handleSize;
+                pointer-events: none;
+
+                position: absolute;
+                clear: both;
+                top: 50%;
+                transform: translate(0%, -50%);
+
+                border-radius: 50%;
+                background-color: $barColor;
+                opacity: 0;
+                transition: opacity linear 0.3s;
+            }
+            */
+        }
+
+        // 진행 바 앵커 표시
+        [progress-bar-thumb]{
+
+            //-----------------
+            // 진행바 위치임
+            left: 0;
+            //-----------------
+
+            box-sizing: border-box;
+            width: $handleSize;
+            height: $handleSize;
+            pointer-events: none;
+
+            position: absolute;
+            clear: both;
+            top: 50%;
+            transform: translate(-50%, -50%);
+
+            border-radius: 50%;
+            background-color: $barColor;
+            //opacity: 0.5;
+            opacity: 0;
+            transition: opacity linear 0.3s;
+        }
+
+        &:hover{
+            //[progress-bar]:after,
+            [progress-bar-thumb]{
+                opacity: 1;
+            }
+        }
+    }
+}
+
+//--------------------------------------
+// 볼륨바
+//--------------------------------------
+
+[video-controller] {
+    $muteIconSize: 30px;
+    $muteIconSize_half: calc($muteIconSize / 2);
+
+    [video-controller-button="mute"]{
+        width: $muteIconSize;
+        overflow: hidden;
+    }
+    [video-controller-button="mute"]:before{
+        content: 'Vol';
+        pointer-events: none;
+    }
+
+    [video-controller-volume]{
+        width: $muteIconSize;
+        height: $muteIconSize;
+        display: inline-flex;
+    }
+
+    [video-controller-volume]{
+        $handleSize: 15px;
+        $handleHalfSize: calc($handleSize / 2);
+        $barColor: white;
+
+        [progress-bar] {
+            // 진행 바 표시
+            &:before {
+                content: "";
+                box-sizing: border-box;
+                width: calc(100% - $handleSize);
+                height: 100%;
+                pointer-events: none;
+                //position: absolute;
+                left: $handleHalfSize;
+                display: block;
+                position: relative;
+                float: left;
+                //background-color: red;
+            }
+
+            // 진행 바 앵커 표시
+            &:after {
+                content: "";
+                box-sizing: border-box;
+                width: $handleSize;
+                height: $handleSize;
+                pointer-events: none;
+
+                position: absolute;
+                clear: both;
+                top: 50%;
+                transform: translate(0%, -50%);
+
+                border-radius: 50%;
+                background-color: $barColor;
+                transition: opacity linear 0.3s;
+            }
+        }
+
+        [progress-bar-thumb]{
+            opacity: 1 !important;
+        }
+    }
+
+    //--------------
+    // 가로 볼륨바
+    //--------------
+    [video-controller-volume="horizontal"]{
+        $barSize: 150px;
+        transition: all ease-in 0.3s;
+        overflow: hidden;
+
+        //padding: 0 10px;
+        &:hover, &.open{
+            width: $barSize;
+            height: $muteIconSize;
+            [video-controller-progress]{
+                display: inline-block;
+            }
+        }
+
+        [video-controller-progress]{
+            margin: 10px;
+            padding: 0;
+            display: none;
+        }
+    }
+
+    //--------------
+    // 세로 볼륨바
+    //--------------
+    [video-controller-volume="vertical"]{
+        $barSize: 100px;
+
+        [video-controller-button="mute"]{
+            width: $muteIconSize;
+            overflow: hidden;
+        }
+
+        @mixin hide{
+            transition: all ease-in-out 0.3s;
+            // 좀 느리게 사라지도록 delay 줌
+            transition-delay: 0.5s;
+
+            width: 0;
+            opacity: 0;
+            visibility: hidden;
+        }
+        @mixin show{
+            width: $barSize;
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0s;
+        }
+
+        // 딤드 배경
+        .volumeBarBg{
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.5);
+            width: $barSize;
+            height: 35px;
+            padding: 0 15px;
+            border-radius: 1rem;
+
+            transform: translateX(-5px) rotateZ(-90deg);
+            transform-origin: 0 0;
+
+            @include hide;
+        }
+
+        [video-controller-progress]{
+            //@mixin hide;
+
+            //position: fixed;
+            //transform: translateX(-10px) rotateZ(-90deg);
+            //transform-origin: 0 0;
+            padding: 15px 0;
+        }
+
+        &:hover, &.open{
+            width: $muteIconSize;
+            height: $muteIconSize;
+
+            //[video-controller-progress],
+            .volumeBarBg{
+                @include show;
+            }
+        }
+        [video-controller-progress]:hover{
+            width: $barSize;
+            visibility: visible;
+        }
+    }
+}
+
+//////////////////////////////////////////////////////
+// 북마크 앵커
+//////////////////////////////////////////////////////
+
+[video-controller] {
+    [progress-anchor] {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        top: 0; left: 0;
+        //background-color: rgba(138, 43, 226, 0.41);
+
+        // 템플릿으로부터 동적으로 생성됨
+        [progress-anchor-item]{
+            position: absolute;
+            display: inline-block;
+            //width: 5px;
+            //height: 5px;
+            //top: 50%;
+            transform: translate(-50%, 0);
+            //background-color: yellow;
+
+            .anchor{
+                position: relative;
+                width: 5px;
+                height: 5px;
+                background-color: white;
+                //transform: translate(-50%, 0);
+                cursor: pointer;
+            }
+            .label{
+                position: absolute;
+                width: max-content;
+                //height: 5px;
+                top: -10px;
+                transform: translate(-50%, -100%);
+                background-color: rgba(255, 255, 255, 0.29);
+            }
+
+            // 롤오버일때만 보이도록함
+            .label:not(.show){display: none}
+            &:hover{
+                .label{display: block}
+            }
+
+        }
+    }
+}
+

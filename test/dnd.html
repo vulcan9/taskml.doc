@@ -37,14 +37,28 @@
                   style="max-width: 80%; transform: scale(0.5);
                       transform-origin: 0% 0%;">
 
-            <!--DND-->
+            <!--드랍 설정
+            data-dnd-group: 드래그/드랍이 서로 호환(허용)되는 그룹 네이밍
+            data-drop-value: 드랍 가능 비교값
+            -->
             <is-div data-drop-value="a" data-dnd-group="group1" w="100" h="100" x="100" y="100"></is-div>
 
+            <!--드래그 설정
+            data-dnd-group: 드래그/드랍이 서로 호환(허용)되는 그룹 네이밍
+            data-drag-value: 드랍 가능 비교값
+            -->
             <is-div data-drag-value="a" data-dnd-group="group1" ondragstart="console.error('start')">
                 <div style="user-select: none">드래그앤 드랍</div>
             </is-div>
 
-            <!--일반 드레그-->
+            <!--드레그/드랍 이벤트
+            드레그/드랍이 완료되면 성공 여부가 양측 element 모두에게서 발생하므로
+            원하는 곳에서 이벤트를 사용하면 됨
+              - 드랍 성공 이벤트: "success"
+              - 드랍 실패 이벤트: "fail"
+              - 이벤트 객체에 좌표 정보가 함께 들어 있음
+              - tween 라이브러리와 호환을 위해 transform을 사용하는 것이 좋음
+            -->
             <div data-drop-value="a" data-dnd-group="group2"
                  style="width: 100px; height: 100px; left: 300px; top: 300px;
                  position: absolute; border: 1px solid #00b7ff;"
@@ -115,26 +129,4 @@
 서버 없는 (CORS 회피) 로컬 개발 환경
 * chrome.bat 파일 실행 (chrome 브라우저 실행됨)
 * index.html 드래그해서 열면 CORS 에러 없이 작업할 수 있음
--->
-
-
-<!--template 태그: 페이지가 로드될 때 사용자에게 숨겨진 일부 HTML 콘텐츠를 보관하는 컨테이너로 사용됨-->
-
-<!--
-<template>
-    <is-page style class x="" y="" w="" h="">
-
-        &lt;!&ndash;Hidden 요소: 랜더링 할때 사라짐&ndash;&gt;
-        <as-task id="nextStep" task:end="...">
-            &lt;!&ndash;sequence 표현 (value: args[0])&ndash;&gt;
-        </as-task>
-
-        &lt;!&ndash;HTML DOM 요소&ndash;&gt;
-        <select onselect="$task.nextStep(this.value);">
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-        </select>
-
-    </is-page>
-</template>
 -->

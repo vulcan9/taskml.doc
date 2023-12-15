@@ -28,10 +28,10 @@
 
 * [Demo](../test/sample.html)
 * [task 단위 테스트](../test/task.html) (디버깅 창 log 확인)
-* [드래그앤드랍](../test/dnd.html)
+* [드래그 앤 드랍](./doc/task/드래그앤드랍)
 * ~~[매개변수 단위 테스트](../test/args.js)~~
-* [레이아웃](../test/layout.html)
-* [비디오](../test/video.html) `ver 0.1.4`
+* [레이아웃 정렬](../test/layout.html)
+* [미디어 컨트롤](./doc/task/미디어%20컨트롤) `ver 0.1.4`
 
 ---------------------
 
