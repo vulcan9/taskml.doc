@@ -139,6 +139,19 @@
 
 </as-task></xmp></li>
 
+<li><xmp><as-task id="lotte 재생">
+    <js><!--<![ CDATA [
+        // https://docs.lottiefiles.com/lottie-player/components/lottie-player
+        const player = document.querySelector("#lotte");
+        player.play();
+        player.addEventListener("complete", () => {
+            //player.seek(0);
+            player.stop();
+            $next();
+        }, {one:true});
+        //]]>--></js>
+</as-task></xmp></li>
+
 <li><xmp><as-task id="인사말">
     <sound id="sound1" set="{src:'./asset/sound1.mp3'}"
            run="play()" wait="ended"></sound>
@@ -161,18 +174,6 @@
     </as-task>
 </as-task></xmp></li>
 
-<li><xmp><as-task id="lotte 재생">
-    <js><!--<![ CDATA [
-            // https://docs.lottiefiles.com/lottie-player/components/lottie-player
-            const player = document.querySelector("#lotte");
-            player.play();
-            player.addEventListener("complete", () => {
-                //player.seek(0);
-                player.stop();
-                $next();
-            }, {one:true});
-            //]]>--></js>
-</as-task></xmp></li>
 </ul>
 
             <is-group flex layout="" style="max-width: 80%; min-height: 500px;">
