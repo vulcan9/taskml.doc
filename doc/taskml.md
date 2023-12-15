@@ -24,15 +24,6 @@
 * 표현된 내용이 실제 DOM으로 랜더링 되어 동작함
 * 인터렉션 표현은 일종의 task runner 역할을 함
 
-## DEMO
-
-* [Demo](../test/sample.html)
-* [task 단위 테스트](../test/task.html) (디버깅 창 log 확인)
-* ~~[매개변수 단위 테스트](../test/args.js)~~
-* [레이아웃 정렬](../test/layout.html)
-* [드래그 앤 드랍](./task/드래그앤드랍)
-* [미디어 컨트롤](./task/미디어%20컨트롤) `ver 0.1.4`
-
 ---------------------
 
 ## Quick Start

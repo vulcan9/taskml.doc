@@ -4,6 +4,16 @@
 
 * [Quick Start](./doc/taskml)
 * [version download](https://github.com/vulcan9/taskml.doc/tree/main/dist/taskml)
+
+### DEMO
+
+* [Demo](./test/sample.html)
+* [task 단위 테스트](./test/task.html) (디버깅 창 log 확인)
+* ~~[매개변수 단위 테스트](../test/args.js)~~
+* [레이아웃 정렬](./test/layout.html)
+* [드래그 앤 드랍](./doc/task/드래그앤드랍)
+* [미디어 컨트롤](./doc/task/미디어%20컨트롤) `ver 0.1.4`
+
 ### taskml 구성 요소
 
 taskml은 크게 두가지 구성요소로 구분됩니다.
