@@ -96,6 +96,22 @@
     // UI
     /////////////////////////////////////////-->
 
+    <style>
+
+        ul.code{
+            padding: 0;
+        }
+        .code li{
+            background-color: #2f363d;
+            border-radius: 10px;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        li xmp {
+            margin: 0;
+        }
+    </style>
 
     <is-Page x="0" y="0" r="0" b="0"
              style="padding: 20px;">
@@ -109,33 +125,87 @@
             <li>"회전 취소" alert 창이 뜨고 task가 마무리 됩니다.</li>
         </ol>
         <button task:click="시작">시작</button>
+        <is-layout layout="row">
 
-        <is-group x="50" y="0" h="500" layout="" style="max-width: 80%;">
+<ul class="code">
+<li><xmp><as-task id="시작" onend="alert('종료')"
+         oncancel="alert('회전 취소')" onerror="alert('에러')">
 
-            <is-audio x="20" y="20"
-                      src="./asset/sound1.mp3" controls
-                      onended="$task['텍스트 이동']()"></is-audio>
+    <as-task sync="parallel">
+        <as-task src="lotte 재생"></as-task>
+        <as-task src="인사말"></as-task>
+    </as-task>
+    <as-task src="텍스트 이동"></as-task>
 
-            <is-video y="100" w="300px"
-                      class="rotate"
-                      task:loadstart="console.log ('video 로드됨');"
-                      src="./asset/video.mp4" controls></is-video>
+</as-task></xmp></li>
 
-            <is-image x="350" y="50" w="100"
-                      class="rotate"
-                      onclick="console.error('click')"
-                      src="${image.src}"></is-image>
+<li><xmp><as-task id="인사말">
+    <sound id="sound1" set="{src:'./asset/sound1.mp3'}"
+           run="play()" wait="ended"></sound>
+    <sound target="sound1" destroy="all"></sound>
+</as-task></xmp></li>
 
-            <is-lottie id="lotte"
-                       r="0" b="0" w="50%" h="50%"
-                       src="./asset/lottie.json"
-                       onload="console.log('lottie load')"
-                       background="transparent" speed="1" direction="1" mode="normal"></is-lottie>
+<li><xmp><as-task id="텍스트 이동">
+    <tween selector="#text" from="{y: 100}" to="{y:300, repeat: 2}"></tween>
+    <tween selector="#text" to="{y:50}"></tween>
 
-            <is-text id="text"
-                     x="500" y="50"><p>텍스트1</p></is-text>
+    <js><!--<![ CDATA [ this.degree = 0; $next(); //]]>--></js>
+    <as-task id="회전">
+        <js><!--<![ CDATA [
+                this.degree += 10;
+                console.log('this.degree: ', this.degree, 40===$js.degree);
+                $next();
+                //]]>--></js>
+        <tween selector=".rotate" to="{rotation: $js.degree}"></tween>
+        <cancel if-break="$js.degree === 40" else="회전"></cancel>
+    </as-task>
+</as-task></xmp></li>
 
-        </is-group>
+<li><xmp><as-task id="lotte 재생">
+    <js><!--<![ CDATA [
+            // https://docs.lottiefiles.com/lottie-player/components/lottie-player
+            const player = document.querySelector("#lotte");
+            player.play();
+            player.addEventListener("complete", () => {
+                //player.seek(0);
+                player.stop();
+                $next();
+            }, {one:true});
+            //]]>--></js>
+</as-task></xmp></li>
+</ul>
+
+            <is-group flex layout="" style="max-width: 80%; min-height: 500px;">
+
+                <is-audio x="20" y="20"
+                          src="./asset/sound1.mp3" controls
+                          onended="$task['텍스트 이동']()"></is-audio>
+
+                <is-video y="100" w="300px"
+                          class="rotate"
+                          task:loadstart="console.log ('video 로드됨');"
+                          src="./asset/video.mp4" controls></is-video>
+
+                <is-image x="350" y="50" w="100"
+                          class="rotate"
+                          onclick="console.error('click')"
+                          src="${image.src}"></is-image>
+
+                <is-lottie id="lotte"
+                           r="0" b="0" w="50%" h="50%"
+                           src="./asset/lottie.json"
+                           onload="console.log('lottie load')"
+                           background="transparent" speed="1" direction="1" mode="normal"></is-lottie>
+
+                <is-text id="text"
+                         x="500" y="50"><p>텍스트1</p></is-text>
+
+            </is-group>
+
+
+        </is-layout>
+
+
 
     </is-Page>
 
