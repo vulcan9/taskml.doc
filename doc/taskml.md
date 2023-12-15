@@ -31,6 +31,7 @@
 * [드래그앤드랍](../test/dnd.html)
 * ~~[매개변수 단위 테스트](../test/args.js)~~
 * [레이아웃](../test/layout.html)
+* [비디오](../test/video.html) `ver 0.1.4`
 
 ---------------------
 

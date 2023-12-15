@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>taskml</title>
+
+    <link rel="stylesheet" href="../dist/taskml/index-0.1.4.css">
+    <script type="module" src="../dist/taskml/index-0.1.4.js"></script>
+
+</head>
+
+<body>
+
+<script>
+    const image = {
+        src: './asset/vite.svg'
+    }
+</script>
+
+<script>
+    /*
+    // (2023.12.15) trackList는 video 태그에 직접 작성함
+    const trackList = [
+        { url: './choco_example_en.vtt', lang: 'en', default: true }
+    ]
+    */
+
+    // (2023.12.15) thumbnail 기능은 코드에 구현되지 않음
+    // (progress-anchor 템플릿에서 템플릿 리터럴 구문으로 직접 구현 가능함)
+    const interactionList = [
+        { idx: 0, time: 5.000, text: '본문 1', thumbnail: './video/interaction/thumbnail_1005.png' },
+        { idx: 1, time: 90, text: '본문 2', thumbnail: './video/interaction/thumbnail_1009.png' },
+        { idx: 2, time: 300, text: '본문 3', thumbnail: './video/interaction/thumbnail_1009.png' },
+        { idx: 3, time: 596, text: '본문 4', thumbnail: './video/interaction/thumbnail_1009.png' }
+    ]
+</script>
+
+<!--<as-task> id 생략하면 처음 자동 실행됨-->
+<!--로그 표시: mode="dev media component"-->
+<template mode="dev media component">
+
+    <as-task>
+        <video id="id_videoContents" selector="#videoContents"></video>
+    </as-task>
+
+    <as-task id="비디오상태변경">
+        <js><!--<![ CDATA [ console.log('* type:', $args.event.detail.originalEvent.type); $next(); //]]>--></js>
+    </as-task>
+
+    <div video-container style="position: absolute; left: 100px; top: 100px; height: 300px;">
+        <!--controls-->
+        <video id="videoContents" style="height: 100%"
+               src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+               template="#video-controller" task:update="비디오상태변경">
+
+            <!--source 태그는 JS에서 참조할 수 없음
+            TODO: canPlayType 검사 후 허용된 source를 src에 직접 적용해줄것
+            // https://www.nuevodevel.com/nuevo/showcase/captions
+            -->
+            <!--<source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">-->
+
+            <!--https://www.nuevodevel.com/nuevo/showcase/captions-->
+            <track src="./video/choco_example_en.vtt" kind="subtitles" srclang="en" label="English">
+            <track src="./video/example.vtt" kind="subtitles" srclang="ko" label="Korean" default>
+        </video>
+
+        <!--중앙의 큰 버튼: loading, play, pause-->
+        <div video-controller-big-button>재생</div>
+    </div>
+
+    <template id="video-controller">
+
+        <!--//////////////////////////////////////////
+        // 템플릿
+        //////////////////////////////////////////-->
+
+        <div video-controller>
+
+            <!--프로그래시브바-->
+            <div video-controller-progress="time">
+                <div progress-bar></div>
+                <div progress-anchor="interactionList" template="#progress-anchor"></div>
+                <div progress-bar-thumb></div>
+
+                <!--
+                * 지정된 이름으로 데이터 객체가 전달됨 : data-name="data"
+                * 템플릿 리터럴 구문으로 데이터 사용 가능함 : ${data.text}
+                * task를 지정하려면 template 태그 외부에 설정하는 것이 좋음
+                  (template 안에 넣으면 데이터 순환 반복문으로 앵커 개수만큼 task 재정의 됨)
+                -->
+                <template id="progress-anchor" data-name="data">
+                    <div class="anchor" task:click="앵커클릭(${data.time})"></div>
+                    <!--label 항상 보이게 하려면 "show" class 추가-->
+                    <div class="label" task:click="앵커클릭(${data.time})">${data.text}</div>
+                </template>
+
+                <!--앵커 표시로 이동-->
+                <as-task id="앵커클릭" onstart="console.error('앵커클릭: ', $args)">
+                    <video target="id_videoContents" set="{currentTime: $args[0]}"></video>
+                </as-task>
+            </div>
+
+            <!--재생버튼-->
+            <div video-controller-button="play">재생</div>
+            <div video-controller-button="pause">정지</div>
+            <div video-controller-button="stop">멈춤</div>
+
+            <!--currentTime, 전체시간, 남은시간 표시-->
+            <div video-controller-time="currentTime"></div>
+            <div video-controller-time="duration"></div>
+            <div video-controller-time="remainTime"></div>
+
+            <!--playback 선택 메뉴-->
+            <div video-controller-playback>
+                <!--선택 상태 attr 생성됨: data-value="selected option data-value"-->
+                <div video-controller-button="playback">배속</div>
+                <div popup-menu>
+                    <option data-value="0.5">x0.5</option>
+                    <option data-value="1">x1.0</option>
+                    <option data-value="1.5">x1.5</option>
+                    <option data-value="2">x2.0</option>
+                </div>
+            </div>
+
+            <!--자막 상태 attr 생성됨: data-value="disabled | showing | hidden"-->
+            <div video-controller-button="track"></div>
+            <div video-controller-button="fullscreen"></div>
+
+            <!--가로 volume bar
+            <div video-controller-volume="horizontal">
+                <div video-controller-button="mute"></div>
+                <div video-controller-progress>
+                    <div progress-bar></div>
+                    <div progress-bar-thumb></div>
+                </div>
+            </div>
+            -->
+            <!--세로 volume bar-->
+            <div video-controller-volume="vertical">
+                <div video-controller-button="mute"></div>
+                <div class="volumeBarBg">
+                    <div video-controller-progress>
+                        <div progress-bar></div>
+                        <!--<div progress-bar-thumb></div>-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </template>
+
+</template>
+
+<!--//////////////////////////////////////////
+// 템플릿 커스트마이징: 이벤트 받아 DOM 조작하면 됨
+<div video-controller task:update="업데이트"/>
+//////////////////////////////////////////-->
+
+<template id="video-controller-customize">
+
+    <script>
+        (function(){
+            if(window.$videoController) return;
+            window.$videoController = {};
+
+            window.$videoController.update = function ($args, $next){
+
+                // 커스트 마이징
+                /*
+                const controller = $args.event.target;
+                const timeInfo = $args.event.detail.time;
+                console.error('시간업데이트: ', timeInfo, controller);
+
+                // 스킨 변경하고 싶은 경우
+                const currentTime = controller.querySelector('[video-controller-time="currentTime"]');
+                currentTime.innerText = timeInfo.currentTime;
+                const duration = controller.querySelector('[video-controller-time="duration"]');
+                duration.innerText = timeInfo.duration;
+                const remainTime = controller.querySelector('[video-controller-time="remainTime"]');
+                remainTime.innerText = timeInfo.remainTime;
+
+                const progressBar = controller.querySelector('[progress-bar]');
+                progressBar.style.width = timeInfo.percent + '%';
+                */
+
+                $next();
+            }
+        })();
+    </script>
+
+    <as-task id="업데이트">
+        <js><!--<![ CDATA [ window.$videoController.update($args, $next); //]]>--></js>
+    </as-task>
+
+    <!--
+    task:loadeddata="비디오활성화"
+    task:error="비디오비활성화"
+
+    task:durationchange="상태업데이트"
+    task:timeupdate="상태업데이트"
+    task:seeking="상태업데이트"
+    task:seeked="상태업데이트"
+
+    task:playing="상태업데이트"
+    task:play="상태업데이트"
+    task:pause="상태업데이트"
+
+    task:canplay="재생가능상태"
+    task:canplaythrough="재생가능상태"
+    task:waiting="로드중상태"
+    task:ended="재생완료상태"
+    task:ratechange="재생속도변경됨"
+    -->
+    <!--템플릿-->
+    <div video-controller task:update="업데이트"></div>
+
+</template>
+
+
+
+<!--랜더러 호출-->
+<!--id="app" 못찾으면 body에서 template 찾아 랜더링 함-->
+<div id="app"></div>
+<!--<script type="module" src="/src/index.jsx"></script>-->
+
+</body>
+</html>
+
+<!--
+서버 없는 (CORS 회피) 로컬 개발 환경
+* chrome.bat 파일 실행 (chrome 브라우저 실행됨)
+* index.html 드래그해서 열면 CORS 에러 없이 작업할 수 있음
+-->
