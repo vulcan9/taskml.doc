@@ -5,6 +5,8 @@
 * [Quick Start](./doc/taskml)
 * [version download](https://github.com/vulcan9/taskml.doc/tree/main/dist/taskml)
 
+> v 0.1.4 버전부터 `<as-task>`태그 대신 `<task>` 태그를 사용할 수 있습니다.
+
 ### DEMO
 
 * [Demo](./test/sample.html)
