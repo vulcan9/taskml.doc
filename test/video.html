@@ -34,7 +34,10 @@
         { idx: 1, time: 90, text: '본문 2', thumbnail: './video/interaction/thumbnail_1009.png' },
         { idx: 2, time: 300, text: '본문 3', thumbnail: './video/interaction/thumbnail_1009.png' },
         { idx: 3, time: 596, text: '본문 4', thumbnail: './video/interaction/thumbnail_1009.png' }
-    ]
+    ];
+    const templateData = {
+        title: '비디오 템플릿 샘플'
+    }
 </script>
 
 <!--<as-task> id 생략하면 처음 자동 실행됨-->
@@ -53,7 +56,8 @@
         <!--controls-->
         <video id="videoContents" style="height: 100%"
                src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-               template="#video-controller" task:update="비디오상태변경">
+               template="#video-controller" template-data="templateData"
+               task:update="비디오상태변경">
 
             <!--source 태그는 JS에서 참조할 수 없음
             TODO: canPlayType 검사 후 허용된 source를 src에 직접 적용해줄것
@@ -81,20 +85,13 @@
             <!--프로그래시브바-->
             <div video-controller-progress="time">
                 <div progress-bar></div>
-                <div progress-anchor="interactionList" template="#progress-anchor"></div>
+                <div progress-anchor template="#progress-anchor" template-data="interactionList"></div>
                 <div progress-bar-thumb></div>
 
                 <!--
-                * 지정된 이름으로 데이터 객체가 전달됨 : data-name="data"
-                * 템플릿 리터럴 구문으로 데이터 사용 가능함 : ${data.text}
-                * task를 지정하려면 template 태그 외부에 설정하는 것이 좋음
-                  (template 안에 넣으면 데이터 순환 반복문으로 앵커 개수만큼 task 재정의 됨)
+                상위 템플릿에 데이터 주입 설정이 없다면
+                여기에 progress-anchor 템플릿을 작성해도 무방함
                 -->
-                <template id="progress-anchor" data-name="data">
-                    <div class="anchor" task:click="앵커클릭(${data.time})"></div>
-                    <!--label 항상 보이게 하려면 "show" class 추가-->
-                    <div class="label" task:click="앵커클릭(${data.time})">${data.text}</div>
-                </template>
 
                 <!--앵커 표시로 이동-->
                 <as-task id="앵커클릭" onstart="console.error('앵커클릭: ', $args)">
@@ -147,6 +144,22 @@
                 </div>
             </div>
 
+        </div>
+    </template>
+
+    <!--
+    * 지정된 이름으로 데이터 객체가 전달됨 : data-name="data"
+    * 템플릿 리터럴 구문으로 데이터 사용 가능함 : ${data.text}
+    * task를 지정하려면 template 태그 외부에 설정하는 것이 좋음
+      (template 안에 넣으면 데이터 순환 반복문으로 앵커 개수만큼 task 재정의 됨)
+    * 템플릿 리터럴 구문을 사용할때에는 template은 중첩되면 안됨
+      (상위 template의 데이터가 우선 주입됨)
+    -->
+    <template id="progress-anchor" data-name="data">
+        <div progress-anchor-item>
+            <div class="anchor" task:click="앵커클릭(${data.time})"></div>
+            <!--label 항상 보이게 하려면 "show" class 추가-->
+            <div class="label" task:click="앵커클릭(${data.time})">${data.text}</div>
         </div>
     </template>
 

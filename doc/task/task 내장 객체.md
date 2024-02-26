@@ -423,6 +423,21 @@ task 관련 attribute과 함께 사용할 수 있습니다.
 * `$js` 모든 task 노드에서 공통으로 사용
 * `$clear()` 호출후에는 `$js` 객체 초기화됨
 
+간단한 함수 호출하기
+```html
+<js run="funcName($next)"></js>
+<!-- 
+순서와 상관없이 다음 변수를 매개변수로 사용할 수 있습니다. 
+$args, $next, $clear, $cancel
+-->
+<script>
+  function funcName($next){
+    console.log('run !!');
+    $next();
+  }
+</script>
+```
+
 ## 사운드 (sound)
 
 audio 재생을 쉽게 제어하기 위한 task 입니다.
