@@ -6,31 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--<base href="./" target="_blank">-->
 
-    <!-- md-block -->
-    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
-
-    <!--https://highlightjs.org/-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
     <!--<script type="module" src="./docs/highlight.9.3.0.min.js"></script>
     <link href="./docs/git.css" rel="stylesheet">
     <link href="./docs/hightlight_railscasts.css" rel="stylesheet">-->
 
     <!-- github-markdown 테마 -->
-    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.css"
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.css"
           integrity="sha512-n5zPz6LZB0QV1eraRj4OOxRbsV7a12eAGfFcrJ4bBFxxAwwYDp542z5M0w24tKPEhKk2QzjjIpR5hpOjJtGGoA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown-dark.min.css"
+          integrity="sha512-MmL2FuLmm/UH05Ah4JiJwA+G7OCceZDpzGHWqsju4Espzq+9nwQJdQVMNZPd1FNK2H3qDYXdET7HNG7Qm93FEg=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />-->
 
-    <!--https://cdnjs.com/libraries/github-markdown-css-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown-dark.min.css"
-          integrity="sha512-MmL2FuLmm/UH05Ah4JiJwA+G7OCceZDpzGHWqsju4Espzq+9nwQJdQVMNZPd1FNK2H3qDYXdET7HNG7Qm93FEg=="
+    <!--https://highlightjs.org/-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
+          integrity="sha512-rO+olRTkcf304DQBxSWxln8JXCzTHlKnIdnMUwYvQa9/Jd4cQaNkItIUj6Z4nvW1dqK0SKXLbn9h4KwZTNtAyw=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        document.addEventListener('md-render', (event) => {
+            document.querySelectorAll('pre code').forEach((el) => {
+                hljs.highlightAll();
+            });
+        });
+    </script>
 
+    <!-- md-block -->
     <style>
         md-block:not([rendered]) { display: none }
+        .markdown-body{
+            /*background-color: #2e303e;*/
+        }
+        .markdown-body blockquote {
+            border-left: 0.6em solid #6ecd56;
+            border-right: 0.6em solid #6ecd56;
+            background-color: #f6f8fa;
+            /*color: #6ecd56;*/
+            font-size: small;
+            padding: 15px;
+            border-radius: 10px;
+            /*box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);*/
+        }
+        .markdown-body pre code{
+            background-color: #1b1f23;
+        }
     </style>
-
+    <script type="module" src="https://md-block.verou.me/md-block.js"></script>
 </head>
 <body class="container-lg px-3 my-5">
 
@@ -40,11 +62,15 @@
         `README.md` was *not* found
     </md-block>
 
-    <script>hljs.highlightAll();</script>
-    <!--<script>hljs.initHighlightingOnLoad();</script>-->
 </div>
 
 </body>
 </html>
-<!--theme-github-dark-dimmed-->
-<!--https://highlightjs.org/_next/static/css/b4b5848d57df16eb.css-->
+
+<!--
+- https://readme.so/
+- https://md-block.verou.me/
+- https://cdnjs.com/libraries/github-markdown-css
+- https://prismjs.com/
+출처: https://doggyfootstep.tistory.com/7 [iOS'DoggyFootstep:티스토리]
+->
