@@ -2,7 +2,7 @@
 
 미리 정의된 Tag와 최소한의 Javascript 만으로 인터렉션을 구현(표현)을 할 수 있는 방법을 제공합니다.
 
-* [Quick Start](./taskml)
+* [Quick Start](./task/taskml)
 * [version download](https://github.com/vulcan9/taskml.doc/tree/main/doc/0.2.x/dist/taskml)
 
 > v 0.1.4 버전부터 `<as-task>`태그 대신 `<task>` 태그를 사용할 수 있습니다.
@@ -109,3 +109,5 @@ UI를 빠르게 구성할 수 있도록 HTML 태그에 몇가지 기능이 추�
 > 0.1.x 버전의 SolidJS 컴포넌트 대신 `template`과 `customElements.define` 메서드를 사용하는 표준 custom element 구성 방법을 사용합니다.
 
 - Custom Elements 사용하기
+- `preload`, `include` task
+- Task 오버라이딩 (네임스페이스)
