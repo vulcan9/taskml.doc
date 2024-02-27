@@ -69,40 +69,6 @@ task 태그와 html 태그를 사용하여 template을 작성합니다.
 </body>
 ```
 
-### 4. template 파싱
-
-> 0.2.0 버전부터 preload, include 기능으로 외부 taskml 파일을 불러올 수 있습니다.
-
-#### template 파싱 순서
-
-* DOM 및 inline script 태그가 순서대로 생성되고 실행 됩니다. (top-down)
-* 도중에 `preload` task 구문을 만나면 해당 페이지 내용을 로드 & 파싱 완료 후 계속 진행합니다.
-* 로드 과정에서 파싱된 순서대로 task 오버라이딩이 처리됩니다. (top-down)
-* 모듈 script는 원래대로  DOM 생성이 완료된 후 실행됩니다.
-* 외부 JS 파일을 로드하는 script 태그의 async, defer attribute 설정에 따른 실행 순서는 최대한 유지됩니다.
-
-> taskml에서 "on"으로 시작되는 attribute은 모두 이벤트 핸들러를 위한 attribute으로 간주합니다.
-> * 파싱되는 과정에서 핸들러는 등록되고 DOM atrtibute에서는 삭제될 수도 있습니다.
-
-### 5. template 랜더링 시작
-
-#### DOM 생성 (실행) 순서
-
-1. DOM 요소가 top-down 순서로 생성되고 inline script도 이때 실행됩니다.
-    - 중간에 `preload` 된 script가 있으면 `preload` 태그 위치에서 순서대로 함께 실행됩니다.
-2. `domCreated` 이벤트가 발생합니다. (document custom 이벤트)
-3. DOM 생성이 완료된 후 모듈 script가 로드 & 실행됩니다.
-    - `preload`된 문서의 inline 모듈 script도 이때 실행됩니다.
-4. `DOMContentLoaded` docuemnt 이벤트가 발생합니다.
-5. `appCreated` 이벤트가 발생합니다. (document custom 이벤트)
-6. 익명 Task가 자동으로 실행됩니다.
-    - preload 문서의 익명 task도 DOM 구조(top-down) 순서대로 실행됩니다.
-7. `include` 문서가 있으면 위 과정과 같은 순서로 파싱됩니다.
-
-> 템플릿 내용은 최초 한번만 랜더링 됩니다.
-> * task 컴포넌트, DOM 컴포넌트 태그는 `<template>` 태그 내에서만 사용할 수 있습니다.
-> * 따라서 생성된 DOM에 `task:click` 같은 attribute을 동적으로 생성해 넣어도 동작하지 않습니다.
-
 # taskml 구성 요소
 
 taskml은 크게 두가지 구성요소로 구분됩니다.
