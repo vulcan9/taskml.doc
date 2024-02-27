@@ -73,7 +73,7 @@ task 태그와 html 태그를 사용하여 template을 작성합니다.
 
 > 0.2.0 버전부터 preload, include 기능으로 외부 taskml 파일을 불러올 수 있습니다.
 
-template 파싱 순서
+#### template 파싱 순서
 
 * DOM 및 inline script 태그가 순서대로 생성되고 실행 됩니다. (top-down)
 * 도중에 `preload` task 구문을 만나면 해당 페이지 내용을 로드 & 파싱 완료 후 계속 진행합니다.
@@ -86,7 +86,7 @@ template 파싱 순서
 
 ### 5. template 랜더링 시작
 
-DOM 생성 (실행) 순서
+#### DOM 생성 (실행) 순서
 
 1. DOM 요소가 top-down 순서로 생성되고 inline script도 이때 실행됩니다.
     - 중간에 `preload` 된 script가 있으면 `preload` 태그 위치에서 순서대로 함께 실행됩니다.
