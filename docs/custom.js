@@ -87,6 +87,15 @@
         block.setAttribute('src', href);
     }
 
+    /*
+    window.onhashchange = function (event) {
+        event.preventDefault();
+        var old_url = event.oldURL;
+        var new_url = event.newURL;
+        console.error(new_url);
+    }
+    */
+
     function setButtons(){
         setDarkButton();
         setTopButton();

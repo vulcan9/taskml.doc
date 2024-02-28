@@ -9,19 +9,18 @@ body{
 /*---------------------------------*/
 
 .btns{
-    /*display: inline-block;*/
-    /*display: flex;*/
-    position: sticky;
     z-index: 99;
-    /*right: 0;*/
-    /*top: 0;*/
+    position: sticky;
     bottom: 10px;
-    text-align: right;
-    /*place-self: end;*/
-    /*padding-right: 10px;*/
+
+    /*수직 정렬*/
+    display: flex;
+    flex-direction: column;
+    float: right;
 }
 .btns li{
     display: inline-block;
+    margin-top: 5px;
 }
 .btns .topButton{
     cursor: pointer;
@@ -94,13 +93,12 @@ md-block:not([rendered]) { display: none }
     font-size: 14px;
 }
 .markdown-body blockquote {
-    border-left: 0.6em solid #6ecd56;
-    border-right: 0.6em solid #6ecd56;
+    border-left: 0.2em solid #6ecd56;
+    /*border-right: 0.6em solid #6ecd56;*/
     background-color: #f6f8fa;
-    /*color: #6ecd56;*/
-    /*font-size: small;*/
+    font-size: small;
     padding: 15px;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
     /*box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);*/
 }
 .markdown-body pre code{
