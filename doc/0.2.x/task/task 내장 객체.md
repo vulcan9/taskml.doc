@@ -7,50 +7,50 @@ task 객체는 기능별로 task 인터페이스를 구현한 객체입니다.
 
 #### 흐름 제어
 
-[`<task>`](#task-태그),
-[`<break>`](#break-태그),
-[`<break-release>`](#break-release-태그),
-[`<cancel>`](#cancel-태그),
-[`<exit>`](#exit-태그)
+[`<task>`](#lttaskgt-태그),
+[`<break>`](#ltbreakgt-태그),
+[`<break-release>`](#ltbreak-releasegt-태그),
+[`<cancel>`](#ltcancelgt-태그),
+[`<exit>`](#ltexitgt-태그)
 
 #### Dom 상태 변경
 
-[`<addClass>`](#addclass-태그), 
-[`<removeClass>`](#removeclass-태그),
-[`<toggleClass>`](#toggleclass-태그),
-[`<addAttr>`](#addattr-태그), 
-[`<removeAttr>`](#removeattr-태그),
-[`<addStyle>`](#addstyle-태그),
-[`<removeStyle>`](#removestyle-태그)
+[`<addClass>`](#ltaddclassgt-태그), 
+[`<removeClass>`](#ltremoveclassgt-태그),
+[`<toggleClass>`](#lttoggleclassgt-태그),
+[`<addAttr>`](#ltaddattrgt-태그), 
+[`<removeAttr>`](#ltremoveattrgt-태그),
+[`<addStyle>`](#ltaddstylegt-태그),
+[`<removeStyle>`](#ltremovestylegt-태그)
 
-- shorthand [`<disable>`](#disable-태그), [`<enable>`](#enable-태그)
+- shorthand [`<disable>`](#ltdisablegt-태그), [`<enable>`](#ltenablegt-태그)
 
 #### 연산
 
-[`<blank>`](#blank-태그),
-[`<js>`](#js-태그-script-태그), ([`<script>`](#js-태그-script-태그))
+[`<blank>`](#ltblankgt-태그),
+[`<js>`](#ltjsgt-태그-ltscriptgt-태그), ([`<script>`](#ltjsgt-태그-ltscriptgt-태그))
 
 - shorthand (예정) `<let>`, `<compare>`, `<increase>`, `<decrease>`
 
 #### 사운드
 
-[`<sound>`](#sound-태그)
+[`<sound>`](#ltsoundgt-태그)
 
 - shorthand (예정) `<sound-play>`, `<sound-stop>`, `<sound-pause>`
 
 #### 에니메이션
 
-[`<tween>`](#tween-태그)
+[`<tween>`](#lttweengt-태그)
 
-- shorthand [`<hide>`](#hide-태그), [`<show>`](#show-태그)
+- shorthand [`<hide>`](#lthidegt-태그), [`<show>`](#ltshowgt-태그)
 
 #### 뷰어 기능 호출
 
-[`<pageGo>`](#pagego-태그)
-[`<pagePrev>`](#pageprev-태그)
-[`<pageNext>`](#pagenext-태그)
-[`<pageButton>`](#pagebutton-태그)
-[`<watchStudyTime>`](#watchstudytime-태그)
+[`<pageGo>`](#ltpagegogt-태그)
+[`<pagePrev>`](#ltpageprevgt-태그)
+[`<pageNext>`](#ltpagenextgt-태그)
+[`<pageButton>`](#ltpagebuttongt-태그)
+[`<watchStudyTime>`](#ltwatchstudytimegt-태그)
 
 --------------------------------------------------------------
 

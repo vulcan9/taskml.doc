@@ -1,0 +1,153 @@
+
+body{
+    margin: 0;
+    padding: 20px;
+    /*display: flex;*/
+    scroll-behavior: smooth;
+}
+
+/*---------------------------------*/
+
+.btns{
+    /*display: inline-block;*/
+    /*display: flex;*/
+    position: sticky;
+    z-index: 99;
+    /*right: 0;*/
+    /*top: 0;*/
+    bottom: 10px;
+    text-align: right;
+    /*place-self: end;*/
+    /*padding-right: 10px;*/
+}
+.btns li{
+    display: inline-block;
+}
+.btns .topButton{
+    cursor: pointer;
+}
+.btns .darkButton{
+    cursor: pointer;
+
+}
+
+/*https://inpa.tistory.com/entry/CSS-%F0%9F%92%8D-%EB%B2%84%ED%8A%BC-%EB%94%94%EC%9E%90%EC%9D%B8-%EB%AA%A8%EC%9D%8C*/
+.btn-hover {
+    padding: 5px 20px;
+    /*width: 200px;*/
+    font-size: small;
+    font-weight: 600;
+    cursor: pointer;
+    /*margin: 20px;*/
+    /*height: 55px;*/
+    text-align:center;
+    background-size: 300% 100%;
+
+    box-sizing: border-box;
+    /*border: none;*/
+    border-radius: 50px;
+    border: 1px solid;
+    /*border-color: #f0f8ff54;*/
+    border-color: rgba(0,0,0,0.2);
+    /*color: #fff;*/
+
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:hover {
+    /*border-color: rgba(0,0,0,0.7);*/
+    background-color: rgba(0,0,0,1);
+    color: #fff;
+    /*border-width: 5px;*/
+    /*background-position: -100% 0;*/
+
+    /*background-image: linear-gradient(to right, #f5ce62, #e43603, #fa7199, #e85a19);*/
+    /*background-image: linear-gradient(to right, #6253e1, #852D91, #A3A1FF, #F24645);*/
+    /*box-shadow: 0 4px 15px 0 rgba(126, 52, 161, 0.75);*/
+    /*background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);*/
+    /*box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);*/
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+
+.dark .btn-hover {
+    border-color: rgba(255,255,255,0.2);
+    color: #fff;
+}
+
+.dark .btn-hover:hover {
+    /*border-color: rgba(255,255,255,1);*/
+    background-color: rgba(255,255,255,1);
+    color: #000;
+}
+
+/*---------------------------------*/
+
+md-block:not([rendered]) { display: none }
+.markdown-body{
+    /*background-color: #2e303e;*/
+    font-size: 14px;
+}
+.markdown-body blockquote {
+    border-left: 0.6em solid #6ecd56;
+    border-right: 0.6em solid #6ecd56;
+    background-color: #f6f8fa;
+    /*color: #6ecd56;*/
+    /*font-size: small;*/
+    padding: 15px;
+    border-radius: 10px;
+    /*box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);*/
+}
+.markdown-body pre code{
+    background-color: #2e343b;
+}
+
+/*---------------------------------*/
+
+.dark{
+    background-color: #1c2128;
+    color: #c9d1d9
+}
+.dark .markdown-body{
+    background-color: transparent;
+    color: #c9d1d9
+}
+.dark .markdown-body blockquote {
+    border-left: 0.2em solid #6ecd56;
+    border-right: none;
+    background-color: #2e343b;
+    color: #c9d1d9;
+    font-size: small;
+    padding: 15px;
+    border-radius: 0;
+    /*box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);*/
+}
+.dark .markdown-body pre{
+    background-color: transparent;
+}
+.dark .markdown-body h1,
+.dark .markdown-body h2,
+.dark .markdown-body h3,
+.dark .markdown-body h4,
+.dark .markdown-body h5,
+.dark .markdown-body h6, hr{
+    /*border-bottom: 1px solid hsla(210, 18%, 87%, 0.2);*/
+    border-color: hsla(210, 18%, 87%, 0.2);
+}
+.dark .markdown-body hr{
+    border-color: hsla(210, 18%, 87%, 0.2);
+    background-color: hsla(210, 18%, 87%, 0.2);
+}
+.dark .markdown-body a{
+    color: #33a9dc;
+    text-decoration: none;
+}
+.dark .markdown-body a:hover{
+    /*border: 1px solid #ffffff33;*/
+    background-color: black;
+}
