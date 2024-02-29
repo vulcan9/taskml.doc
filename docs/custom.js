@@ -19,16 +19,6 @@
     setColorMode();
     loadMD(HREF);
 
-    let timeID;
-    document.addEventListener('md-render', (event) => {
-console.error('md-render');
-        if (timeID) clearTimeout(timeID);
-        timeID = setTimeout(() => {
-console.error('setPages');
-            setPages();
-        });
-    });
-
     function setColorMode(){
         let colorMode = window.localStorage.getItem('colorMode');
         if(!colorMode){
@@ -69,6 +59,22 @@ console.error('setPages');
 
         var block = document.querySelector('md-block');
         block.setAttribute('src', href);
+
+        let timeID;
+        block.addEventListener('md-render', render);
+
+        function render(event){
+            console.error('md-render');
+            if (timeID) clearTimeout(timeID);
+            timeID = setTimeout(() => {
+                console.error('setPages: ', block.childElementCount);
+                timeID = null;
+                if(block.childElementCount > 0){
+                    block.removeEventListener('md-render', render);
+                    setPages();
+                }
+            });
+        }
     }
 
     function setPages(){
@@ -82,7 +88,6 @@ console.error('setPages');
             .forEach(link => {
                 linkURL(link);
             });
-        timeID = null;
 
         // 코드 하이라이트 적용
         hljs.highlightAll();
