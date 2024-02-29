@@ -27,7 +27,7 @@ console.error('md-render');
 console.error('setPages');
             setPages();
         });
-    }, {once: true});
+    });
 
     function setColorMode(){
         let colorMode = window.localStorage.getItem('colorMode');
