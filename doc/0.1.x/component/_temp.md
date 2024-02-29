@@ -95,7 +95,6 @@
 간단한 수준의 변수, 연산 기능을 가짐
 
 ```html
-
 <let name="" value=""></let>
 <compare></compare>
 <increase></increase>
@@ -113,7 +112,6 @@
 내장 API의 결과에따라 적절한 task:event attribute 호출할수 있음
 
 ```html
-
 <compare value1="answer" value2="arg[0]"
          task:true="do-yes-task" task:false="do-no-task"></compare>
 ```

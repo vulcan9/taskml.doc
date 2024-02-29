@@ -69,7 +69,6 @@ DOM 컴포넌트는 공통적으로 다음 위치 관련 attribute이 구현되�
 이 속성들은 `<is-group>` 컨테이너 안에서만 동작합니다.
 
 ```html
-
 <is-group x="" y="" w="" h="" r="0" b="0">
     <is-div x="" y="" w="" h="" r="0" b="0">text</is-div>
 </is-group>

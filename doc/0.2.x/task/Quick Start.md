@@ -1,4 +1,4 @@
-# taskml
+# Quick Start
 
 ### 목적
 
@@ -50,7 +50,6 @@
 task 태그와 html 태그를 사용하여 template을 작성합니다.
 
 ```html
-
 <body>
 <!--mode attriibute을 설정하면 콘솔창에 로그가 표시됩니다.-->
 <template id="taskml" mode="dev media component">
@@ -92,7 +91,6 @@ task 태그와 html 태그를 사용하여 template을 작성합니다.
 ### 3. template 랜더링 호출
 
 ```html
-
 <body>
 ...
 
@@ -139,20 +137,14 @@ task 태그와 html 태그를 사용하여 template을 작성합니다.
 #### DOM 생성 (실행) 순서
 
 1. DOM 요소가 top-down 순서로 생성되고 inline script도 이때 실행됩니다.
-
-- 중간에 `preload` 된 script가 있으면 `preload` 태그 위치에서 순서대로 함께 실행됩니다.
-
+    - 중간에 `preload` 된 script가 있으면 `preload` 태그 위치에서 순서대로 함께 실행됩니다.
 2. `domCreated` 이벤트가 발생합니다. (document custom 이벤트)
 3. DOM 생성이 완료된 후 모듈 script가 로드 & 실행됩니다.
-
-- `preload`된 문서의 inline 모듈 script도 이때 실행됩니다.
-
+    - `preload`된 문서의 inline 모듈 script도 이때 실행됩니다.
 4. `DOMContentLoaded` docuemnt 이벤트가 발생합니다.
 5. `appCreated` 이벤트가 발생합니다. (document custom 이벤트)
 6. 익명 Task가 자동으로 실행됩니다.
-
-- preload 문서의 익명 task도 DOM 구조(top-down) 순서대로 실행됩니다.
-
+    - preload 문서의 익명 task도 DOM 구조(top-down) 순서대로 실행됩니다.
 7. `include` 문서가 있으면 위 과정과 같은 순서로 파싱됩니다.
 
 > 템플릿 내용은 최초 한번만 랜더링 됩니다.

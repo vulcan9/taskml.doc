@@ -6,36 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- github-markdown 테마 -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.css"
-          integrity="sha512-n5zPz6LZB0QV1eraRj4OOxRbsV7a12eAGfFcrJ4bBFxxAwwYDp542z5M0w24tKPEhKk2QzjjIpR5hpOjJtGGoA=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.css"/>
     <!--https://highlightjs.org/-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"
-          integrity="sha512-rO+olRTkcf304DQBxSWxln8JXCzTHlKnIdnMUwYvQa9/Jd4cQaNkItIUj6Z4nvW1dqK0SKXLbn9h4KwZTNtAyw=="
-          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-
-    <link rel="stylesheet" href="./docs/custom.css">
-    <script type="module" src="./docs/custom.js"></script>
-    <script>
-        (() => {
-            var url = new URL(window.location);
-            var href = url.searchParams.get('href')
-            href = href ? href.substring(0, href.lastIndexOf('/') + 1) : './';
-
-            console.log('baseURI: ', href);
-            const base = document.createElement('base');
-            base.setAttribute('href', href);
-            document.currentScript.after(base);
-        })();
-    </script>
-    <!--<base href="./" target="_blank">-->
+    <script src="https://tistory1.daumcdn.net/tistory/3048153/skin/images/highlightjs-line-numbers.min.js?_version_=1658662281"></script>
 
     <!-- md-block -->
     <script type="module" src="https://md-block.verou.me/md-block.js"></script>
+    <link rel="stylesheet" href="./docs/custom.css">
+    <script type="module" src="./docs/custom.js"></script>
 </head>
-<body class="container-lg px-3 my-5 dark">
+<body class="container-lg px-3 my-5">
+
+<ul class="btns nav">
+    <li class="homeButton btn-hover">HOME</li>
+    <li style="flex: 1;"></li>
+    <li class="prevButton btn-hover">&#129128;</li>
+    <li class="nextButton btn-hover">&#129130;</li>
+    <li class="darkButton btn-hover">LIGHT</li>
+</ul>
 
 <div class="markdown-body">
     <md-block>
@@ -44,9 +34,8 @@
     </md-block>
 </div>
 
-<ul class="btns">
-    <li class="topButton btn-hover"></li>
-    <li class="darkButton btn-hover"></li>
+<ul class="btns vertical">
+    <li class="topButton btn-hover">&#129129; TOP</li>
 </ul>
 
 </body>

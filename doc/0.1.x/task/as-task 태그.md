@@ -29,7 +29,6 @@ task는 호출할때마다 정의를 참조하여 새로운 인스턴스를 생�
 `<template>` 태그 안에서 어디든지 작성 가능합니다.
 
 ```html
-
 <template>
     <as-task></as-task>
     <!--Dom 태그 사이-->
@@ -83,7 +82,6 @@ task에 지정되는 아이디는 유일해야 합니다.
 ## task 중첩, 참조
 
 ```html
-
 <!--아이디가 없는 익명 task-->
 <as-task>
     <blank timer="1000"></blank>
@@ -129,7 +127,6 @@ a task가 실행될때 b, c task가 등록되는것이 아니라 처음에 파�
 src가 지정된 경우 하위 노드는 무시됩니다.
 
 ```html
-
 <as-task src="a">
     <!--src가 지정된 경우 하위 노드는 무시됨-->
     <blank timer="1000"></blank>
@@ -219,7 +216,6 @@ sync="parallel" task:start="startTask_b" task:end="endTask_b"
 task 호출 구문을 통해 자신의 task 아이디를 다시 호출하여 재귀하는 task를 만들 수 있습니다.
 
 ```html
-
 <as-task id="재귀">
     <js><!--<![ CDATA [
             if(!this.counter) this.counter = 0;
@@ -236,7 +232,6 @@ task 호출 구문을 통해 자신의 task 아이디를 다시 호출하여 재
 task가 점점 복잡해지면 발생할 수도 있습니다.
 
 ```html
-
 <as-task src="a"></as-task>
 
 <as-task id="a" task:complete="b"></as-task>
@@ -246,7 +241,6 @@ task가 점점 복잡해지면 발생할 수도 있습니다.
 의도적으로 루프를 생성한 경우 조건문으로 루프를 종료할 수 있습니다.
 
 ```html
-
 <as-task src="a"></as-task>
 
 <as-task id="a" task:complete="a" oncancel="console.log('작업 중지됨')">

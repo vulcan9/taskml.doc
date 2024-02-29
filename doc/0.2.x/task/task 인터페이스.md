@@ -147,7 +147,6 @@ task를 호출할때 매개변수를 포함하여 호출할 수 있습니다.
 다음은 매개변수로 전달된 내용을 alert으로 띠우는 예제입니다.
 
 ```html
-
 <task id="시작" onstart="alert($args[0])"></task>
 
 <!--버튼을 클릭하면 '사운드' alert이 뜹니다-->
@@ -157,7 +156,6 @@ task를 호출할때 매개변수를 포함하여 호출할 수 있습니다.
 전달된 매개변수는 task 내부 아이템에도 그대로 사용할 수 있습니다
 
 ```html
-
 <task id="시작">
     <blank onstart="alert($args[0])"></blank>
 </task>
@@ -169,7 +167,6 @@ task를 호출할때 매개변수를 포함하여 호출할 수 있습니다.
 task 호출에 사용하면
 
 ```html
-
 <task id="시작">
     <!--문자열 조합으로 "사운드 시작" task가 호출됨-->
     <task src="$args[0] 시작"></task>
@@ -187,7 +184,6 @@ task 호출에 사용하면
 위에서는 task 아이디를 문자열 조합으로 호출했는데 새로운 매개변수로 호출하고 싶을 수도 있습니다.
 
 ```html
-
 <task id="시작">
     <!--문자열 조합으로 "사운드 시작" task가 호출됨-->
     <!--새로운 매개변수로 전달됨-->
@@ -268,7 +264,6 @@ $args 매개변수 객쳉서는 다음과 같이 값에 접근할 수 있습니�
 * if 판별식 true 인 경우 `then` task 실행 후 본 task가 진행됩니다.
 
 ```html
-
 <task id="if 조건 테스트"
          if="($args[0] === 'then')"
          then="조건이 true일때 실행할 task 아이디"
@@ -328,7 +323,6 @@ task 아이템에 적용되면 해당 task 종료 시간과 `timer="시간(ms)"`
 * `delay="0"` : (밀리세컨즈) task를 일정 시간 후 시작합니다.
 
 ```html
-
 <task id="시작" onend="console.log('종료')">
     <blank timer="1000"></blank>
 </task>
@@ -361,7 +355,6 @@ DOM Element 대상이 필요한 task에서 사용됩니다.
 - 콤마 구분자를 사용하여 여러 DOM 요소를 한꺼번에 참조할 수 있습니다.
 
 ```html
-
 <addStyle selector="CSS Select 표현" styles="{}"></addStyle>
 ```
 

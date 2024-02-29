@@ -7,31 +7,151 @@ body{
 }
 
 /*---------------------------------*/
+/* 코드 하이라이트 라인 설정 */
+
+.hljs-ln{border-collapse:collapse}
+.hljs-ln td{padding:0}
+.hljs-ln-n:before{
+    content:attr(data-line-number);
+    color: rgba(255,255,255,0.2);
+}
+.hljs-ln-code{
+    width: 100%;
+}
+
+.markdown-body pre code table{
+    margin-bottom: 5px;
+}
+.markdown-body pre code table tr{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid;
+    border-color: rgba(255,255,255,0.05);
+    border-bottom-width: 0;
+}
+.markdown-body pre code table tr:nth-child(2n){
+    background-color: transparent;
+}
+.markdown-body pre code table tr:hover{
+    background-color: rgba(0,0,0,0.1);
+}
+
+.markdown-body pre code table th,
+.markdown-body pre code table td{
+    border: none;
+    padding: 1px 10px
+}
+
+/*
+.no-code-line .markdown-body pre code table tr{ border: none }
+.no-code-line .markdown-body pre code table th,
+.no-code-line .markdown-body pre code table td{ padding: 0 10px }
+*/
+
+/*---------------------------------*/
+
+md-block:not([rendered]) { display: none }
+.markdown-body{
+    /*background-color: #2e303e;*/
+    /*font-size: 14px;*/
+}
+.markdown-body blockquote {
+    border-left: 0.2em solid #6ecd56;
+    /*border-right: 0.6em solid #6ecd56;*/
+    background-color: #f6f8fa;
+    font-size: small;
+    padding: 15px;
+    /*border-radius: 10px;*/
+    /*box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);*/
+}
+.markdown-body pre code{
+    background-color: #2e343b;
+}
+
+/*---------------------------------*/
+
+.dark{
+    background-color: #1c2128;
+    color: #c9d1d9
+}
+.dark .markdown-body{
+    background-color: transparent;
+    color: #c9d1d9
+}
+.dark .markdown-body blockquote {
+    border-left: 0.2em solid #6ecd56;
+    border-right: none;
+    background-color: #2e343b;
+    color: #c9d1d9;
+    font-size: small;
+    padding: 15px;
+    border-radius: 0;
+    /*box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);*/
+}
+.dark .markdown-body pre{
+    background-color: transparent;
+}
+
+.dark .markdown-body h1,
+.dark .markdown-body h2,
+.dark .markdown-body h3,
+.dark .markdown-body h4,
+.dark .markdown-body h5,
+.dark .markdown-body h6, hr{
+    /*border-bottom: 1px solid hsla(210, 18%, 87%, 0.2);*/
+    border-color: hsla(210, 18%, 87%, 0.2);
+}
+
+.dark .markdown-body hr{
+    border-color: hsla(210, 18%, 87%, 0.2);
+    background-color: hsla(210, 18%, 87%, 0.2);
+}
+.dark .markdown-body a{
+    color: #33a9dc;
+    text-decoration: none;
+}
+.dark .markdown-body a:hover{
+    /*border: 1px solid #ffffff33;*/
+    background-color: black;
+}
+
+ol > li{
+    border-bottom: 1px solid hsla(210, 18%, 87%, 0.2);
+    border-color: hsla(210, 18%, 87%, 0.2);
+    padding: 10px 0;
+}
+
+/*---------------------------------*/
 
 .btns{
     z-index: 99;
     position: sticky;
     bottom: 10px;
-
     /*수직 정렬*/
+    margin: 0;
+    padding: 0;
+    top: 10px;
     display: flex;
-    flex-direction: column;
-    float: right;
+    display: none;
 }
 .btns li{
     display: inline-block;
     margin-top: 5px;
+    margin: 5px;
 }
-.btns .topButton{
-    cursor: pointer;
-}
-.btns .darkButton{
-    cursor: pointer;
 
+.btns.vertical{
+    /*clear: both;*/
+    float: right;
+    flex-direction: column;
+}
+.prevButton, .nextButton{
+    /*font-size: medium !important;*/
 }
 
 /*https://inpa.tistory.com/entry/CSS-%F0%9F%92%8D-%EB%B2%84%ED%8A%BC-%EB%94%94%EC%9E%90%EC%9D%B8-%EB%AA%A8%EC%9D%8C*/
 .btn-hover {
+    cursor: pointer;
     padding: 5px 20px;
     /*width: 200px;*/
     font-size: small;
@@ -83,69 +203,4 @@ body{
     /*border-color: rgba(255,255,255,1);*/
     background-color: rgba(255,255,255,1);
     color: #000;
-}
-
-/*---------------------------------*/
-
-md-block:not([rendered]) { display: none }
-.markdown-body{
-    /*background-color: #2e303e;*/
-    font-size: 14px;
-}
-.markdown-body blockquote {
-    border-left: 0.2em solid #6ecd56;
-    /*border-right: 0.6em solid #6ecd56;*/
-    background-color: #f6f8fa;
-    font-size: small;
-    padding: 15px;
-    /*border-radius: 10px;*/
-    /*box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);*/
-}
-.markdown-body pre code{
-    background-color: #2e343b;
-}
-
-/*---------------------------------*/
-
-.dark{
-    background-color: #1c2128;
-    color: #c9d1d9
-}
-.dark .markdown-body{
-    background-color: transparent;
-    color: #c9d1d9
-}
-.dark .markdown-body blockquote {
-    border-left: 0.2em solid #6ecd56;
-    border-right: none;
-    background-color: #2e343b;
-    color: #c9d1d9;
-    font-size: small;
-    padding: 15px;
-    border-radius: 0;
-    /*box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);*/
-}
-.dark .markdown-body pre{
-    background-color: transparent;
-}
-.dark .markdown-body h1,
-.dark .markdown-body h2,
-.dark .markdown-body h3,
-.dark .markdown-body h4,
-.dark .markdown-body h5,
-.dark .markdown-body h6, hr{
-    /*border-bottom: 1px solid hsla(210, 18%, 87%, 0.2);*/
-    border-color: hsla(210, 18%, 87%, 0.2);
-}
-.dark .markdown-body hr{
-    border-color: hsla(210, 18%, 87%, 0.2);
-    background-color: hsla(210, 18%, 87%, 0.2);
-}
-.dark .markdown-body a{
-    color: #33a9dc;
-    text-decoration: none;
-}
-.dark .markdown-body a:hover{
-    /*border: 1px solid #ffffff33;*/
-    background-color: black;
 }

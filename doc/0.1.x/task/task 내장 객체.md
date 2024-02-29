@@ -50,7 +50,6 @@ task 객체는 기능별로 task 인터페이스를 구현한 객체입니다.
 * [`<as-task>` 태그](./as-task%20태그)
 
 ```html
-
 <as-task id="task 아이디"
          [sync="series (default) | parallel" ]
          [src="" ]>
@@ -88,7 +87,6 @@ import한 task가 다른 task를 참조(src)하는 경우 원본을 찾아 impor
 `timer, if` 등의 attribute과 함께 사용하여 break 지점을 해제하고 다시 task를 진행시킬 수 있습니다.
 
 ```html
-
 <as-task>
     <break id="break 아이디"></break>
     <as-task>
@@ -120,7 +118,6 @@ $break.release('break 아이디');
 위에서 설정된 break를 해제하는 task 입니다.
 
 ```html
-
 <as-task>
     <break-release id="break 아이디"></break>
 </as-task>
@@ -132,7 +129,6 @@ $break.release('break 아이디');
 * 해당 아이디의 break 지점을 해제합니다.
 
 ```html
-
 <as-task>
     ...
     <break-release id="break 아이디"></break>
@@ -157,7 +153,6 @@ $break.release('break 아이디');
 * 이때 부모 task의 `end`, `complete`이벤트도 발생하지 않고 대신 `cancel` 이벤트가 발생합니다.
 
 ```html
-
 <cancel></cancel>
 ```
 
@@ -191,14 +186,12 @@ $break.release('break 아이디');
 * `cancel` 이벤트가 발생하지 않고 `end` 이벤트가 발생합니다.
 
 ```html
-
 <exit></exit>
 ```
 
 중첩된 task 구문에서 `<cancel>` task와 차이가 확실해 집니다.
 
 ```html
-
 <!--자동 실행됨-->
 <as-task onend="alert('종료')" oncancel="alert('취소')">
     <blank timer="1000"></blank>
@@ -247,7 +240,6 @@ selector 참조되는 dom 요소에 class 속성을 설정합니다.
 여러 class를 한번에 지정할때에는 콤마 구분자로 구분하여 설정합니다.
 
 ```html
-
 <addClass selector="" classes="className1, className2, ..."></addClass>
 ```
 
@@ -257,7 +249,6 @@ selector 참조되는 dom 요소에 class 속성을 제거합니다.
 여러 class를 한번에 지정할때에는 콤마 구분자로 구분하여 설정합니다.
 
 ```html
-
 <removeClass selector="" classes="className1, className2, ..."></removeClass>
 ```
 
@@ -266,7 +257,6 @@ selector 참조되는 dom 요소에 class 속성을 제거합니다.
 selector 참조되는 dom 요소에 class 속성을 설정 또는 제거합니다.  
 여러 class를 한번에 지정할때에는 콤마 구분자로 구분하여 설정합니다.
 ```html
-
 <toggleClass selector="" classes="className1, className2, ..."></toggleClass>
 ```
 
@@ -275,7 +265,6 @@ selector 참조되는 dom 요소에 class 속성을 설정 또는 제거합니�
 selector 참조되는 dom 요소에 attribute 속성을 설정합니다.
 
 ```html
-
 <addAttr selector="" name="" value=""></addAttr>
 ```
 
@@ -284,7 +273,6 @@ selector 참조되는 dom 요소에 attribute 속성을 설정합니다.
 selector 참조되는 dom 요소에 attribute 속성을 제거합니다.
 
 ```html
-
 <removeAttr selector="" name=""></removeAttr>
 ```
 
@@ -294,7 +282,6 @@ selector 참조되는 dom 요소에 style 속성을 설정합니다.
 style 속성 이름은 carmalCase 표기법으로 작성합니다.
 
 ```html
-
 <addStyle selector="" styles="{...}"></addStyle>
 ```
 
@@ -304,7 +291,6 @@ selector 참조되는 dom 요소에 style 속성을 제거합니다.
 여러 style 속성을 한번에 삭제할때에는 콤마 구분자로 구분하여 설정합니다.
 
 ```html
-
 <removeStyle selector="" styles="style 이름1, style 이름2, ..."></removeStyle>
 ```
 
@@ -314,7 +300,6 @@ selector 참조되는 dom 요소를 비활성 상태로 표시합니다.
 투명도와 마우스 동작을 비활성화 합니다.
 
 ```html
-
 <disable selector=""></disable>
 ```
 
@@ -324,7 +309,6 @@ selector 참조되는 dom 요소를 활성 상태로 표시합니다.
 (`disable` 상태를 해제합니다.)
 
 ```html
-
 <enable selector=""></enable>
 ```
 
@@ -337,7 +321,6 @@ selector 참조되는 dom 요소를 활성 상태로 표시합니다.
 아무런 동작도 하지 않지만 task 생명주기 인터페이스에 따라 이벤트를 발생시켜 줍니다.
 
 ```html
-
 <blank></blank>
 ```
 
@@ -360,7 +343,6 @@ task 관련 attribute과 함께 사용할 수 있습니다.
 `<js>` task 코드 블럭은 문자열 인식을 위해 CDATA 블럭안에 작성합니다.
 
 ```html
-
 <js><!--<![CDATA[
     // JS Code...
 //]]>--></js>
@@ -376,7 +358,6 @@ task 관련 attribute과 함께 사용할 수 있습니다.
 * `$args` : (배열) task 호출할때 전달된 매개변수 객체 입니다.
 
 ```html
-
 <js><!--<![CDATA[
     // some code...
     // 다음 task로 넘어감
@@ -390,7 +371,6 @@ task 관련 attribute과 함께 사용할 수 있습니다.
 다음은 비동기로 JS 코드를 실행한 후 다음 task를 호출하는 코드입니다.
 
 ```html
-
 <js><!--<![CDATA[
     this.foo = new Date();
     setTimeout(()=>{
@@ -448,7 +428,6 @@ audio 재생을 쉽게 제어하기 위한 task 입니다.
 HTML `<audio>` dom을 직접 제어하지 않고 `Media` proxy 객체가 제공하는 api를 통해 제어 합니다.
 
 ```html
-
 <sound [id="sound 아이디" ]
        [target="sound 아이디" ]
        [set="{속성 설정}" ]
@@ -497,7 +476,6 @@ HTML `<audio>` dom을 직접 제어하지 않고 `Media` proxy 객체가 제공�
 사용자 클릭 동작이 있으므로 다음 `autoplay` 속성은 동작합니다.
 
 ```html
-
 <as-task id="사운드 자동 재생">
     <sound id="soundID1" set="{ src: './sound1.mp3', autoplay: true }"></sound>
 </as-task>
@@ -515,7 +493,6 @@ HTML `<audio>` dom을 직접 제어하지 않고 `Media` proxy 객체가 제공�
 다음과 같이 사용합니다.
 
 ```html
-
 <as-task id="사운드 자동 재생">
     <sound id="soundID1" set="{ src: './sound1.mp3' }"
            run="play()"></sound>
@@ -532,7 +509,6 @@ HTML `<audio>` dom을 직접 제어하지 않고 `Media` proxy 객체가 제공�
 * 여러 이벤트를 설정하려면 콤마로 구분해서 설정합니다. (`wait="ended, error"`)
 
 ```html
-
 <as-task id="사운드 재생">
     <sound id="soundID1" set="{ src: './sound1.mp3' }"></sound>
     <!--"사운드 재생" task는 재생이 완료(ended 이벤트) 됬을때 종료됩니다.-->
@@ -547,7 +523,6 @@ HTML `<audio>` dom을 직접 제어하지 않고 `Media` proxy 객체가 제공�
 `destroy` atribute을 사용하여 생성된 audio 인스턴스를 초기화 또는 삭제할 수 있습니다.
 
 ```html
-
 <as-task id="사운드 재생">
     <sound id="soundID1" set="{ src: './sound1.mp3' }"></sound>
     <sound target="soundID1" wait="ended" run="play()"></sound>
@@ -562,7 +537,6 @@ HTML `<audio>` dom을 직접 제어하지 않고 `Media` proxy 객체가 제공�
 #### Media 이벤트
 
 ```html
-
 <sound id="soundID1" task:[event]="" om[event]=""></sound>
 ```
 
@@ -574,7 +548,6 @@ Media 객체에서 발송되는 이벤트는 [미디어 API](./미디어API)를 
 `$sound` 글로벌 객체를 사용하면 `<sound>` task의 Media 객체를 직접 제어할 수 있습니다.
 
 ```html
-
 <as-task>
     <sound id="soundID1"></sound>
 </as-task>
@@ -600,7 +573,6 @@ media.off('loadstart', onLoadstart);
 CSS Transition 대신 사용할 수 있는 트위닝 task 입니다.
 
 ```html
-
 <tween selector=""
        [set="{}" ]
        [from="{}" ]
@@ -632,7 +604,6 @@ CSS Transition 대신 사용할 수 있는 트위닝 task 입니다.
 다음은 값 설정 예시입니다,
 
 ```html
-
 <tween selector=""
        <!--
        to="{
@@ -661,7 +632,6 @@ CSS Transition 대신 사용할 수 있는 트위닝 task 입니다.
 복잡한 애니메이션은 `<js>` task에서 직접 구현할 수 있습니다.
 
 ```html
-
 <js><!--<![ CDATA [
         if(!this.tween){
             this.tween = gsap.to('.box',{
@@ -694,7 +664,6 @@ CSS Transition 대신 사용할 수 있는 트위닝 task 입니다.
 `set`, `from`, `to` attribute에 함께 트위닝될 속성을 지정할 수 있습니다.
 
 ```html
-
 <hide selector="" set="" from="" to=""></hide>
 ```
 
@@ -704,7 +673,6 @@ CSS Transition 대신 사용할 수 있는 트위닝 task 입니다.
 `set`, `from`, `to` attribute에 함께 트위닝될 속성을 지정할 수 있습니다.
 
 ```html
-
 <show selector="" set="" from="" to=""></show>
 ```
 
