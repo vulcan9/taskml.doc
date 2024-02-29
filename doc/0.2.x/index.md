@@ -10,64 +10,16 @@
 ### DEMO
 
 * ~~[Demo](./test/sample.html)~~
+
 * [task 단위 테스트](./test/task.html) (디버깅 창 log 확인)
+
 * ~~[매개변수 단위 테스트](./test/args.js)~~
+
 * ~~[레이아웃 정렬](./test/layout.html)~~
-* [드래그 앤 드랍](./task/드래그앤드랍)
-* ~~[미디어 컨트롤](./task/미디어%20컨트롤) `ver 0.1.4`~~
 
-# taskml 사용 방법
+* [드래그 앤 드랍](./feature/드래그앤드랍)
 
-### 1. taskml 라이브러리 로드
-
-```html
-<!-- "/taskml" alias를 설정하고 모듈을 로드합니다.-->
-<link rel="stylesheet" href="./dist/taskml/index-0.2.1.css">
-<script type="importmap">{"imports":{"/taskml":"./dist/taskml/index-0.2.1.js"}}</script>
-```
-
-다음 방식으로 사용할 수도 있습니다.
-```html
-<!--app_importmap.js 파일에서 taskml 버전을 설정합니다.-->
-<script src="./dist/taskml/app_importmap.js"></script>
-```
-
-
-### 2. template 작성
-task 태그와 html 태그를 사용하여 template을 작성합니다. 
-
-```html
-<body>
-    <!--template id 설정-->
-    <template id="taskml">
-        <task>
-            <script>console.log('Hello~ ');</script>
-        </task>
-        <task id="클릭">
-            <script>console.log('TaskML~!!');</script>
-        </task>
-        <button task:click="클릭">TaskML 실행</button>
-    </template>
-
-</body>
-```
-
-### 3. template 랜더링 호출
-
-```html
-<body>
-    ...
-    
-    <script type="module">
-        // 모듈 로드시 설정된 alias를 이용하여 모듈 메서드 호출
-        import {createApp} from "/taskml";
-        createApp('#app');
-    </script>
-    
-    <!--template attr 생략해도 (기본값) #taskml 사용됨-->
-    <div id="app" template="#taskml"></div>
-</body>
-```
+* ~~[미디어 컨트롤](./feature/미디어%20컨트롤) `ver 0.1.4`~~
 
 # taskml 구성 요소
 
@@ -109,5 +61,60 @@ UI를 빠르게 구성할 수 있도록 HTML 태그에 몇가지 기능이 추�
 > 0.1.x 버전의 SolidJS 컴포넌트 대신 `template`과 `customElements.define` 메서드를 사용하는 표준 custom element 구성 방법을 사용합니다.
 
 - Custom Elements 사용하기
+
+### 외부 파일 Import
+
 - `preload`, `include` task
 - Task 오버라이딩 (네임스페이스)
+
+# taskml 사용 방법
+
+### 1. taskml 라이브러리 로드
+
+```html
+<!-- "/taskml" alias를 설정하고 모듈을 로드합니다.-->
+<link rel="stylesheet" href="./dist/taskml/index-0.2.1.css">
+<script type="importmap">{"imports":{"/taskml":"./dist/taskml/index-0.2.1.js"}}</script>
+```
+
+다음 방식으로 사용할 수도 있습니다.
+```html
+<!--app_importmap.js 파일에서 taskml 버전을 설정합니다.-->
+<script src="./dist/taskml/app_importmap.js"></script>
+```
+
+### 2. template 작성
+task 태그와 html 태그를 사용하여 template을 작성합니다.
+
+```html
+<body>
+    <!--template id 설정-->
+    <template id="taskml">
+        <task>
+            <script>console.log('Hello~ ');</script>
+        </task>
+        <task id="클릭">
+            <script>console.log('TaskML~!!');</script>
+        </task>
+        <button task:click="클릭">TaskML 실행</button>
+    </template>
+
+</body>
+```
+
+### 3. template 랜더링 호출
+
+```html
+<body>
+    ...
+    
+    <script type="module">
+        // 모듈 로드시 설정된 alias를 이용하여 모듈 메서드 호출
+        import {createApp} from "/taskml";
+        createApp('#app');
+    </script>
+    
+    <!--template attr 생략해도 (기본값) #taskml 사용됨-->
+    <div id="app" template="#taskml"></div>
+</body>
+```

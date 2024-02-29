@@ -1,17 +1,23 @@
 // 작성자: pdi1066. 2024-02-28 0028
 
 (() => {
-    const ROOT_DIR = '/taskml.doc/';
-    var base = new URL(window.location);
+    const BASE = new URL(window.location);
     // console.log('baseURI: ', document.baseURI);
-    // console.log('base: ', base);
+    // console.log('BASE: ', BASE);
 
     // /taskml.doc/index.html
-    var html = base.pathname;
+    const HTML_PATH = BASE.pathname;
     // var root = html.substring(0, html.lastIndexOf('/'));
 
-    var href = base.searchParams.get('href');
-    loadMD(href);
+    var HREF = BASE.searchParams.get('href');
+    const VERSION = (()=>{
+        const reg = /\/taskml\.doc\/doc\/([\d.x]+)\/.*/ig;
+        return reg.exec(HREF)?.[1]
+    })();
+    const ROOT_DIR = `/taskml.doc/doc/${VERSION}/index`;
+
+    setColorMode();
+    loadMD(HREF);
 
     let timeID;
     document.addEventListener('md-render', (event) => {
@@ -20,6 +26,19 @@
             setPages();
         });
     }, {once: true});
+
+    function setColorMode(){
+        let colorMode = window.localStorage.getItem('colorMode');
+        if(!colorMode){
+            colorMode = 'dark';
+            window.localStorage.setItem('colorMode', colorMode);
+        }
+        if(colorMode === 'dark'){
+            document.body.classList.add('dark');
+        }else{
+            document.body.classList.remove('dark');
+        }
+    }
 
     //--------------------------------------
     // 새 (.md) 페이지 적용
@@ -50,23 +69,13 @@
         block.setAttribute('src', href);
     }
 
-    /*
-    window.addEventListener('hashchange', (event) => {
-        event.preventDefault();
-        var old_url = event.oldURL;
-        var new_url = event.newURL;
-        console.error(new_url);
-        return false;
-    });
-    */
-
     function setPages(){
         // 링크 경로 수정
         Array.from(document.links)
             .filter(link => {
                 // const pathname = link.getAttribute('href');
                 // if(pathname.startsWith('#')) return false;
-                return (link.origin === base.origin);
+                return (link.origin === BASE.origin);
             })
             .forEach(link => {
                 linkURL(link);
@@ -88,12 +97,32 @@
     // 페이지 기능
     ////////////////////////////////////////
 
+    window.addEventListener('hashchange', (event) => {
+        // event.preventDefault();
+        // var old_url = event.oldURL;
+        // var new_url = event.newURL;
+        // console.error('old_url: ', decodeURI(old_url));
+        // console.error('new_url: ', decodeURI(new_url));
+        console.error('hash: ', window.location.hash);
+        // return false;
+        hashScrolll();
+    });
+
     function hashScrolll(){
+        var selector;
         var hash = window.location.hash;
         if (hash) {
-            var selector = document.querySelector(decodeURI(hash));
-            selector?.scrollIntoView({behavior: 'smooth'});
+            selector = document.querySelector(decodeURI(hash));
+        }else{
+            selector = document.querySelector('.markdown-body');
+            // const scroller = document.querySelector('.markdown-body-container');
+            // scroller.scrollTop = 0;
         }
+        selector?.scrollIntoView({behavior: 'smooth'});
+
+        // selector ? selector.scrollIntoView({behavior: 'smooth'}) : dom.scrollTop = 0;
+        // var search = window.location.search;
+        // window.location.assign(HTML_PATH + search);
     }
 
     //--------------------------------------
@@ -114,7 +143,7 @@
                 hash = pathname.substring(hashMark);
                 pathname = pathname.substring(0, hashMark);
                 // console.log('pathname: ', pathname);
-                url = href;
+                url = HREF;
             } else {
                 url = (new URL(document.baseURI + pathname)).pathname;
             }
@@ -127,7 +156,7 @@
         console.log('search: ', decodeURI(url));
 
         Object.assign(link, {
-            href: html,
+            href: HTML_PATH,
             search: search,
             hash: hash,
             rel: "noreferrer"
@@ -139,16 +168,32 @@
     //--------------------------------------
 
     function setButtons(){
-        setDarkButton();
-        setTopButton()
+        var btn = document.querySelectorAll('.btns');
+        btn.forEach((el)=>{
+            el.style.display = 'flex';
+        });
+
+        setVersionButton();
         setHomeButton();
         setPrevButton();
         setNextButton();
 
-        var btn = document.querySelectorAll('.btns');
-        btn.forEach((el)=>{
-            el.style.display = 'flex';
-        })
+        setDarkButton();
+        setTopButton();
+    }
+
+    function setVersionButton(){
+        var btn = document.querySelector('.versionButton');
+        if(VERSION){
+            btn.innerHTML = 'Taskml ' + VERSION;
+        }else{
+            btn.style.display = 'none';
+        }
+
+        btn.addEventListener('click', () => {
+            var search = "?href=" + ROOT_DIR;
+            window.location.assign(HTML_PATH + search);
+        });
     }
 
     // darkButton
@@ -158,33 +203,34 @@
         btn.addEventListener('click', () => {
             document.body.classList.toggle('dark');
 
+            // localStorage에 저장
             const colorMode = document.body.classList.contains('dark') ? 'dark' : 'light';
             window.localStorage.setItem('colorMode', colorMode);
             btn.innerHTML = ((colorMode === 'dark') ? 'light' : 'dark').toUpperCase();
         });
 
-        // localStorage에 저장
         let colorMode = window.localStorage.getItem('colorMode');
-        if(!colorMode){
-            colorMode = 'dark';
-            window.localStorage.setItem('colorMode', colorMode);
-        }
-        if(colorMode === 'dark') document.body.classList.add('dark');
         btn.innerHTML = ((colorMode === 'dark') ? 'light' : 'dark').toUpperCase();
     }
 
     // topButton
     // onclick="document.body.scrollIntoView({ behavior: 'smooth' })"
     function setTopButton(){
+        var dom = document.querySelector('.markdown-body-container');
+
         var btn = document.querySelector('.topButton');
         btn.addEventListener('click', () => {
-            document.body.scrollIntoView({behavior: 'smooth'});
+            // document.body.scrollIntoView({behavior: 'smooth'});
+            window.location.hash = '';
+            hashScrolll();
         });
 
         const display = btn.style.display;
         btn.style.display = 'none';
-        window.addEventListener('scroll', function () {
-            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+
+        dom.addEventListener('scroll', function () {
+            // if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            if (dom.scrollTop > 20) {
                 btn.style.display = display;
             } else {
                 btn.style.display = 'none';
@@ -195,7 +241,7 @@
     function setHomeButton(){
         var btn = document.querySelector('.homeButton');
         btn.addEventListener('click', () => {
-            window.location.assign(html);
+            window.location.assign(HTML_PATH);
         });
     }
 

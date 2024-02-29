@@ -1,9 +1,10 @@
 
 body{
     margin: 0;
-    padding: 20px;
+    padding: 0;
     /*display: flex;*/
     scroll-behavior: smooth;
+    overflow: hidden;
 }
 
 /*---------------------------------*/
@@ -125,12 +126,10 @@ ol > li{
 
 .btns{
     z-index: 99;
-    position: sticky;
-    bottom: 10px;
+    /*position: sticky;*/
     /*수직 정렬*/
     margin: 0;
     padding: 0;
-    top: 10px;
     display: flex;
     display: none;
 }
@@ -140,10 +139,27 @@ ol > li{
     margin: 5px;
 }
 
+.btns.nav{
+    transition: all 0.5s ease;
+    padding: 0 10px;
+}
+.btns.nav:hover{
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(1.5px);
+}
+
+.btns.nav .title{
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
 .btns.vertical{
     /*clear: both;*/
-    float: right;
+    /*float: right;*/
     flex-direction: column;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 .prevButton, .nextButton{
     /*font-size: medium !important;*/
@@ -203,4 +219,57 @@ ol > li{
     /*border-color: rgba(255,255,255,1);*/
     background-color: rgba(255,255,255,1);
     color: #000;
+}
+
+/*---------------------------------*/
+
+.markdown-body-container{
+    /*position: fixed;*/
+    /*height: 100%;*/
+    /*overflow: auto;*/
+
+    padding: 20px;
+    padding-top: 0;
+
+    overflow: auto;
+    /*height: calc(100vh - 60px);*/
+    /*padding-top: 20px;*/
+    scroll-behavior: smooth;
+    overscroll-behavior: contain;
+    position: absolute;
+    bottom: 0;
+    top: 50px;
+    left: 0;
+    right: 0;
+
+    scrollbar-3dLight-Color: #343435;
+    scrollbar-arrow-color: #343435;
+    scrollbar-base-color: #343435;
+    scrollbar-Face-Color: #343435;
+    scrollbar-Track-Color: #343435;
+    scrollbar-DarkShadow-Color: #343435;
+    scrollbar-Highlight-Color: #343435;
+    scrollbar-Shadow-Color: #343435;
+}
+
+::-webkit-scrollbar {width: 8px; height: 8px; border: 3px solid #fff; }
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment {
+    display: block; height: 0px;
+    background: #343435;
+}
+::-webkit-scrollbar-track {
+    background: #343435;
+    /*-webkit-border-radius: 10px; border-radius:10px;*/
+    /*-webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.2);*/
+}
+::-webkit-scrollbar-thumb {
+    height: 50px; width: 50px;
+    background: rgba(255, 255, 255, 0.5);
+    /*border-radius: 8px;*/
+    border-radius: 0;
+    /*-webkit-box-shadow: inset 0 0 4px rgba(0,0,0,.1);*/
+}
+::-webkit-scrollbar-corner {
+    background: black;
 }
