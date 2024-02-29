@@ -18,47 +18,47 @@ src(value);
 
 ## 속성
 
-get/set
+### get/set
 
-    - defaultPlaybackRate    : 기본 재생 속도
-    - playbackRate           : 현재 재생 속도
-    - volume                 : 미디어의 볼륨
-    - currentTime            : 현재 재생중인 시간
+- defaultPlaybackRate    : 기본 재생 속도
+- playbackRate           : 현재 재생 속도
+- volume                 : 미디어의 볼륨
+- currentTime            : 현재 재생중인 시간
 
-    - src
-    - height
-    - width
-    - controls
-    - loop
-    - autoplay
-    - preload
+- src
+- height
+- width
+- controls
+- loop
+- autoplay
+- preload
 
-get Only
+### get Only
 
-    - duration()
-    - buffered()
-    - paused()
+- duration()
+- buffered()
+- paused()
 
 ## 메서드
 
-    - isPaused : 일시 정지 상태인지 여부
-    - load() : 로드를 시작합니다.
-    - play() : 미디어를 재생합니다.
-    - stop() : 미디어 재생을 멈춥니다.
-    - togglePlay() : 미디어 재생 toggle
-    - pause() : 미디어를 일시 정지합니다.
-    - dispose() : 미디어 기능 모두 제거합니다.
+- isPaused : 일시 정지 상태인지 여부
+- load() : 로드를 시작합니다.
+- play() : 미디어를 재생합니다.
+- stop() : 미디어 재생을 멈춥니다.
+- togglePlay() : 미디어 재생 toggle
+- pause() : 미디어를 일시 정지합니다.
+- dispose() : 미디어 기능 모두 제거합니다.
 
-풀스크린 관련 함수
+### 풀스크린 관련 함수
 
-    - isFullscreen()
-    - toggleFullScreen()
+- isFullscreen()
+- toggleFullScreen()
 
-기타
+### 기타
     
-    - remainTime() : 남은 재생 시간
-    - formatTime(seconds, duration) : 123456 (number) --> 0:12 (string)
-    - parseTime(timeText) :  0:12 (string) --> 123456 (number)
+- remainTime() : 남은 재생 시간
+- formatTime(seconds, duration) : 123456 (number) --> 0:12 (string)
+- parseTime(timeText) :  0:12 (string) --> 123456 (number)
 
 
 ## Media 이벤트
