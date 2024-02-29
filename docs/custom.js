@@ -103,7 +103,7 @@
         // var new_url = event.newURL;
         // console.error('old_url: ', decodeURI(old_url));
         // console.error('new_url: ', decodeURI(new_url));
-        console.error('hash: ', window.location.hash);
+        // console.error('hash: ', window.location.hash);
         // return false;
         hashScrolll();
     });
