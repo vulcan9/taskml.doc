@@ -67,9 +67,10 @@
             console.error('md-render');
             if (timeID) clearTimeout(timeID);
             timeID = setTimeout(() => {
-                console.error('setPages: ', block.childElementCount);
                 timeID = null;
-                if(block.childElementCount > 0){
+                const state = block.getAttribute('rendered');
+                console.error('state: ', state);
+                if(state === 'remote'){
                     block.removeEventListener('md-render', render);
                     setPages();
                 }
