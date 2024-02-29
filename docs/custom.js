@@ -60,16 +60,15 @@
         var block = document.querySelector('md-block');
         block.setAttribute('src', href);
 
+        // 랜더링 완료 모니터링
         let timeID;
         block.addEventListener('md-render', render);
-
         function render(event){
-            console.error('md-render');
             if (timeID) clearTimeout(timeID);
             timeID = setTimeout(() => {
                 timeID = null;
                 const state = block.getAttribute('rendered');
-                console.error('state: ', state);
+                console.log('load state: ', state);
                 if(state === 'remote'){
                     block.removeEventListener('md-render', render);
                     setPages();
