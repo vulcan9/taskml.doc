@@ -21,8 +21,10 @@
 
     let timeID;
     document.addEventListener('md-render', (event) => {
+console.error('md-render');
         if (timeID) clearTimeout(timeID);
         timeID = setTimeout(() => {
+console.error('setPages');
             setPages();
         });
     }, {once: true});
