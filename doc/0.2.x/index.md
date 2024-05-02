@@ -18,8 +18,7 @@
 * ~~[레이아웃 정렬](./test/layout.html)~~ (사용안함)
 
 * [드래그 앤 드랍](./feature/드래그앤드랍)
-
-* ~~[미디어 컨트롤](./feature/미디어%20컨트롤) `ver 0.1.4`~~ (사용안함)
+* [svg 선긋기](./feature/선긋기) (작성중)
 
 * [미디어 컨트롤](./feature/미디어%20컨트롤) `custom element` (작성중)
 * [미디어 API](./feature/미디어API) (작성중)
