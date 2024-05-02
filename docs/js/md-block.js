@@ -7,6 +7,8 @@ let marked = window.marked;
 let DOMPurify = window.DOMPurify;
 let Prism = window.Prism;
 
+// cdn.jsdelivr.net 인증서 만료로 인해 동작하지 않을경우 다음으로 대체
+// cdn.jsdelivr.net, fastly.jsdelivr.net, gcore.jsdelivr.net
 export const URLs = {
     marked: "https://fastly.jsdelivr.net/npm/marked/src/marked.min.js",
     DOMPurify: "https://fastly.jsdelivr.net/npm/dompurify@2.3.3/dist/purify.es.min.js"
@@ -142,7 +144,7 @@ export class MarkdownElement extends HTMLElement {
 
         return DOMPurify.sanitize(html);
     }
-};
+}
 
 export class MarkdownSpan extends MarkdownElement {
     constructor() {
