@@ -4685,11 +4685,10 @@ function td(i) {
 function ed(i) {
   i.forEach((t) => {
     if (t.type === "childList") {
-      const o = t.target;
-      console.error("parent: ", o), [...t.addedNodes].forEach((a) => {
-        a.nodeType === Node.ELEMENT_NODE && console.error("제거됨 (구현 안됨): ", a);
-      }), [...t.removedNodes].forEach((a) => {
-        a.nodeType === Node.ELEMENT_NODE && console.error("제거됨 (구현 안됨): ", a);
+      [...t.addedNodes].forEach((o) => {
+        o.nodeType === Node.ELEMENT_NODE && k() && console.log("Observer (ELEMENT 추가됨): ", o);
+      }), [...t.removedNodes].forEach((o) => {
+        o.nodeType === Node.ELEMENT_NODE && k() && console.log("Observer (ELEMENT 제거됨): ", o);
       });
       return;
     }
