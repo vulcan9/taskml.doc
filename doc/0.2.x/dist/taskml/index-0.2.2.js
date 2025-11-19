@@ -5682,9 +5682,11 @@ const ct = class ct {
   // root --> include .... 순으로 등록됨
   async each(t) {
     const e = E(this, de);
-    for (let [r, n] of e)
-      if (await t(n))
-        break;
+    if (e) {
+      for (let [r, n] of e)
+        if (await t(n))
+          break;
+    }
   }
   runClose() {
     O(this, de, null);
