@@ -23,14 +23,14 @@ body{
 .markdown-body pre code table{
     margin-bottom: 5px;
 }
-.markdown-body table tr{
+.markdown-body pre code table tr{
     background-color: transparent;
     border: none;
     border-bottom: 1px solid;
     border-color: rgba(255,255,255,0.05);
     border-bottom-width: 0;
 }
-.markdown-body table tr:nth-child(2n){
+.markdown-body pre code table tr:nth-child(2n){
     background-color: transparent;
 }
 .markdown-body pre code table tr:hover{
@@ -41,11 +41,6 @@ body{
 .markdown-body pre code table td{
     border: none;
     padding: 1px 10px
-}
-
-.markdown-body table th,
-.markdown-body table td{
-    border-color: rgba(255,255,255,0.05);
 }
 
 /*
@@ -96,6 +91,10 @@ md-block:not([rendered]) { display: none }
 }
 .dark .markdown-body pre{
     background-color: transparent;
+}
+
+.dark .markdown-body table tr{
+    border-color: hsla(210, 18%, 87%, 0.2);
 }
 
 .dark .markdown-body h1,
