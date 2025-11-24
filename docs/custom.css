@@ -112,8 +112,8 @@ md-block:not([rendered]) { display: none }
     background-color: transparent;
 }
 
-.markdown-body table th,
-.markdown-body table td,
+.dark .markdown-body table th,
+.dark .markdown-body table td,
 .dark .markdown-body table tr{
     border-color: hsla(210, 18%, 87%, 0.2);
 }
