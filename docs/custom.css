@@ -23,14 +23,14 @@ body{
 .markdown-body pre code table{
     margin-bottom: 5px;
 }
-.markdown-body pre code table tr{
+.markdown-body table tr{
     background-color: transparent;
     border: none;
     border-bottom: 1px solid;
     border-color: rgba(255,255,255,0.05);
     border-bottom-width: 0;
 }
-.markdown-body pre code table tr:nth-child(2n){
+.markdown-body table tr:nth-child(2n){
     background-color: transparent;
 }
 .markdown-body pre code table tr:hover{
