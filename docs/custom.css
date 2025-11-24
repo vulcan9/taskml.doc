@@ -43,6 +43,11 @@ body{
     padding: 1px 10px
 }
 
+.markdown-body table th,
+.markdown-body table td{
+    border-color: rgba(255,255,255,0.05);
+}
+
 /*
 .no-code-line .markdown-body pre code table tr{ border: none }
 .no-code-line .markdown-body pre code table th,
