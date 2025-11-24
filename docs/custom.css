@@ -25,17 +25,17 @@ body{
 }
 .markdown-body table tr{
     background-color: transparent;
-    border: none;
-    border-bottom: 1px solid;
-    border-color: rgba(255,255,255,0.05);
-    border-bottom-width: 0;
+    /*border: none;*/
+    /*border-bottom: 1px solid;*/
+    /*border-color: rgba(255,255,255,0.05);*/
+    /*border-bottom-width: 0;*/
 }
 .markdown-body table tr:nth-child(2n){
     background-color: transparent;
 }
 .markdown-body table th,
 .markdown-body table td{
-    border: none;
+    /*border: none;*/
     padding: 1px 10px
 }
 
@@ -112,6 +112,8 @@ md-block:not([rendered]) { display: none }
     background-color: transparent;
 }
 
+.markdown-body table th,
+.markdown-body table td,
 .dark .markdown-body table tr{
     border-color: hsla(210, 18%, 87%, 0.2);
 }
