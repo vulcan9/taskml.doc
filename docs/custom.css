@@ -27,7 +27,7 @@ body{
     background-color: transparent;
     /*border: none;*/
     /*border-bottom: 1px solid;*/
-    /*border-color: rgba(255,255,255,0.05);*/
+    border-color: hsla(210,18%,87%,1);
     /*border-bottom-width: 0;*/
 }
 .markdown-body table tr:nth-child(2n){
@@ -35,7 +35,7 @@ body{
 }
 .markdown-body table th,
 .markdown-body table td{
-    /*border: none;*/
+    border-color: hsla(210,18%,87%,1);
     padding: 1px 10px
 }
 
