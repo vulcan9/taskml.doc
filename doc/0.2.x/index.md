@@ -85,7 +85,7 @@ task 태그에 `override` attribute이 추가되었습니다.
 
 ## 외부 파일 Import
 
-- [`preload` vs `include`)](./include/import)
+- [`preload` vs `include`](./include/import)
 - [문서 로드와 실행 순서](./include/rules/문서%20로드와%20실행%20순서)
 - [$inject 객체 사용](./include/inject)
 

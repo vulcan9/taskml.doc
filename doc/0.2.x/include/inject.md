@@ -210,7 +210,7 @@ const firstBox = $inject.querySelector('.quiz-box');
 
 `template(selector: string, global = false)` : HTMLTemplateElement[]
 
-TaskML이 관리하는 <template> 리소스를 찾는 헬퍼입니다.
+TaskML이 관리하는 `<template>` 리소스를 찾는 헬퍼입니다.
 - `global === false` (기본값)
   - 현재 리소스(혹은 `<define>`)에서만 템플릿을 찾습니다.
   - 내부적으로 `getResourceElement(this.#option)` 아래에서 selector 로 검색합니다.
