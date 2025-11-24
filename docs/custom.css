@@ -20,6 +20,25 @@ body{
     width: 100%;
 }
 
+.markdown-body table{
+    margin-bottom: 5px;
+}
+.markdown-body table tr{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid;
+    border-color: rgba(255,255,255,0.05);
+    border-bottom-width: 0;
+}
+.markdown-body table tr:nth-child(2n){
+    background-color: transparent;
+}
+.markdown-body table th,
+.markdown-body table td{
+    border: none;
+    padding: 1px 10px
+}
+
 .markdown-body pre code table{
     margin-bottom: 5px;
 }
@@ -93,27 +112,6 @@ md-block:not([rendered]) { display: none }
     background-color: transparent;
 }
 
-.markdown-body table{
-    margin-bottom: 5px;
-}
-.markdown-body table tr{
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid;
-    border-color: rgba(255,255,255,0.05);
-    border-bottom-width: 0;
-}
-.markdown-body table tr:nth-child(2n){
-    background-color: transparent;
-}
-.markdown-body table tr:hover{
-    background-color: rgba(0,0,0,0.1);
-}
-.markdown-body table th,
-.markdown-body table td{
-    border: none;
-    padding: 1px 10px
-}
 .dark .markdown-body table tr{
     border-color: hsla(210, 18%, 87%, 0.2);
 }
