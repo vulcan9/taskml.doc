@@ -12,6 +12,8 @@ taskML에서 제공하는 `CustomElement` 클래스를 상속하고 `customEleme
 
 taskML에서 컴포넌트를 작성하는 방법입니다.
 
+> `CustomElement` 클래스를 사용하지 않고 직접 웹 컴포넌트를 만들어 사용해도 됩니다.
+
 ```html
 <div id="app" template="#taskml"></div>
 
