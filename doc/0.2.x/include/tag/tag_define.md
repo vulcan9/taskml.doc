@@ -4,9 +4,9 @@
 `<define>` 태그 안의 정보는 namespace 데이터로 저장되고 본문에 attach 되지는 않습니다.
 
 ```html
-<define>
+<define ns="namespace">
     <!--내부에 최상위 자식으로 다음 요소들만 사용 가능합니다.-->
-    <!--DOM 요소는 무시됩니다.-->
+    <!--UI DOM 요소는 무시됩니다.-->
 
     <link rel="stylesheet"> <!--(스타일 시트만)-->
     <style></style>
