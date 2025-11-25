@@ -31,7 +31,7 @@ taskml은 크게 두가지 구성요소로 구분됩니다.
 
 - [`task` 인터페이스](./taskml/task/task_intrface)
 - [`<task>` 태그](./taskml/task_태그)
-- [`<task>` 이벤트 주기](./taskml/task/task_event)
+- [`task` 이벤트 주기](./taskml/task/task_event)
 - [매개변수 전달 ($args)](./taskml/task/task_args.md)
 - [`task` Attribute 인터페이스](./taskml/task/task_attribute.md)
 - [`task` 인터페이스가 구현된 태그](./taskml/task_내장_객체)
