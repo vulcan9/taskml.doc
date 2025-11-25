@@ -86,7 +86,9 @@ task 내부에 작성하는 script 노드와 구별하세요
 > preload된 외부 파일의 `<script>`는 DOM이 붙을 때 실행되며,  
 > 그 script들이 모두 실행된 이후에 해당 파일의 `firstrun` task가 실행됩니다.
 
-### moddule
+### `<script type="moddule">`
+다음은 모듈 스크립트의 일반적인 특징입니다. taskML에서도 그대로 적용됩니다.
+
 - 모듈은 로컬 파일에서 동작하지 않고, HTTP 또는 HTTPS 프로토콜을 통해서만 동작합니다.
 - 모듈은 항상 엄격 모드(`use strict`)로 실행됩니다.
 - 모듈은 자신만의 스코프가 있습니다.
