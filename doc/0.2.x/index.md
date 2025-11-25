@@ -69,7 +69,7 @@ taskml은 크게 두가지 구성요소로 구분됩니다.
 taskML을 한곳에서 작성하면 너무 복잡해집니다.  
 이런 경우 외부 파일 불러오기 기능과 `<scope>`, `<define>` 태그를 사용하여 충돌 방지할 수 있습니다.
 
-### namespace
+### namespace (define)
 
 - [`<define>` 태그를 이용하여 독립적인 namespace 만들기](./include/tag/tag_define)
 - [namespace 사용 방법](./include/tag/use_namespace)
