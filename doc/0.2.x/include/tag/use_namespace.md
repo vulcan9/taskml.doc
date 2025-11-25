@@ -1,6 +1,6 @@
 # namespace 사용 방법
 
-## namespace 규칙
+## namespace 표기 규칙
 
 모든 task 아이디 표시 형식은 `네임스페이스:아이디` 패턴입니다.
 - 자신의 namespace 범주에 속해 있으면 namespace는 생략 가능합니다. (예: 전역 범주에서는 `global` 생략 가능)
@@ -50,6 +50,23 @@ task 아이디 앞에 namespace 이름을 붙여주면 namespace 안의 task 목
 <input type="button" value="클릭" task:click="video:재생">
 ```
 이렇게 하면 `재생` 아이디를 가진 두개의 task가 서로 충돌하지 않습니다.
+
+## 외부 HTML(preload) 안에 컴포넌트/위젯 정의할 때
+
+```html
+<define ns="video">
+    <template id="view"> ... </template>
+    <style> ... </style>
+    <task id="재생"> ... </task>
+    <script> ... </script>
+</define>
+```
+그리고 본문에서는
+
+```html
+<task preload="./video.html"></task>
+```
+이렇게 하면 퀴즈 컴포넌트용 task/template/style 이 한 덩어리로 묶여서 관리되고, 전역 task들과 이름이 겹쳐도 NS로 구분할 수 있습니다.
 
 ## 여러 문서에서 같은 id 의 task 를 써야 할 때
 
