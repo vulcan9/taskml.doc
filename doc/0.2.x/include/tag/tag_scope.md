@@ -49,16 +49,14 @@
 <div class="quiz_1"> ... </div>
 <script>
     // 이 스크립트는 퀴즈 1에만 관심 있음
-    const item = document.querySelector('.item');
-    // 하지만 퀴즈 2의 element까지 검색됨
+    const item = document.querySelector('.quiz_1 .item');
 </script>
 
 <!--퀴즈 2 UI-->
 <div class="quiz_2"> ... </div>
 <script>
     // 이 스크립트는 퀴즈 2에만 관심 있음
-    const item = document.querySelector('.item');
-    // 하지만 퀴즈 1의 element까지 검색됨
+    const item = document.querySelector('.quiz_2 .item');
 </script>
 ```
 
