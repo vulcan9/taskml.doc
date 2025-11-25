@@ -10,11 +10,18 @@
 
     <link rel="stylesheet"> <!--(스타일 시트만)-->
     <style></style>
+    <script> // HTML Script 태그임 (task의 node 아님) </script>
     <task></task>
     <template></template>
-    <script> // HTML Script 태그임 (task의 node 아님) </script>
 </define>
 ```
+
+`<define>` 태그 안에서는 최상위로 다음 태그들만 허용됩니다.
+- `<link rel="stylesheet">`
+- `<style>`
+- `<script>`
+- `<task>`
+- `<template>`
 
 > `<scope>` 태그는 `<define>` 태그 내부에 사용할 수 없습니다.
 
@@ -24,15 +31,23 @@ taskML 본문과 로드 가능한 외부 문서들은 많은 task 정의와 데�
 이런 요소들이 모두 전역(Global) 공간에서 관리된다면 이름 충돌에 의해 서로 재정의되는 문제는 불가피할 것입니다.  
 문서 내에서 각각의 namespace 공간을 설정하게되면 복잡도는 한결 낮아집니다.
 
-- `global` namespace는 생략할 수 있습니다.
-- `<define>` 태그 밖에 정의된 `<task id="아이디">` 형식의 표기는 모두 (생략된) `global` namespace 입니다.
-- `<define>` 태그 안에 정의된 `<task id="아이디">` 형식의 표기는 모두 설정된 namespace에 속한 task 입니다.
-- `<define>` 태그에 `ns` 값이 없으면 임의의 문자열로 자동 설정됩니다.
+#### namespace 규칙
+
+`<define>` 태그에 `ns` 값이 없으면 임의의 문자열로 자동 설정됩니다.
 - 특정 namespace를 지정하려면 `<task id="namespace:아이디">` 형식으로 표기합니다.
 - 특정 namespace를 지정하여 호출하려면 `namespace:아이디` 표기를 사용합니다.
-  - `<task src="namespace:아이디">`
-  - `"task:click="namespace:아이디"`
-  - `$task['namespace:아이디']()`
+    - `<task src="namespace:아이디">`
+    - `"task:click="namespace:아이디"`
+    - `$task['namespace:아이디']()`
+
+`<define>` 태그 밖에서
+- `<define>` 태그 밖에 정의된 `<task id="아이디">` 형식의 표기는 모두 (생략된) `global` namespace 입니다.
+- `global` namespace는 생략할 수 있습니다.
+
+`<define>` 태그 안에서
+- `<define>` 태그 안에 정의된 `<task id="아이디">` 형식의 표기는 모두 설정된 namespace에 속한 task 입니다.
+- `<define>` 태그 안에서는 자신의 namespace는 생략할 수 있습니다.
+- task id 앞에 namespace가 없으면 자신의 namespace 범위에서 id를 찾은 후 없으면 global 범위에서 찾습니다.
 
 예를 들면 사용자 컴포넌트 그룹이 있다고 가정하면,
 
@@ -41,7 +56,8 @@ taskML 본문과 로드 가능한 외부 문서들은 많은 task 정의와 데�
 - 컨트롤러 컴포넌트
 - 자막 컴포넌트
 
-비디오 컴폰너트가 3개의 컴포넌트로 구성되어 있을때 서로 의존관계가 없는 각자의 독립된 context에서 기능을 구현하는 방법은 각각의 컴포넌트를 `<define>` 태그로 감싸는 것입니다.
+비디오 컴폰너트가 3개의 컴포넌트로 구성되어 있을때 서로 의존관계가 없는 각자의 독립된 context에서 기능을 구현하는 방법은 
+각각의 컴포넌트를 `<define>` 태그로 감싸는 것입니다.
 `<define>` 태그로 감싼 내용을 각각의 파일로 분리해 놓으면 관리가 더욱 쉬워질 것입니다.
 
 ```html
@@ -54,13 +70,6 @@ taskML 본문과 로드 가능한 외부 문서들은 많은 task 정의와 데�
 <define ns="display"> ... </define>
 <define ns="subtitle"> ... </define>
 ```
-
-`<define>` 태그 안에서는 최상위로 다음 태그들만 허용됩니다.
-- `<task>`
-- `<template>`
-- `<script>`
-- `<style>`
-- `<link rel="stylesheet">`
 
 `<define ns="video">` 처럼 쓰면, 그 안의 리소스들이 `video` 라는 별도의 NS에 등록됩니다.  
 (그리고 새로운 NS 안에 독립된 $task, $dom, $firstrun 등이 존재합니다.)  
