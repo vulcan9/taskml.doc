@@ -91,6 +91,8 @@ slot을 이용하는 방법은 다음을 참고하세요
 사용자는 이 클래스를 상속받아 자신만의 컴포넌트를 만들고,
 `defaultTemplate()`, `defaultTemplateData()`, `getInject()` 등을 오버라이드 하면서 사용하도록 설계돼 있습니다.
 
+- [taskML에서 확장된 웹 컴포넌트 기능](../include/web_component_extention)
+
 ```js
 import { CustomElement } from "/taskml";
 
