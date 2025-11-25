@@ -12,7 +12,7 @@
     <style></style>
     <task></task>
     <template></template>
-    <script> // HTML Script 태그임 </script>
+    <script> // HTML Script 태그임 (task의 node 아님) </script>
 </define>
 ```
 
