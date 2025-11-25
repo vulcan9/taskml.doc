@@ -28,6 +28,23 @@ task 아이템의 이벤트를 등록할 수 있습니다.
        onPlay="" task:play=""></sound>
 ```
 
+## selector interface
+
+DOM Element 대상이 필요한 task에서 사용됩니다.  
+`selector=""` attribute 값은 표준 CSS Selector 표현과 같습니다.
+
+- 콤마 구분자를 사용하여 여러 DOM 요소를 한꺼번에 참조할 수 있습니다.
+
+```html
+<addStyle selector="CSS Select 표현" styles="{}"></addStyle>
+```
+
+selector 값으로 이벤트를 발생시킨 DOM 객체를 참조할 수도 있습니다.
+```html
+<!-- selector-is-dom attribute을 함께 사용해야 합니다. -->
+<addStyle selector="$args.event.target" selector-is-dom styles="{}"></addStyle>
+```
+
 ## condition interface
 
 조건식 결과에 따라 실행할 task를 결정할 수 있습니다
@@ -117,21 +134,4 @@ sound가 3초 길이라면 1초 후 종료 처리되고 0.5초 길이이면 0.5�
          delay="1000"></sound>
 </task>
 <!--1초 후 재생됨 (start 이벤트 발생)-->
-```
-
-## selector interface
-
-DOM Element 대상이 필요한 task에서 사용됩니다.  
-`selector=""` attribute 값은 표준 CSS Selector 표현과 같습니다.
-
-- 콤마 구분자를 사용하여 여러 DOM 요소를 한꺼번에 참조할 수 있습니다.
-
-```html
-<addStyle selector="CSS Select 표현" styles="{}"></addStyle>
-```
-
-selector 값으로 이벤트를 발생시킨 DOM 객체를 참조할 수도 있습니다.
-```html
-<!-- selector-is-dom attribute을 함께 사용해야 합니다. -->
-<addStyle selector="$args.event.target" selector-is-dom styles="{}"></addStyle>
 ```
