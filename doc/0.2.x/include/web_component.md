@@ -72,7 +72,7 @@ taskML에서 컴포넌트를 작성하는 방법입니다.
 
 <!--웹 표준 컴포넌트이므로 taskML 바깥에서도 사용 가능합니다.-->
 <user-component>
-    <slot></slot>
+    <!--<slot></slot>-->
 </user-component>
 ```
 
