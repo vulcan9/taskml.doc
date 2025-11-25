@@ -6,7 +6,7 @@
 
 ## 웹 컴포넌트 만들기
 
-`CustomElement` 클래스를 상속하고 `customElements`에 등록하면 HTML 표준 웹 컴포넌트가 생성됩니다.
+taskML에서 제공하는 `CustomElement` 클래스를 상속하고 `customElements`에 등록하면 HTML 표준 웹 컴포넌트가 생성됩니다.
 - `CustomElement` 클래스는 `HTMLElement`를 상속합니다.
 - 따라서 웹 컴포넌트의 모든 기능을 그대로 사용할 수 있습니다.
 
