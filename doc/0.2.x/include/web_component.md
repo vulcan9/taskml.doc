@@ -175,7 +175,7 @@ setShadowRootMode(mode) {
 
 ### render 자체를 확장하고 싶다면
 
-일반적으로는 render()를 직접 오버라이드하기보다는,
+일반적으로는 `render()`를 직접 오버라이드하기보다는,
 
 - defaultTemplate()
 - defaultTemplateData()
