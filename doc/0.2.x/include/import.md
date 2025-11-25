@@ -190,12 +190,12 @@ HTML 문서 구조와 달리 `html`, `head`, `body` 태그 없이 바로 작성 
 
 <!--
 본문/
-  │── path/
-      ├── to/
-      │   ├── a.task.html
-      │   ├── b.task.html
-      ├── image/
-      │   ├── bg.ppg
+│── path/
+    ├── to/
+    │   ├── a.task.html
+    │   ├── b.task.html
+    ├── image/
+    │   ├── bg.ppg
 -->
 <task preload="./path/to/a.task.html"></task>
 

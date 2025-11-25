@@ -1,76 +1,4 @@
-# 사용자 컴포넌트 만들기
-
-## 웹 컴포넌트 만들기
-
-`CustomElement` 클래스를 상속하고 `customElements`에 등록하면 HTML 표준 웹 컴포넌트가 생성됩니다.
-- [웹 컴포넌트](https://developer.mozilla.org/ko/docs/Web/API/Web_components/Using_custom_elements)
-- [customElements](https://developer.mozilla.org/ko/docs/Web/API/Window/customElements)
-- [web-components-examples](https://github.com/mdn/web-components-examples/)
-
-따라서 웹 컴포넌트의 모든 기능을 그대로 사용할 수 있습니다.  
-taskML에서 컴포넌트를 작성하는 방법입니다.
-
-```html
-<div id="app" template="#taskml"></div>
-
-<template id="taskml">
-
-  <script type="module">
-    import {CustomElement} from "/taskml";
-
-    console.log('현재 파일 경로: ', `${$inject.dirname}`);
-    
-    // <custom-tag> 컴포넌트 로직
-    class CustomTag extends CustomElement {
-      // $inject 정보 전달 (필수 오버라이딩)
-      // $inject 값은 파일마다 값이 다르므로 직접 오버라이딩 해줘야 합니다.
-      getInject() { 
-          return $inject; 
-      }
-    }
-
-    // 컴포넌트 등록
-    // 글자 가운데 "-" 를 하나 이상 포함해야 한다
-    customElements.define('user-component', CustomTag);
-  </script>
-
-</template>
-```
-따라서, `CustomElement` 클래스를 상속하여 컴포넌트의 기능을 더 확장할 수 있습니다.
-
-[사용자 컴포넌트 네이밍 규칙 (표준)](https://developer.mozilla.org/en-US/docs/Web/API/CustomElementRegistry/define#valid_custom_element_names)
-- ASCII 소문자(az)로 시작합니다.
-- 하이픈이 포함되어 있습니다
-- ASCII 대문자를 포함하지 않습니다
-- 다음 특정 문자를 포함하면 컴포넌트 이름으로 사용할 수 없습니다.
-    - "annotation-xml"
-    - "color-profile"
-    - "font-face"
-    - "font-face-src"
-    - "font-face-uri"
-    - "font-face-format"
-    - "font-face-name"
-    - "missing-glyph"
-
-## 웹 컴포넌트 사용하기
-
-```html
-<div id="app" template="#taskml"></div>
-<template id="taskml">
-  
-  ...
-  
-  <!--taskML 내부에서 사용-->
-  <user-component></user-component>
-</template>
-
-<!--웹 표준 컴포넌트이므로 taskML 바깥에서도 사용 가능합니다.-->
-<user-component>
-  <slot></slot>
-</user-component>
-```
-
-# 웹 컴포넌트 기능 확장
+# taskML에서 확장된 웹 컴포넌트 기능
 
 ```html
 <user-component [useShadowRoot="false|open|close"]
@@ -105,13 +33,13 @@ ShadowRoot: 문서의 기본 DOM 트리와 별도로 렌더링되는 DOM 하위 
 <div id="app" template="#taskml"></div>
 <template id="taskml">
 
-  <!--컴포넌트 스킨 정의, data-name="data"-->
-  <template id="userComponent" desc="임의의 attribute 설정값">
-    <h3>User Component Skin</h3>
-    <li>템플릿이 정의 문서의 경로 : ${$inject.dirname}</li>
-  </template>
+    <!--컴포넌트 스킨 정의, data-name="data"-->
+    <template id="userComponent" desc="임의의 attribute 설정값">
+        <h3>User Component Skin</h3>
+        <li>템플릿이 정의 문서의 경로 : ${$inject.dirname}</li>
+    </template>
 
-  <!--<user-component></user-component>-->
+    <!--<user-component></user-component>-->
 </template>
 ```
 
@@ -133,18 +61,18 @@ template을 찾을 수 있는 고유한 selector를 설정해 줍니다.
 
 ```js
 class CustomTag extends CustomElement {
-  // ...
-  
-  // getInject 메서드는 꼭 오버라이딩 할것
-  getInject() { return $inject; }
-  
-  // 기본 템플릿 설정 오버라이딩
-  defaultTemplate() {
-    // 현재 문서의 내부에서만 탐색 합니다.
-    // 로드된 문서의 내용과 충돌을 방지하기 위해 this.getInject()를 사용합니다.
-    const context = this.getInject();
-    return context.template('#defaultSkin')[0];
-  }
+    // ...
+
+    // getInject 메서드는 꼭 오버라이딩 할것
+    getInject() { return $inject; }
+
+    // 기본 템플릿 설정 오버라이딩
+    defaultTemplate() {
+        // 현재 문서의 내부에서만 탐색 합니다.
+        // 로드된 문서의 내용과 충돌을 방지하기 위해 this.getInject()를 사용합니다.
+        const context = this.getInject();
+        return context.template('#defaultSkin')[0];
+    }
 }
 ```
 
@@ -189,23 +117,23 @@ class CustomTag extends CustomElement {
 <div id="app" template="#taskml"></div>
 <template id="taskml">
 
-  <script>
-    // 템플릿 데이터 정의
-    const templateData = {
-      text: '템플릿 데이터를 동적으로 적용합니다.'
-    }
-  </script>
-  
-  <!-- 
-  컴포넌트 스킨 정의
-  템플릿 리터럴 구문으로 데이터 사용 가능함 : ${data.text}
-  -->
-  <template id="userComponent">
-    <h3>User Component Skin</h3>
-    <li>데이터: ${JSON.stringify(data)}</li>
-  </template>
+    <script>
+        // 템플릿 데이터 정의
+        const templateData = {
+            text: '템플릿 데이터를 동적으로 적용합니다.'
+        }
+    </script>
 
-  <!--<user-component></user-component>-->
+    <!-- 
+    컴포넌트 스킨 정의
+    템플릿 리터럴 구문으로 데이터 사용 가능함 : ${data.text}
+    -->
+    <template id="userComponent">
+        <h3>User Component Skin</h3>
+        <li>데이터: ${JSON.stringify(data)}</li>
+    </template>
+
+    <!--<user-component></user-component>-->
 </template>
 ```
 
@@ -221,17 +149,17 @@ class CustomTag extends CustomElement {
 
 ```js
 class CustomTag extends CustomElement {
-  // ...
-  
-  // getInject 메서드는 꼭 오버라이딩 할것
-  getInject() { return $inject; }
-  
-  // 기본 템플릿 데이터 설정 오버라이딩
-  defaultTemplateData() {
-    return {
-      text: '템플릿 데이터 (기본값)을 적용합니다.'
+    // ...
+
+    // getInject 메서드는 꼭 오버라이딩 할것
+    getInject() { return $inject; }
+
+    // 기본 템플릿 데이터 설정 오버라이딩
+    defaultTemplateData() {
+        return {
+            text: '템플릿 데이터 (기본값)을 적용합니다.'
+        }
     }
-  }
 }
 ```
 
@@ -248,12 +176,12 @@ class CustomTag extends CustomElement {
 
 ```html
 <script type="module">
-  // 템플릿 데이터 정의
-  window.templateData = { ... }
+    // 템플릿 데이터 정의
+    window.templateData = { ... }
 </script>
 ```
 
-### template에서 사용하는 데이터 이름
+## `template-data` 데이터 이름 지정
 
 `template-data`를 받아 template에서 적용해 줄때, 받는 데이터의 이름을 설정할 수 있습니다.  
 템플릿 정의 태그에서 `data-name` 속성을 사용합니다.
@@ -263,14 +191,14 @@ class CustomTag extends CustomElement {
 ```html
 <!-- 컴포넌트 스킨 정의: "info" 이름으로 데이터 참조하기 -->
 <template id="userComponent" data-name="info">
-  <h3>User Component Skin</h3>
-  <li>데이터: ${JSON.stringify(info)}</li>
+    <h3>User Component Skin</h3>
+    <li>데이터: ${JSON.stringify(info)}</li>
 </template>
 ```
 
 복잡한 구조의 템플릿을 만들때 데이터 이름이 중복되지 않도록 하기 위해 필요합니다.
 
-## `<template>` 사용 요약
+# `<template>` 사용 요약
 
 * 지정된 이름으로 데이터 객체가 전달됨 : `data-name="data"`
 * 템플릿 리터럴 구문으로 데이터 사용 가능함 : `${data.text}`

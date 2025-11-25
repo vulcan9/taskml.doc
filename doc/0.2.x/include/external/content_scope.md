@@ -35,17 +35,17 @@
 
 ## 요약
 
-1. 조각(fragment) HTML을 preload하고 싶다면 `<scope>...</scope>`로 감싸는 것을 권장
+- 조각(fragment) HTML을 preload하고 싶다면 `<scope>...</scope>`로 감싸는 것을 권장
     - 그래야 script/template가 head로 튀지 않고
     - 의도한 대로 body 영역으로 들어감.
 
 
-2. `<scope>` 안에서 실행되는 스크립트는 
-    - TaskML이 제공하는 헬퍼(`getInject().querySelectorAll`)를 쓰면, 
+- `<scope>` 안에서 실행되는 스크립트는
+    - TaskML이 제공하는 헬퍼(`getInject().querySelectorAll`)를 쓰면,
     - scope 내부만 대상으로 동작하도록 할 수 있습니다.
 
 
-3. 한 파일에서 `<define>`과 `<scope>`를 동시에 쓰지 않는다.  
+- 한 파일에서 `<define>`과 `<scope>`를 동시에 쓰지 않는다.
     - 둘은 서로 다른 용도의 "격리 레벨"로 동작합니다.
 
 

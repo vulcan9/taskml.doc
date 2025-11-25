@@ -20,7 +20,7 @@ CSS 내용은 본문에 attach 될때 기존 본문에 정의된 스타일을 �
 
 ## DOM attach 시점
 
-[문서 로드와 실행 순서](../rules/문서%20로드와%20실행%20순서) 내용처럼, preload 시점에는 DOM은 아직 화면에 안 붙습니다.
+[문서 로드와 실행 순서](../rules/문서_로드와_실행_순서) 내용처럼, preload 시점에는 DOM은 아직 화면에 안 붙습니다.
 - 먼저 root 문서의 DOM이 만들어지고
 - 그 다음에 selector로 지정한 요소(또는 shadowRoot)에
 외부 파일의 `<div>`, `<section>`, `<script>`, `<link>`, ... 등이 붙습니다.
