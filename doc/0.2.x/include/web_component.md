@@ -56,6 +56,8 @@ taskML에서 컴포넌트를 작성하는 방법입니다.
 
 ## 웹 컴포넌트 사용하기
 
+`customElements.define` 메서드에 등록한 이름을 태그이름으로 사용합니다.
+
 ```html
 <div id="app" template="#taskml"></div>
 <template id="taskml">
@@ -71,6 +73,9 @@ taskML에서 컴포넌트를 작성하는 방법입니다.
     <slot></slot>
 </user-component>
 ```
+
+slot을 이용하는 방법은 다음을 참고하세요 
+- [Using templates with web components](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_templates_and_slots)
 
 # `CustomElement` 클래스
 
