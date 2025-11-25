@@ -31,23 +31,32 @@ taskML 본문과 로드 가능한 외부 문서들은 많은 task 정의와 데�
 이런 요소들이 모두 전역(Global) 공간에서 관리된다면 이름 충돌에 의해 서로 재정의되는 문제는 불가피할 것입니다.  
 문서 내에서 각각의 namespace 공간을 설정하게되면 복잡도는 한결 낮아집니다.
 
-#### namespace 규칙
+## namespace 사용 규칙
 
-`<define>` 태그에 `ns` 값이 없으면 임의의 문자열로 자동 설정됩니다.
-- 특정 namespace를 지정하려면 `<task id="namespace:아이디">` 형식으로 표기합니다.
-- 특정 namespace를 지정하여 호출하려면 `namespace:아이디` 표기를 사용합니다.
-    - `<task src="namespace:아이디">`
-    - `"task:click="namespace:아이디"`
-    - `$task['namespace:아이디']()`
+모든 task 아이디 표시 형식은 `네임스페이스:아이디` 패턴입니다.
+- 자신의 namespace 범주에 속해 있으면 namespace는 생략 가능합니다. (예: 전역 범주에서는 `global` 생략 가능)
+- `<define>` 태그는 새로운 namespace 범주를 생성합니다.
+- `<define>` 태그에 `ns` 값이 없으면 임의의 문자열로 자동 설정됩니다.
+- task 아이디 앞에 namespace가 없으면 자신의 namespace 범위에서 id를 찾은 후 없으면 `global` 범위에서 찾습니다.
+
+namespace가 사용되는 곳은 다음과 같습니다.
+- task 정의: `<task id="네임스페이스:아이디">`
+- task 호출: `<task src="네임스페이스:아이디">`
+- task 호출: `"task:click="네임스페이스:아이디"`
+- task 호출: `$task['네임스페이스:아이디']()`
+
+예를 들면,
 
 `<define>` 태그 밖에서
-- `<define>` 태그 밖에 정의된 `<task id="아이디">` 형식의 표기는 모두 (생략된) `global` namespace 입니다.
-- `global` namespace는 생략할 수 있습니다.
+- `<define>` 태그 밖에 정의된 `<task id="아이디">` 형식의 표기는 모두 `global`이 생략된 표기 입니다.
+- 전역 공간에서 자신의 namespace는 생략할 수 있습니다. (`global`)
 
-`<define>` 태그 안에서
-- `<define>` 태그 안에 정의된 `<task id="아이디">` 형식의 표기는 모두 설정된 namespace에 속한 task 입니다.
-- `<define>` 태그 안에서는 자신의 namespace는 생략할 수 있습니다.
-- task id 앞에 namespace가 없으면 자신의 namespace 범위에서 id를 찾은 후 없으면 global 범위에서 찾습니다.
+마찬가지로 `<define>` 태그 안에서
+- `<define>` 태그 안에 정의된 `<task id="아이디">` 형식의 표기는 모두 자신의 namespace가 생략된 표기 입니다.
+- `<define>` 태그 안에서 자신의 namespace는 생략할 수 있습니다.
+
+
+## 사용 사례
 
 예를 들면 사용자 컴포넌트 그룹이 있다고 가정하면,
 
