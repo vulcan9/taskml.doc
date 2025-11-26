@@ -254,6 +254,14 @@ selector 참조되는 dom 요소에 class 속성을 설정합니다.
 
 ```html
 <addClass selector="" classes="className1, className2, ..."></addClass>
+<!--
+템플릿 리터럴 구문 사용
+
+<task id="템플릿 리터럴 구문 사용 예시">
+    <removeClass selector="#box" classes="${ ($args[0] === 1) ? 'right' : 'left' }"></removeClass>
+    <addClass selector="#box" classes="${ ($args[0] === 1) ? 'left' : 'right' }"></addClass>
+</task>
+-->
 ```
 
 ### `<removeClass>` 태그
