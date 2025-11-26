@@ -24,6 +24,7 @@ preload된 파일에 다음과 같이 있을 때:
 - 이 Task는 `global`로 취급
 - 어디서든 `$task['클릭']`으로 접근 가능
 - `<define>` 안에서 전역 Task를 부르고 싶으면 `$task['global:클릭']`처럼 사용
+- [namespace 사용 방법](../tag/use_namespace) 참고
 
 요약하면:
 
