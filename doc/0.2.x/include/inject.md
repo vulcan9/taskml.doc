@@ -293,8 +293,8 @@ const allTemplates = $inject.template('template[data-taskml]', true);
 
 DOM 검색 범위에 주의하세요.
 - `$inject.querySelectorAll()`은 TaskML 리소스(owner/ns) 기준 필터링을 합니다.
-- 페이지 전체를 검색해야 한다면 `document.querySelector(All)` 를 사용하세요.
-- scope 제한 검색은 `scopeElement.querySelector(All)` 로 직접 처리하는 것이 더 확실합니다.
+- 페이지 전체를 검색해야 한다면 `document.querySelector`, `document.querySelectorAll` 를 사용하세요.
+- scope 제한 검색은 `scopeElement.querySelector`, `scopeElement.querySelectorAll` 로 직접 처리하는 것이 더 확실합니다.
 
 내부 구현(`Injection` 클래스, `$provider.$inject` 등)을 직접 건드리지 마세요.
 - `$inject`는 런타임이 관리하는 객체입니다.
