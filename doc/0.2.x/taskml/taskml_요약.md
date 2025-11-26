@@ -167,9 +167,9 @@ TaskML은 attribute 문자열을 함수 코드로 감싸서 평가하면서 `$ar
 
 ```html
 <task id="if 테스트"
-         if="($args[0] === 'then')"
-         then="ifThenTask"
-         else="ifElseTask">
+      if="($args[0] === 'then')"
+      then="ifThenTask"
+      else="ifElseTask">
 </task>
 ```
 - `if`가 true이면 `then`에 지정된 Task 실행 후 현재 Task 계속 진행.

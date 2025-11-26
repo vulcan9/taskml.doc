@@ -217,11 +217,11 @@ task 호출 구문을 통해 자신의 task 아이디를 다시 호출하여 재
 
 ```html
 <task id="재귀">
-    <js><!--<![ CDATA [
-            if(!this.counter) this.counter = 0;
-            this.counter += 10;
-            $next();
-            //]]>--></js>
+    <script>
+        if(!this.counter) this.counter = 0;
+        this.counter += 10;
+        $next();
+    </script>
     <cancel if-break="$js.counter === 4" else="재귀"></cancel>
 </task>
 ```
@@ -244,16 +244,16 @@ task가 점점 복잡해지면 발생할 수도 있습니다.
 <task src="a"></task>
 
 <task id="a" task:complete="a" oncancel="console.log('작업 중지됨')">
-    <js><!--<![ CDATA [
+    <script>
         // 클릭된 글자 개수 체크
         if(!this.counter) this.counter = 0;
         this.counter += 1;
         $next();
-    //]]>--></js>
+    </script>
     <cancel if="$js.counter === 4"></cancel>
 </task>
 ```
 
-위에서 `<js>` task 코드는 총 4번 실행됩니다.
+위에서 `<script> (<js>)` task 코드는 총 4번 실행됩니다.
 
 

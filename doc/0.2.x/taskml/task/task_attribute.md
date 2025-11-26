@@ -77,11 +77,11 @@ if attr을 사용하면 1번 회전 후 task가 종료됩니다.
 (조건식이 false 이므로 cancel task가 실행되지 않고 다음 task로 넘어가기 때문임)
 -->
 <task id="재귀">
-    <js><!--<![ CDATA [
-            if(!this.counter) this.counter = 0;
-            this.counter += 10;
-            $next();
-            //]]>--></js>
+    <script>
+        if(!this.counter) this.counter = 0;
+        this.counter += 10;
+        $next();
+    </script>
     <cancel if-break="$js.counter === 40" else="재귀"></cancel>
 </task>
 ```

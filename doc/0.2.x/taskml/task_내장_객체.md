@@ -28,7 +28,7 @@ task 객체는 기능별로 task 인터페이스를 구현한 객체입니다.
 #### 연산
 
 [`<blank>`](#ltblankgt-태그),
-[`<js>`](#ltjsgt-태그-ltscriptgt-태그), ([`<script>`](#ltjsgt-태그-ltscriptgt-태그))
+[`<script>`](#ltjsgt-태그-ltscriptgt-태그) ([`<js>` 대신 사용](#ltjsgt-태그-ltscriptgt-태그))
 
 - shorthand (예정) `<let>`, `<compare>`, `<increase>`, `<decrease>`
 
@@ -175,11 +175,11 @@ $break.release('break 아이디');
 ```html
 <!--4번 실행한 뒤 취소됩니다.-->
 <task id="재귀" oncancel="alert('취소')">
-    <js><!--<![ CDATA [
-            if(!this.counter) this.counter = 0;
-            this.counter += 10;
-            $next();
-            //]]>--></js>
+    <script>
+        if(!this.counter) this.counter = 0;
+        this.counter += 10;
+        $next();
+    </script>
     <cancel if-break="$js.counter === 40" else="재귀"></cancel>
 
     <!--
@@ -350,7 +350,10 @@ task 관련 attribute과 함께 사용할 수 있습니다.
        task:end="task 실행"></blank>
 ```
 
-### `<js>` 태그 (`<script>` 태그)
+### `<js>` 태그 (= `<script>` 태그)
+
+> `<js>` 태그 대신 `<script>` 태그를 사용하면 가독성이 좋아지고,  
+> IDE의 javascript 도움 기능이 동작하는 잇점이 있습니다.
 
 새로 정의된 task를 만들 수 있도록 JS 코드가 실행되는 context를 제공합니다.  
 `<js>` task 코드 블럭은 문자열 인식을 위해 CDATA 블럭안에 작성합니다.
@@ -705,32 +708,32 @@ CSS Transition 대신 사용할 수 있는 트위닝 task 입니다.
 </tween>
 ```
 
-복잡한 애니메이션은 `<js>` task에서 직접 구현할 수 있습니다.
+복잡한 애니메이션은 `<script>` task에서 직접 구현할 수 있습니다.
 
 ```html
-<js><!--<![ CDATA [
-        if(!this.tween){
-            this.tween = gsap.to('.box',{
-              duration: 2,
-              x: 500,
-              xPercent: -100,
-              rotation: 360,
-              ease: "none",
-              paused: true,
-              // onComplete: () => $next()
-            })
-        }
-        $next();
-        //]]>--></js>
+<script>
+    if(!this.tween){
+        this.tween = gsap.to('.box',{
+            duration: 2,
+            x: 500,
+            xPercent: -100,
+            rotation: 360,
+            ease: "none",
+            paused: true,
+            // onComplete: () => $next()
+        })
+    }
+    $next();
+</script>
 
-<js><!--<![ CDATA [
-            if(this.tween){
-                this.tween.revert();
-                delete this.tween;
-            }
-            $clear();
-            $next();
-            //]]>--></js>
+<script>
+    if(this.tween){
+        this.tween.revert();
+        delete this.tween;
+    }
+    $clear();
+    $next();
+</script>
 ```
 
 ### `<hide>` 태그
