@@ -3,14 +3,13 @@
 ## 템플릿 파싱 시점과 범위
 
 preload에서는 템플릿이 가장 먼저 처리됩니다.  
-include 파서가 extern.task.html을 읽으면
+include 파서가 외부 task html을 읽으면
 
     1. `<define>` 안의 템플릿
     2. 최상위 `<template>`
     3. 나머지 DOM
 
-순서로 분리해서 파싱합니다.
-
+순서로 분리해서 파싱합니다.  
 그래서 본문(root) 쪽에서 템플릿을 안전하게 바로 쓸 수 있습니다.
 
 ```html
