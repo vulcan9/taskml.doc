@@ -6117,7 +6117,7 @@ async function Rd() {
   }
   const n = setTimeout(() => {
     r();
-  }, 5e3);
+  }, 1e4);
   e.addEventListener("load", r, { once: !0 }), await new Promise((s) => t = s);
 }
 async function fu(i, t) {
