@@ -238,11 +238,18 @@ preload는 별도의 provider로 파싱되지만, `$task`와 `$firstrun`은 전�
 라이브러리 내부 로직상 전체 흐름은 대략 다음 순서로 실행됩니다:
 
 1. Define 영역 파싱
-2. Preload Task 파일 로드 & DOM Attach
-3. Root 문서 파싱 & DOM Attach
-4. Preload 및 모듈 스크립트 실행
-5. `domCreated` / `DOMContentLoaded` / `appCreated` 이벤트 디스패치
-6. 각 provider에 대해 `firstrun` Task 자동 실행 (define > preload > root 순서)
+2. Preload Task 파일 로드 (& DOM Attach)
+3. Root 문서 파싱 (& DOM Attach)
+4. `TASK_DOM_CREATED` 디스패치 (window, document 이벤트)
+5. 모듈 스크립트 실행 (Preload 모듈 스크립트 포함)
+6. `DOMContentLoaded` 디스패치 (window, document 이벤트)
+7. `TASK_APP_CREATED` 디스패치 (window, document 이벤트)
+8. (`readyState` 변경: 'complete')
+9. `load` 디스패치 (window 이벤트)
+10. `TASK_FIRST_RUN_START` 디스패치 (window, document 이벤트)
+    - 익명 Task 자동 실행
+    - 로드된 문서의 task 포함해서 순차적으로 진행 (define > preload > root 순서)
+11. `TASK_FIRST_RUN_COMPLETE` 디스패치 (window, document 이벤트)
 
 ## 디버깅 & 로그
 

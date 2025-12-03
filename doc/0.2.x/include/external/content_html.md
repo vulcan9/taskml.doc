@@ -30,7 +30,7 @@ CSS 내용은 본문에 attach 될때 기존 본문에 정의된 스타일을 �
 
 반대로, root 쪽에서 외부 DOM을 바로 찾으려 하면,
 - 아직 attach 전이라 못 찾을 수 있어요.
-- 이 경우엔 `domCreated` / `appCreated` 같은 이벤트 이후에 접근하는 것이 좋습니다.
+- 이 경우엔 `TASK_DOM_CREATED` / `DOMContentLoaded` 같은 이벤트 이후에 접근하는 것이 좋습니다.
 
 ## style, link 태그
 
