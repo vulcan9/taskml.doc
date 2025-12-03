@@ -4,6 +4,7 @@
 
 * <a href="https://vulcan9.github.io/taskml.doc/?href=/taskml.doc/doc/0.1.x/index" target="_blank">0.1.x</a>
 * <a href="https://vulcan9.github.io/taskml.doc/?href=/taskml.doc/doc/0.2.x/index" target="_blank">0.2.x</a>
+* [version download](https://github.com/vulcan9/taskml.doc/releases)
 
 
 > v 0.1.4 버전부터 `<as-task>`태그 대신 `<task>` 태그를 사용할 수 있습니다.  
