@@ -13,8 +13,12 @@ TaskML은 HTML 안에 `Task`를 정의하고, 버튼 클릭 같은 DOM 이벤트
 
 * [Quick Start](./taskml/Quick_Start)
 * [taskml 요약](./taskml/taskml_요약.md)
-* [version download](https://github.com/vulcan9/taskml.doc/tree/main/doc/0.2.x/dist/taskml)
-* 최신 버전: 0.2.3
+* [version download](https://github.com/vulcan9/taskml.doc/releases)
+
+[참고 파일 다운로드](https://github.com/vulcan9/taskml.doc/tree/main/doc/0.2.x/dist/taskml)
+* app_importmap.js
+* SvgLine.js
+
 
 > v 0.1.4 버전부터 `<as-task>`태그 대신 `<task>` 태그를 사용할 수 있습니다.
 
