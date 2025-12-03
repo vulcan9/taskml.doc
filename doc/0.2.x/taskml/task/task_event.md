@@ -8,13 +8,13 @@ task 아이템은 공통된 생명 주기를 가집니다.
 ```html
 <!--task에서 발생되는 이벤트-->
 <task onstart="alert('start')"
-         onstartafter="alert('startAfter')"
-         onrun="alert('run')"
-         onendBefore="alert('endBefore')"
-         onend="alert('end')"
-         oncomplete="alert('complete')"
-         oncancel="alert('cancel')"
-         onerror="alert('error')"></task>
+      onstartafter="alert('startAfter')"
+      onrun="alert('run')"
+      onendBefore="alert('endBefore')"
+      onend="alert('end')"
+      oncomplete="alert('complete')"
+      oncancel="alert('cancel')"
+      onerror="alert('error')"></task>
 ```
 
 ### `cancel` 이벤트 vs `error` 이벤트
@@ -67,7 +67,7 @@ task 아이템은 공통된 생명 주기를 가집니다.
 2. 태그에서 정의된 이벤트 task:[event]="" attribute 내용이 실행됩니다.
 -->
 <task onstart="alert('start')"
-         task:start="task 아이디"></task>
+      task:start="task 아이디"></task>
 ```
 
 ## task 이벤트 구문
