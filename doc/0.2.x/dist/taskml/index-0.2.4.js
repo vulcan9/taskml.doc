@@ -1453,7 +1453,7 @@ class ja {
       drop: null,
       dropGroup: null
     };
-    this.dropArea && (n.dropValue = this.getAttribute(this.dropArea, Gn), n.dropGroup = this.getAttribute(this.dropArea, sn), n.drop = this.dropArea), n.success = this.dragValue === n.dropValue, console.log("이벤트 Dispatch: ", t);
+    this.dropArea && (n.dropValue = this.getAttribute(this.dropArea, Gn), n.dropGroup = this.getAttribute(this.dropArea, sn), n.drop = this.dropArea), n.success = this.dragValue === n.dropValue, P() && console.log("이벤트 Dispatch: ", t);
     const s = new CustomEvent(t, {
       detail: n,
       // shadowroot 밖으로 custom 이벤트 전파하기 위해 true 설정
@@ -1524,7 +1524,7 @@ class ja {
           // 현재 엘리먼트의 실제 translate(m41, m42) 값을 가져옴
           dist: hr.getTranslate(J)
         }
-      }, Mi(1, this.position.start.global);
+      }, Mi(1, this.position.start.globalVisual);
       return;
     }
     const u = this.position.start, c = hr.getLocalDelta(u.global, { x: s, y: o }, J);
