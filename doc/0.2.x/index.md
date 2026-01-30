@@ -122,7 +122,7 @@ task 태그에 `override` attribute이 추가되었습니다.
 * ~~[매개변수 단위 테스트](../0.1.x/test/args.js)~~ (작성중)
 * ~~[레이아웃 정렬](../0.1.x/test/layout.html)~~ (사용안함)
 
-* [드래그 앤 드랍](./feature/드래그앤드랍)
+* [드래그 앤 드롭](./feature/드래그앤드롭)
 * svg 선긋기 (작성중)
 
 * [미디어 컨트롤](./feature/미디어%20컨트롤) `custom element` (작성중)
