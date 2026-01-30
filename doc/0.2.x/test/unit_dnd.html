@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="./asset/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>taskml</title>
+
+    <script>
+        // TaskML이 참조할 수 있도록 window나 특정 네임스페이스에 데이터를 할당합니다.
+        window.appData = {
+            image: { src: './asset/vite.svg' }
+        };
+    </script>
+
+    <!--type="module" 이전에 설정 (JSON)-->
+    <script data-dev="%DEV%" src="./app_importmap.js"></script>
+    <script type="module">
+        import {createApp} from "/taskml";
+        // App Selector를 전달하지 않으면 body에 랜더링 함
+        createApp('#app', true);
+        createApp('#app2', true);
+    </script>
+    <style>
+        [box]{
+            border: 1px dashed gray !important;
+        }
+
+        #drager:before{
+            content: '의사코드';
+        }
+        #drager{
+            /*margin: 0!important;*/
+            /*transform-origin: 0 0;*/
+            transform: scale(0.5) rotate(-25deg);
+        }
+        .rotateBox{
+            transform: translate(50px, -30px) rotate(5deg) scale(0.8);
+            /*transform: scale(0.8);*/
+            /*transform-origin: 0% 0%;*/
+            left:30px; top:30px;
+        }
+    </style>
+</head>
+
+<body style="user-select: none;">
+
+<script>
+    const handler = {
+        origin: function (event){
+            var position = event.detail.position;
+
+            // 드래그로 이동한 값 (마지막 위치)
+            const from = {
+                x: position.end.dist.x,
+                y: position.end.dist.y
+            }
+
+            // 마지막 위치로 이동
+            const to = position.start.dist;
+            gsap.fromTo(event.target, from, to);
+        },
+
+        move: function (event){
+            // 마지막 위치로 이동
+            const pos = event.detail.position.end.dist;
+            gsap.set(event.target, pos);
+        },
+
+        // --------------------------
+        // drop 후 drag 객체를 tween 시키는 방법
+        // --------------------------
+
+        drop: function (event){
+            var position = event.detail.position;
+
+            // 드래그로 이동한 값 (마지막 위치)
+            const from = {
+                x: position.end.dist.x,
+                y: position.end.dist.y
+            }
+
+            // 사용자가 attribute에 설정(했다면) 보정값 찾기
+            var drag = event.detail.drag;
+            const offset = {
+                x: parseInt(drag.dataset.offsetX || 0),
+                y: parseInt(drag.dataset.offsetY || 0)
+            }
+
+            // 드래그 시작할때 이동 초기값
+            let startPos = position.start.dist;
+            // drag end 위치에서 drop 박스 위치로 이동
+            var dropOrigin = position.dropOrigin.dist;
+            const to = {
+                // backgroundColor: 'red',
+                x: startPos.x + dropOrigin.x + offset.x,
+                y: startPos.y + dropOrigin.y + offset.y,
+                // onComplete: () => $next()
+            }
+            this.tween = gsap.fromTo(drag, from, to);
+
+            // drop 영역
+            // var drop = event.detail.drop;
+            // this.tween = gsap.fromTo(drop, {}, {backgroundColor: 'red'});
+        },
+
+        // --------------------------
+        // drop 후 ghost 객체를 tween 시키는 방법
+        // --------------------------
+
+        ghostOrigin: function (event){
+            // ghost 이미지 삭제 지연
+            event.preventDefault();
+            var position = event.detail.position;
+            // console.error('position: ', position);
+
+            // ghost 이미지를 원본 좌표로 이동시킨 후 (global 좌표임)
+            const ghost = event.detail.ghost;
+
+            // drag end 위치에서 원본 위치로 이동
+            // 드래그로 이동한 값 (마지막 위치)에서
+            const scale = event.detail.position.scale;
+            const to = {
+                // backgroundColor: '',
+                x: -position.end.dist.x * scale,
+                y: -position.end.dist.y * scale,
+                // 이동이 끝나면 ghost 삭제
+                onComplete: () => {
+                    ghost.remove();
+                    // $next();
+                }
+            }
+            // 위치 테스트
+            // gsap.set(ghost, to);
+
+            // 이동 시작
+            // this.tween = gsap.fromTo(ghost, from, to);
+            this.tween = gsap.to(ghost, to);
+        }
+    }
+
+    /*
+    // 버블링 테스트
+    document.addEventListener('dragstart', (e)=>{
+        console.error('bubble dragstart', e.detail);
+    });
+    document.addEventListener('dragend', (e)=>{
+        console.error('bubble dragend', e.detail);
+    });
+    */
+</script>
+
+<!--/////////////////////////////////////////////////////////////////////////////////
+// Case 1.
+//////////////////////////////////////////////////////////////////////////////////-->
+
+<!--<as-task> id 생략하면 처음 자동 실행됨-->
+<!--로그 표시: mode="dev media component"-->
+<template xmlns:task="http://www.w3.org/2000/10/XMLSchema"
+          id="taskml" mode="dev media component">
+
+    <!--////////////////////////////////////////
+    // UI
+    /////////////////////////////////////////-->
+
+    <h3>data-dnd-mode="mouse"(default),  data-dnd-type="move"(default)</h3>
+
+    <div component-type="is-page"
+             style="left:0; top:0; right:0; bottom:0;">
+
+        <div component-type="is-group" layout class="rotateBox"
+                  style="max-width: 80%; height:500px;">
+
+            <!--그룹 1-->
+            <div component-type box
+                 style="width:100px; height:100px; left:100px; top:100px;"
+                 data-drop-value="a" data-dnd-group="group1">Group 1: 정답</div>
+
+            <div component-type box
+                 style="width:100px; height:100px; left:300px; top:100px;"
+                 data-drop-value="b" data-dnd-group="group1">Group 1: 오답</div>
+
+            <!--드래거-->
+            <div component-type
+                 style="left: 0; top: 0; margin:20px"
+                 data-drag-value="a" data-dnd-group="group1"
+
+                 onfail="handler.origin(event)"
+                 onsuccess="handler.origin(event)"
+                 task:fail="오답('[data-dnd-group=group1]')"
+                 task:success="정답">
+                <div>Group 1: 마우스 드레그<br>(항상 제 위치로)</div>
+            </div>
+
+            <!--그룹 2-->
+            <div component-type box
+                 style="width: 100px; height: 100px; left: 100px; top: 300px;"
+                 data-drop-value="a" data-dnd-group="group2">Group 2: 오답</div>
+
+            <div component-type box class="rotateBox"
+                 style="width: 100px; height: 100px; left: 300px; top: 300px;"
+                 data-drop-value="b" data-dnd-group="group2"
+
+                 ondragenter="console.error('dragenter: ', event)"
+                 ondragleave="console.error('dragleave: ', event)"
+                 ondragover="console.log('dragover: ')"
+                 ondrop="console.error('drop: ', event)">Group 2: 정답</div>
+
+            <!--드래거-->
+            <div component-type id="drager"
+                 style="left: 0; top: 200px; margin:20px"
+                 data-drag-value="b" data-dnd-group="group2"
+
+                 ondragstart="console.error('dragstart: ', event)"
+                 ondragend="console.error('dragend: ', event)"
+                 ondrag="console.log('drag: ')"
+
+                 onfail="handler.move(event)"
+                 onsuccess="handler.drop(event)"
+                 task:fail="오답('[data-dnd-group=group2]')"
+                 task:success="정답">
+                <div>Group 2: 마우스 드레그<br>(위치 이동)</div>
+            </div>
+        </div>
+
+        <!--////////////////////////////////////////
+        // task
+        /////////////////////////////////////////-->
+
+        <task id="정답">
+            <addStyle selector="$args.event.target" selector-is-dom
+                      styles="{backgroundColor: 'red'}"></addStyle>
+            <addStyle selector="$args.event.detail.drop" selector-is-dom
+                      styles="{backgroundImage: 'url(' + appData.image.src + ')'}"></addStyle>
+        </task>
+        <task id="오답">
+            <removeStyle selector="$args.event.target" selector-is-dom
+                         styles="backgroundColor"></removeStyle>
+            <removeStyle selector="$args[0]"
+                         styles="backgroundImage"></removeStyle>
+        </task>
+
+    </div>
+
+</template>
+
+<!--랜더러 호출-->
+<!--id="app" 못찾으면 body에서 template 찾아 랜더링 함-->
+<div>0.2.1 버전 부터 solidJS 컴포넌트는 지원하지 않습니다.</div>
+<div id="app" template="#taskml"></div>
+
+<!--/////////////////////////////////////////////////////////////////////////////////
+// Case 2.
+//////////////////////////////////////////////////////////////////////////////////-->
+
+<template xmlns:task="http://www.w3.org/2000/10/XMLSchema"
+          id="taskml2" mode="dev media component">
+
+    <!--////////////////////////////////////////
+    // UI
+    /////////////////////////////////////////-->
+    <h3>data-dnd-mode="dnd", data-dnd-type="copy"</h3>
+
+    <div component-type="is-page"
+         style="left:0; top:0; right:0; bottom:0;">
+
+        <div component-type="is-group" layout
+             style="max-width: 80%; transform: scale(0.8); transform-origin: 0% 0%;
+                  height:500px; left:100px; top:50px;">
+
+            <!--그룹 3-->
+            <div component-type box data-dnd-mode="dnd" data-dnd-type="copy"
+                 style="width:100px; height:100px; left:100px; top:100px;"
+                 data-drop-value="a" data-dnd-group="group3">Group 3: 정답</div>
+
+            <div component-type box data-dnd-mode="dnd" data-dnd-type="copy"
+                 style="width:100px; height:100px; left:300px; top:100px;"
+                 data-drop-value="b" data-dnd-group="group3">Group 3: 오답</div>
+
+            <!--드래거-->
+            <div component-type data-dnd-mode="dnd" data-dnd-type="copy"
+                 style="left: 0; top: 0; margin:20px"
+                 data-drag-value="a" data-dnd-group="group3"
+
+                 onfail="handler.ghostOrigin(event)"
+                 onsuccess="handler.ghostOrigin(event)"
+                 task:fail="오답2('[data-dnd-group=group3]')"
+                 task:success="정답2">
+                <div>Group 3: 드레그&드랍<br>(고정 위치)</div>
+            </div>
+
+            <!--그룹 4-->
+            <div component-type box data-dnd-mode="dnd" data-dnd-type="copy"
+                 style="width: 100px; height: 100px; left: 100px; top: 300px;"
+                 data-drop-value="a" data-dnd-group="group4">Group 4: 오답</div>
+
+            <div component-type box data-dnd-mode="dnd" data-dnd-type="copy"
+                 style="width: 100px; height: 100px; left: 300px; top: 300px;"
+                 data-drop-value="b" data-dnd-group="group4"
+
+                 ondragenter="console.error('dragenter: ', event)"
+                 ondragleave="console.error('dragleave: ', event)"
+                 ondragover="console.log('dragover: ')"
+                 ondrop="console.error('drop: ', event)">Group 4: 정답</div>
+
+            <!--드래거-->
+            <div component-type data-dnd-mode="dnd" data-dnd-type="copy"
+                 style="left: 0; top: 200px; margin:20px"
+                 data-drag-value="b" data-dnd-group="group4"
+
+                 ondragstart="console.log('dragstart: ', event)"
+                 ondragend="console.log('dragend: ', event)"
+                 ondrag="console.log('drag: ')"
+
+                 onfail="handler.ghostOrigin(event)"
+                 onsuccess="handler.ghostOrigin(event)"
+                 task:fail="오답2('[data-dnd-group=group4]')"
+                 task:success="정답2">
+                <div>Group 4: 드레그&드랍<br>(고정 위치, 오답일때 트윈)</div>
+            </div>
+
+        </div>
+
+        <!--////////////////////////////////////////
+        // task
+        /////////////////////////////////////////-->
+
+        <task id="정답2">
+            <addStyle selector="$args.event.target" selector-is-dom
+                      styles="{backgroundColor: 'yellow'}"></addStyle>
+            <addStyle selector="$args.event.detail.drop" selector-is-dom
+                      styles="{backgroundColor: 'yellow'}"></addStyle>
+        </task>
+        <task id="오답2">
+            <!--<removeStyle selector="$args.event.target" selector-is-dom
+                         styles="backgroundColor"></removeStyle>-->
+            <removeStyle selector="$args[0]"
+                         styles="backgroundColor"></removeStyle>
+        </task>
+
+    </div>
+
+</template>
+
+<!--랜더러 호출-->
+<!--id="app" 못찾으면 body에서 template 찾아 랜더링 함-->
+<div id="app2" template="#taskml2"></div>
+
+</body>
+</html>
+
+<!--
+서버 없는 (CORS 회피) 로컬 개발 환경
+* chrome.bat 파일 실행 (chrome 브라우저 실행됨)
+* index.html 드래그해서 열면 CORS 에러 없이 작업할 수 있음
+-->
+
+
+<!--template 태그: 페이지가 로드될 때 사용자에게 숨겨진 일부 HTML 콘텐츠를 보관하는 컨테이너로 사용됨-->
+
+<!--
+<template>
+    <is-page style class x="" y="" w="" h="">
+
+        &lt;!&ndash;Hidden 요소: 랜더링 할때 사라짐&ndash;&gt;
+        <as-task id="nextStep" task:end="...">
+            &lt;!&ndash;sequence 표현 (value: args[0])&ndash;&gt;
+        </as-task>
+
+        &lt;!&ndash;HTML DOM 요소&ndash;&gt;
+        <select onselect="$task.nextStep(this.value);">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+        </select>
+
+    </is-page>
+</template>
+-->

@@ -24,8 +24,8 @@
 // window.$taskml.modules = modules;
 
 (()=>{
-    const JS = './index-0.2.4.js';
-    const CSS = './index-0.2.4.css';
+    const JS = '../dist/taskml/index-0.2.4.js';
+    const CSS = '../dist/taskml/index-0.2.4.css';
 
     // 개발 모드에서는 HTML 환경 변수 대체됨 (import.meta.env)
     // ('%DEV%' => 'true');
