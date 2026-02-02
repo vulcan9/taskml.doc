@@ -6761,26 +6761,17 @@ function Hd() {
 }
 async function zd() {
   const i = window.onload;
-  window.onload = (s) => {
-    P() && console.log("%c# Event ('load') Dispatch!", D.sysevent), window.onload = i, i && i(s);
+  window.onload = (n) => {
+    P() && console.log("%c# Event ('load') Dispatch!", D.sysevent), window.onload = i, i && i(n), e();
   };
   let t;
-  const e = (() => {
-    let s = window;
-    try {
-      for (; s.parent !== s; )
-        s = s.parent;
-    } catch {
-    }
-    return s;
-  })();
-  function r() {
-    clearTimeout(n), setTimeout(t, 0);
+  function e() {
+    clearTimeout(r), t();
   }
-  const n = setTimeout(() => {
-    r();
+  const r = setTimeout(() => {
+    e();
   }, 1e4);
-  e.addEventListener("load", r, { once: !0 }), await new Promise((s) => t = s);
+  await new Promise((n) => t = n);
 }
 async function _l(i, t) {
   const e = (t == null ? void 0 : t.type) === "app";
